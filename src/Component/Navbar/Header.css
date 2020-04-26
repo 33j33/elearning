@@ -1,0 +1,69 @@
+/* ===========================
+   ====== Search Box ====== 
+   =========================== */
+
+.search {
+  border: 2px solid black;
+  overflow: auto;
+  /* min-width: 40%; */
+  border-radius: 40px;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+}
+
+.search input[type="text"] {
+  border: 0px;
+  /* width: 67%; */
+  padding: 10px 10px;
+}
+
+.search input[type="text"]:focus {
+  outline: 0;
+}
+
+.search input[type="submit"] {
+  border: 0px;
+  background: none;
+  background-color: #cf5c3f;
+  color: #fff;
+  float: right;
+  padding: 10px;
+  border-radius-top-right: 5px;
+  -moz-border-radius-top-right: 5px;
+  -webkit-border-radius-top-right: 5px;
+  border-radius-bottom-right: 5px;
+  -moz-border-radius-bottom-right: 5px;
+  -webkit-border-radius-bottom-right: 5px;
+  cursor: pointer;
+}
+.row-search {
+  justify-content: space-around;
+}
+.heading {
+  justify-content: center;
+  letter-spacing: 8px;
+}
+/* for carasiul */
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+/* ===========================
+      ====== Medua Query for Search Box ====== 
+      =========================== */
+
+@media only screen and (min-width: 150px) and (max-width: 780px) {
+  .search {
+    margin-left: 0;
+  }
+  .row-search {
+    width: 100%;
+  }
+}
