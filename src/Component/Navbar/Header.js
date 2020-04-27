@@ -69,8 +69,8 @@ class header extends Component {
         <br />
         <Row className="row-search">
           <Col span={10}>
-            <div class="search">
-              <form class="search-form">
+            <div className="search">
+              <form className="search-form">
                 <input type="text" placeholder="Search " />
                 {/* <input type="submit" value="Submit" /> */}
               </form>

@@ -5,6 +5,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-alice-carousel/lib/alice-carousel.css";
+import 'react-multi-carousel/lib/styles.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
