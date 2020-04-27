@@ -8,7 +8,7 @@ class courses extends Component {
 items=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     state = {
         galleryItems: this.items.map((i) =>
-       <Row style={{marginLeft:12}}> <Col span={23}> <Card title="Default size card" style={{height:200}} extra={<a href="#">More</a>}  key={i}>{i}
+       <Row style={{marginLeft:12}}> <Col span={23}> <Card title="Course Name" style={{height:200}} extra={<a href="#">More</a>}  key={i}>Teacher Name, duration , fees
        </Card></Col></Row>),
     }
 
