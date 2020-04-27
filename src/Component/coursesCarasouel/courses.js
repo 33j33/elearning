@@ -13,12 +13,12 @@ class courses extends Component {
         <Col span={23}>
           {" "}
           <Card
-            title="Default size card"
+            title="Course Name"
             style={{ height: 200 }}
             extra={<a href="#">More</a>}
             key={i}
           >
-            {i}
+            Teacher Name, duration , fees
           </Card>
         </Col>
       </Row>
