@@ -17,8 +17,6 @@
     "react-alice-carousel": "^1.18.0",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
-    "react-items-carousel": "^2.8.0",
-    "react-multi-carousel": "^2.5.5",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5"
