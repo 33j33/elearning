@@ -21,6 +21,16 @@ items=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         return (
             <div>
                 <Header /><br />
+                <Row className="row-search">
+          <Col span={10}>
+            <div className="search">
+              <form className="search-form">
+                <input type="text" placeholder="Search " />
+                {/* <input type="submit" value="Submit" /> */}
+              </form>
+            </div>
+          </Col>
+        </Row><br />
                 <Row>
                     <AliceCarousel
                         items={this.state.galleryItems}

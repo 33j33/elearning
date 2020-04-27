@@ -22,30 +22,7 @@ class header extends Component {
             id="responsive-navbar-nav"
             className="justify-content-end"
           >
-            {/* <Navbar>
-  <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
-  <Navbar.Toggle />
-  <Navbar.Collapse className="justify-content-end">
-    <Navbar.Text>
-      Signed in as: <a href="#login">Mark Otto</a>
-    </Navbar.Text>
-  </Navbar.Collapse>
-</Navbar> */}
-            {/* <Nav className="mr-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav> */}
+        
             <Nav>
               <Nav.Link href="#deets">About Us</Nav.Link>
               <Nav.Link href="#deets">Courses</Nav.Link>
@@ -58,25 +35,14 @@ class header extends Component {
           </Navbar.Collapse>
         </Navbar>
 
-        {/* <div style={{ background: "grey" }}> */}
         <br />
         <br />
         <br />
         <Row className="heading">
           <h5>WHAT ARE YOU LOOKING FOR .......</h5>
         </Row>
-        <br />
-        <br />
-        <Row className="row-search">
-          <Col span={10}>
-            <div className="search">
-              <form className="search-form">
-                <input type="text" placeholder="Search " />
-                {/* <input type="submit" value="Submit" /> */}
-              </form>
-            </div>
-          </Col>
-        </Row>
+     
+    
       </div>
     );
   }
