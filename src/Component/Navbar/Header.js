@@ -22,7 +22,6 @@ class header extends Component {
             id="responsive-navbar-nav"
             className="justify-content-end"
           >
-        
             <Nav>
               <Nav.Link href="#deets">About Us</Nav.Link>
               <Nav.Link href="#deets">Courses</Nav.Link>
@@ -40,9 +39,11 @@ class header extends Component {
         <br />
         <Row className="heading">
           <h5>WHAT ARE YOU LOOKING FOR .......</h5>
+          <br />
+          <br />
+          <br />
+          <br />
         </Row>
-     
-    
       </div>
     );
   }

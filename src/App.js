@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Test from "./Component/test";
-import Header from "./Component/Navbar/Header";
-import Courses from './Component/coursesCarasouel/courses'
+import Homepage from "./Component/homePage";
 class App extends Component {
   render() {
     return (
@@ -15,7 +14,7 @@ class App extends Component {
     ALWAYS CREATE CLASS ComponentS */}
         <Router>
           <Switch>
-            <Route path="/" exact component={Courses} />
+            <Route path="/" exact component={Homepage} />
             <Route path="/test" exact component={Test} />
           </Switch>
         </Router>
