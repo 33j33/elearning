@@ -5,13 +5,14 @@ import { Tabs } from 'antd';
 
 class test extends Component {
 
-  constructor(props){
-   super(props)
-
-    this.state={
+  
+constructor(props){
+  super(props)  
+  this.state={
     username:"",
     visible: false 
   }
+  this.onChange = this.onChange.bind(this);
 }
 
 showModal = () => {
@@ -37,22 +38,27 @@ handleCancel = e => {
   click=(e)=>{
 e.preventDefault();
 console.log(e)
-console.log(e.target.name.value)
-this.setState({username:e.target.name.value})
+console.log(e.target.username.value)
 console.log(this.state)
   }
 
+// ADDED CONCEPT OF ONCHNAGE TO GET INSTANT CHANGE OF FIELDS DO CHECK
+  onChange(e){
+    this.setState({ [e.target.name]:e.target.value})
+  }
   callback(key) {
     console.log(key);
   }
-
   render() {
     const { TabPane } = Tabs;
 
     return (
       <div>
    
-
+<form onSubmit={this.click}>
+  <input type="text" placeholder="Username" name="username" onChange={this.onChange}/>
+  <button type="submit">Click</button>
+</form>
 
               <Button type="primary" onClick={this.showModal}>
           Open Modal
