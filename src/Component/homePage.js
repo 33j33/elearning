@@ -11,13 +11,10 @@ class Homepage extends Component {
       <div>
         <Header />
         <Courses />
-        <br />
-        <br />
-        <br />
+   
         <Teacher />
         <br />
         <br />
-
         <br />
         <About />
       </div>
