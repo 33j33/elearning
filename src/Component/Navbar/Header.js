@@ -1,14 +1,35 @@
 import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
+import TeacherRegistration from "../Regis-Signin-Teacher/teacherregistration";
 
 class header extends Component {
-  state = { visible: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      visibleforTeacher: false,
+      hide: false,
+      confirmLoadingForTeacher: false,
+    };
+    this.showModalForTeachers = this.showModalForTeachers.bind(this);
+  }
 
-  showModal = () => {
+  showModalForTeachers = () => {
     this.setState({
-      visible: true,
+      visibleforTeacher: true,
     });
+    console.log(this.state);
   };
+  // handleOk = () => {
+  //   this.setState({
+  //     confirmLoading: true,
+  //   });
+  //   setTimeout(() => {
+  //     this.setState({
+  //       visible: false,
+  //       confirmLoading: false,
+  //     });
+  //   }, 2000);
+  // };
   render() {
     return (
       <div>
@@ -20,18 +41,22 @@ class header extends Component {
             className="justify-content-end"
           >
             <Nav>
-              <Nav.Link href="#deets">About Us</Nav.Link>
-              <Nav.Link href="#deets">Courses</Nav.Link>
-              <Nav.Link href="#deets">Sign Up For Teachers</Nav.Link>
-
-              <Nav.Link href="#memes" onClick={this.showModal}>
-                Sign Up For Students
+              <Nav.Link>About Us</Nav.Link>
+              <Nav.Link>Courses</Nav.Link>
+              <Nav.Link onClick={this.showModalForTeachers}>
+                For Teachers
               </Nav.Link>
+
+              <Nav.Link>For Students</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
 
-       
+        {this.state.visibleforTeacher ? (
+          <TeacherRegistration
+            visibleforTeacher={this.state.visibleforTeacher}
+          />
+        ) : null}
       </div>
     );
   }
