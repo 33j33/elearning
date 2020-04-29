@@ -10,11 +10,10 @@ class courses extends Component {
       <Row style={{ marginLeft: 12 }}>
         {" "}
         <Col span={23}>
-          {" "}
           <Card
             title="Course Name"
-            style={{ height: 200 }}
-            extra={<a href="#">More</a>}
+            style={{ height: 250 }}
+            extra={<h6>Anything</h6>}
             key={i}
           >
             Teacher Name, duration , fees
@@ -32,25 +31,26 @@ class courses extends Component {
   render() {
     return (
       <div>
-        <Row className="row-search">
-          <Col span={10}>
-            <div className="search">
-              <form className="search-form">
-                <input type="text" placeholder="Search " />
-                {/* <input type="submit" value="Submit" /> */}
-              </form>
-            </div>
-          </Col>
-        </Row>
-        <br />
-        <br />
-        <br />
-        <br />
+        <div
+          style={{ backgroundColor: "grey", paddingTop: 50, paddingBottom: 50 }}
+        >
+          {" "}
+          <Row className="heading">
+            <h5>WHAT ARE YOU LOOKING FOR .......</h5>
+          </Row>
+          <br />
+          <Row className="row-search">
+            <Col span={10}>
+              <div className="search">
+                <form className="search-form">
+                  <input type="text" placeholder="Search " />
+                </form>
+              </div>
+            </Col>
+          </Row>
+        </div>
         <br />
         <Row>
-          <h5 style={{ marginLeft: "15px" }}> COURSES</h5>
-          <br />
-          <br />
           <AliceCarousel
             items={this.state.galleryItems}
             responsive={this.responsive}

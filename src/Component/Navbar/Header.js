@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Row, Col } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
 
 import "./Header.css";
@@ -34,16 +33,7 @@ class header extends Component {
           </Navbar.Collapse>
         </Navbar>
 
-        <br />
-        <br />
-        <br />
-        <Row className="heading">
-          <h5>WHAT ARE YOU LOOKING FOR .......</h5>
-          <br />
-          <br />
-          <br />
-          <br />
-        </Row>
+       
       </div>
     );
   }
