@@ -3,6 +3,7 @@ import Header from "./Navbar/Header";
 import Teacher from "./teacher/teacher";
 import Courses from "./coursesCarasouel/courses";
 import About from "./AboutUs/aboutUs";
+import Footer from "./footer/footer";
 
 class Homepage extends Component {
   state = {};
@@ -19,7 +20,7 @@ class Homepage extends Component {
         <br />
 
         <br />
-        <About />
+        <Footer />
       </div>
     );
   }

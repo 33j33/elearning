@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "../Navbar/Header";
 import { Row, Col } from "antd";
 import AliceCarousel from "react-alice-carousel";
 import { Card } from "antd";

@@ -20,8 +20,6 @@ class About extends Component {
               we will include about us Here we will include about us Here we
               will include about us Here we will include about us Here we will
               include about us Here we will include about us Here we will
-              include about us Here we will include about us Here we will
-              include about us Here we will include about us Here we will
               include about us Here we will include about us
             </Col>
           </Row>
