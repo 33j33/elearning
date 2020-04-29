@@ -6,7 +6,7 @@ class Teacher extends Component {
   render() {
     return (
       <div>
-        <Row>
+        <Row style={{marginTop:40}}>
           <Col span={6} offset={2} className="col-step-1">
             <h3>STEP 1</h3>
             <br />

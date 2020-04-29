@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 
-import "./Header.css";
-
 class header extends Component {
   state = { visible: false };
 
