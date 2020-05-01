@@ -5,9 +5,12 @@ import { AppleOutlined, AndroidOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import { Form, Input, Button } from "antd";
 import { TimePicker } from "antd";
+
 const format = "HH:mm";
 const { RangePicker } = TimePicker;
 const { TabPane } = Tabs;
+const { Option } = Select;
+
 class Teacherregistration extends Component {
   constructor(props) {
     super(props);
@@ -84,6 +87,24 @@ class Teacherregistration extends Component {
     this.final_selectedtime.push(courseSchedule);
     console.log(this.final_selectedtime);
   }
+  // function for time picker
+  children = [];
+  children2 = [];
+
+  handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+  componentDidMount() {
+    for (let i = 8; i < 22; i = i + 1) {
+      let j = i + 3 / 10;
+      this.children.push(
+        <Option key={i.toString(36) + j}>{i + "-" + (i + 1)}</Option>
+      );
+      this.children.push(
+        <Option key={i.toString(36) + i}>{j + "-" + (j + 1)}</Option>
+      );
+    }
+  }
   render() {
     const layout = {
       labelCol: {
@@ -97,11 +118,13 @@ class Teacherregistration extends Component {
     return (
       <div>
         <Modal
+          style={{ top: 20 }}
           //   title="Title"
           visible={this.state.visible}
           onOk={this.handleOk}
           confirmLoading={this.state.confirmLoading}
           onCancel={this.handleCancel}
+          footer={[]}
         >
           {/* <Row> */}
           <Tabs defaultActiveKey="1">
@@ -175,7 +198,7 @@ class Teacherregistration extends Component {
                 initialValues={{ remember: true }}
                 onFinish={this.onFinish}
                 onFinishFailed={this.onFinishFailed}
-                size="small"
+                size="medium"
               >
                 <Row justify="space-between">
                   <Col span={11}>
@@ -205,7 +228,6 @@ class Teacherregistration extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
-
                 <Row justify="space-between">
                   <Col span={11}>
                     <Form.Item
@@ -235,8 +257,7 @@ class Teacherregistration extends Component {
                   </Col>
                 </Row>
                 {/* <Divider /> */}
-                <Row>Add Course Details</Row>
-                <br />
+                Add Course Details
                 <Row justify="space-between">
                   <Col span={11}>
                     <Form.Item
@@ -257,7 +278,8 @@ class Teacherregistration extends Component {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your course_price!",
+                          message:
+                            "Please input your course_price!sdjfsdhfhsdfhsdhfdhdfhhdfhdfhdf",
                         },
                       ]}
                     >
@@ -311,18 +333,194 @@ class Teacherregistration extends Component {
                     </Select>
                   </Col>
                   <Col span={11}>
-                    <RangePicker
-                      format={format}
-                      onChange={this.onChange}
-                      name="selected_time"
-                      minuteStep={15}
-                    />
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      placeholder="Select Day"
+                      onChange={this.selectedDay}
+                      style={{ width: "100%" }}
+                    >
+                      <Select.Option value="Monday">Monday</Select.Option>
+                      <Select.Option value="Tuesday">Tuesday</Select.Option>
+                      <Select.Option value="Wednesday">Wednesday</Select.Option>
+                      <Select.Option value="Thursday">Thursday</Select.Option>
+                      <Select.Option value="Friday">Friday</Select.Option>
+                      <Select.Option value="Saturday">Saturday</Select.Option>
+                      <Select.Option value="Sunday">Sunday</Select.Option>
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      placeholder="Select Day"
+                      onChange={this.selectedDay}
+                      style={{ width: "100%" }}
+                    >
+                      <Select.Option value="Monday">Monday</Select.Option>
+                      <Select.Option value="Tuesday">Tuesday</Select.Option>
+                      <Select.Option value="Wednesday">Wednesday</Select.Option>
+                      <Select.Option value="Thursday">Thursday</Select.Option>
+                      <Select.Option value="Friday">Friday</Select.Option>
+                      <Select.Option value="Saturday">Saturday</Select.Option>
+                      <Select.Option value="Sunday">Sunday</Select.Option>
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      placeholder="Select Day"
+                      onChange={this.selectedDay}
+                      style={{ width: "100%" }}
+                    >
+                      <Select.Option value="Monday">Monday</Select.Option>
+                      <Select.Option value="Tuesday">Tuesday</Select.Option>
+                      <Select.Option value="Wednesday">Wednesday</Select.Option>
+                      <Select.Option value="Thursday">Thursday</Select.Option>
+                      <Select.Option value="Friday">Friday</Select.Option>
+                      <Select.Option value="Saturday">Saturday</Select.Option>
+                      <Select.Option value="Sunday">Sunday</Select.Option>
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      placeholder="Select Day"
+                      onChange={this.selectedDay}
+                      style={{ width: "100%" }}
+                    >
+                      <Select.Option value="Monday">Monday</Select.Option>
+                      <Select.Option value="Tuesday">Tuesday</Select.Option>
+                      <Select.Option value="Wednesday">Wednesday</Select.Option>
+                      <Select.Option value="Thursday">Thursday</Select.Option>
+                      <Select.Option value="Friday">Friday</Select.Option>
+                      <Select.Option value="Saturday">Saturday</Select.Option>
+                      <Select.Option value="Sunday">Sunday</Select.Option>
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
+                  </Col>
+
+                  <Col span={11}>
+                    <Select
+                      placeholder="Select Day"
+                      onChange={this.selectedDay}
+                      style={{ width: "100%" }}
+                    >
+                      <Select.Option value="Monday">Monday</Select.Option>
+                      <Select.Option value="Tuesday">Tuesday</Select.Option>
+                      <Select.Option value="Wednesday">Wednesday</Select.Option>
+                      <Select.Option value="Thursday">Thursday</Select.Option>
+                      <Select.Option value="Friday">Friday</Select.Option>
+                      <Select.Option value="Saturday">Saturday</Select.Option>
+                      <Select.Option value="Sunday">Sunday</Select.Option>
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      placeholder="Select Day"
+                      onChange={this.selectedDay}
+                      style={{ width: "100%" }}
+                    >
+                      <Select.Option value="Monday">Monday</Select.Option>
+                      <Select.Option value="Tuesday">Tuesday</Select.Option>
+                      <Select.Option value="Wednesday">Wednesday</Select.Option>
+                      <Select.Option value="Thursday">Thursday</Select.Option>
+                      <Select.Option value="Friday">Friday</Select.Option>
+                      <Select.Option value="Saturday">Saturday</Select.Option>
+                      <Select.Option value="Sunday">Sunday</Select.Option>
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      placeholder="Select Day"
+                      onChange={this.selectedDay}
+                      style={{ width: "100%" }}
+                    >
+                      <Select.Option value="Monday">Monday</Select.Option>
+                      <Select.Option value="Tuesday">Tuesday</Select.Option>
+                      <Select.Option value="Wednesday">Wednesday</Select.Option>
+                      <Select.Option value="Thursday">Thursday</Select.Option>
+                      <Select.Option value="Friday">Friday</Select.Option>
+                      <Select.Option value="Saturday">Saturday</Select.Option>
+                      <Select.Option value="Sunday">Sunday</Select.Option>
+                    </Select>
+                  </Col>
+                  <Col span={11}>
+                    <Select
+                      mode="multiple"
+                      style={{ width: "100%" }}
+                      placeholder="Please select Ur timeslots"
+                      onChange={this.handleChange}
+                    >
+                      {this.children}
+                    </Select>
                   </Col>
                 </Row>
-
                 <br />
                 <Button onClick={this.onClicked}>Add</Button>
-
                 <Form.Item>
                   <Button type="primary" htmlType="submit">
                     Submit

@@ -8,6 +8,7 @@ class Teacher extends Component {
       <div
         style={{
           backgroundColor: "mintcream",
+          paddingTop: 30,
           paddingBottom: 50,
         }}
       >

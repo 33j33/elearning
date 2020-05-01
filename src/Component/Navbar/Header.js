@@ -2,30 +2,26 @@ import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import TeacherRegistration from "../Regis-Signin-Teacher/teacherregistration";
 
-
 class header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-visible:true
+      visible: true,
     };
   }
 
-  teacherModalRef = ({showModal}) => {
+  teacherModalRef = ({ showModal }) => {
     this.showTeacherModal = showModal;
- }
+  };
   showModalForTeachers = () => {
     this.showTeacherModal();
-
   };
 
-
- 
   render() {
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
-          <Navbar.Brand >e-Learning Market</Navbar.Brand>
+          <Navbar.Brand>e-Learning Market</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"
@@ -42,7 +38,7 @@ visible:true
           </Navbar.Collapse>
         </Navbar>
         <TeacherRegistration ref={this.teacherModalRef} />
-       {/* <Test name="sdfsdf" style={{display:"none"}}/> */}
+        {/* <Test name="sdfsdf" style={{display:"none"}}/> */}
       </div>
     );
   }
