@@ -49,6 +49,9 @@ console.log(this.state)
   callback(key) {
     console.log(key);
   }
+  componentDidMount(){
+    console.log(this.props.name)
+  }
   render() {
     const { TabPane } = Tabs;
 

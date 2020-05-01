@@ -2,39 +2,30 @@ import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import TeacherRegistration from "../Regis-Signin-Teacher/teacherregistration";
 
+
 class header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visibleforTeacher: false,
-      hide: false,
-      confirmLoadingForTeacher: false,
+visible:true
     };
-    this.showModalForTeachers = this.showModalForTeachers.bind(this);
   }
 
+  teacherModalRef = ({showModal}) => {
+    this.showTeacherModal = showModal;
+ }
   showModalForTeachers = () => {
-    this.setState({
-      visibleforTeacher: true,
-    });
-    console.log(this.state);
+    this.showTeacherModal();
+
   };
-  // handleOk = () => {
-  //   this.setState({
-  //     confirmLoading: true,
-  //   });
-  //   setTimeout(() => {
-  //     this.setState({
-  //       visible: false,
-  //       confirmLoading: false,
-  //     });
-  //   }, 2000);
-  // };
+
+
+ 
   render() {
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
-          <Navbar.Brand href="#home">e-Learning Market</Navbar.Brand>
+          <Navbar.Brand >e-Learning Market</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"
@@ -46,17 +37,12 @@ class header extends Component {
               <Nav.Link onClick={this.showModalForTeachers}>
                 For Teachers
               </Nav.Link>
-
               <Nav.Link>For Students</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-
-        {this.state.visibleforTeacher ? (
-          <TeacherRegistration
-            visibleforTeacher={this.state.visibleforTeacher}
-          />
-        ) : null}
+        <TeacherRegistration ref={this.teacherModalRef} />
+       {/* <Test name="sdfsdf" style={{display:"none"}}/> */}
       </div>
     );
   }
