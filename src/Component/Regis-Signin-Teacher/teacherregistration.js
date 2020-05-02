@@ -1,11 +1,17 @@
-import React, { Component,useContext, useState, useEffect, useRef } from "react";
+import React, {
+  Component,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 import { Modal } from "antd";
 import { Tabs, Select } from "antd";
 import { AppleOutlined, AndroidOutlined } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import { Form, Input, Button } from "antd";
 // import { TimePicker } from "antd";
-import { Table, Popconfirm } from 'antd';
+import { Table, Popconfirm } from "antd";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -49,13 +55,13 @@ const EditableCell = ({
     });
   };
 
-  const save = async e => {
+  const save = async (e) => {
     try {
       const values = await form.validateFields();
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
-      console.log('Save failed:', errInfo);
+      console.log("Save failed:", errInfo);
     }
   };
 
@@ -75,18 +81,16 @@ const EditableCell = ({
           },
         ]}
       >
-         <Select ref={inputRef} onBlur={save} >
-         <Select.Option value="Monday">Monday</Select.Option>
-                      <Select.Option value="Tuesday">Tuesday</Select.Option>
-                      <Select.Option value="Wednesday">Wednesday</Select.Option>
-                      <Select.Option value="Thursday">Thursday</Select.Option>
-                      <Select.Option value="Friday">Friday</Select.Option>
-                      <Select.Option value="Saturday">Saturday</Select.Option>
-                      <Select.Option value="Sunday">Sunday</Select.Option>
-      </Select>
-
+        <Select ref={inputRef} onBlur={save}>
+          <Select.Option value="Monday">Monday</Select.Option>
+          <Select.Option value="Tuesday">Tuesday</Select.Option>
+          <Select.Option value="Wednesday">Wednesday</Select.Option>
+          <Select.Option value="Thursday">Thursday</Select.Option>
+          <Select.Option value="Friday">Friday</Select.Option>
+          <Select.Option value="Saturday">Saturday</Select.Option>
+          <Select.Option value="Sunday">Sunday</Select.Option>
+        </Select>
       </Form.Item>
-      
     ) : (
       <div
         className="editable-cell-value-wrap"
@@ -103,27 +107,29 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-
 class Teacherregistration extends Component {
   constructor(props) {
     super(props);
     this.columns = [
       {
-        dataIndex: 'day',
-        title:"Day",
+        dataIndex: "day",
+        title: "Day",
         editable: true,
       },
       {
-        title:"Time",
-        dataIndex: 'time',
+        title: "Time",
+        dataIndex: "time",
         editable: true,
       },
       {
-        title: 'operation',
-        dataIndex: 'operation',
+        title: "operation",
+        dataIndex: "operation",
         render: (text, record) =>
           this.state.dataSource.length >= 1 ? (
-            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+            <Popconfirm
+              title="Sure to delete?"
+              onConfirm={() => this.handleDelete(record.key)}
+            >
               <a>Delete</a>
             </Popconfirm>
           ) : null,
@@ -136,9 +142,9 @@ class Teacherregistration extends Component {
       days: "",
       dataSource: [
         {
-          key: '0',
-          day: 'Select Day',
-          time: 'Select Time'
+          key: "0",
+          day: "Select Day",
+          time: "Select Time",
         },
       ],
       count: 1,
@@ -148,10 +154,10 @@ class Teacherregistration extends Component {
     this.onChange = this.onChange.bind(this);
     this.onClicked = this.onClicked.bind(this);
   }
-  handleDelete = key => {
+  handleDelete = (key) => {
     const dataSource = [...this.state.dataSource];
     this.setState({
-      dataSource: dataSource.filter(item => item.key !== key),
+      dataSource: dataSource.filter((item) => item.key !== key),
     });
   };
 
@@ -168,16 +174,15 @@ class Teacherregistration extends Component {
     });
   };
 
-  handleSave = row => {
+  handleSave = (row) => {
     const newData = [...this.state.dataSource];
-    const index = newData.findIndex(item => row.key === item.key);
+    const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
     newData.splice(index, 1, { ...item, ...row });
     this.setState({
       dataSource: newData,
     });
-    console.log(this.state.dataSource)
-
+    console.log(this.state.dataSource);
   };
   showModal = () => {
     this.setState({
@@ -274,14 +279,14 @@ class Teacherregistration extends Component {
         cell: EditableCell,
       },
     };
-    const columns = this.columns.map(col => {
+    const columns = this.columns.map((col) => {
       if (!col.editable) {
         return col;
       }
 
       return {
         ...col,
-        onCell: record => ({
+        onCell: (record) => ({
           record,
           editable: col.editable,
           dataIndex: col.dataIndex,
@@ -293,6 +298,7 @@ class Teacherregistration extends Component {
     return (
       <div>
         <Modal
+          width={600}
           style={{ top: 20 }}
           //   title="Title"
           visible={this.state.visible}
@@ -492,23 +498,22 @@ class Teacherregistration extends Component {
                 </Row>
                 <Row>Course Schdedule</Row>
                 <Button
-          onClick={this.handleAdd}
-          type="primary"
-          style={{
-            marginBottom: 16,
-          }}
-        >
-          Add a row
-        </Button>
-                <Row >
-           
-        <Table
-          components={components}
-          rowClassName={() => 'editable-row'}
-          bordered
-          dataSource={dataSource}
-          columns={columns}
-        />
+                  onClick={this.handleAdd}
+                  type="primary"
+                  style={{
+                    marginBottom: 16,
+                  }}
+                >
+                  Add a row
+                </Button>
+                <Row>
+                  <Table
+                    components={components}
+                    rowClassName={() => "editable-row"}
+                    bordered
+                    dataSource={dataSource}
+                    columns={columns}
+                  />
                   {/* <Col span={11}>
                     <Select
                       placeholder="Select Day"
