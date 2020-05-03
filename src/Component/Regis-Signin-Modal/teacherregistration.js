@@ -245,7 +245,7 @@ children=[]
                         },
                       ]}
                     >
-                      <Input placeholder="Password" />
+                                        <Input.Password placeholder="Password" />
                     </Form.Item>
                   </Col>
                 </Row>
