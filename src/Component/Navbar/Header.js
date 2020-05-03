@@ -6,7 +6,6 @@ class header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true,
     };
   }
 
@@ -38,7 +37,6 @@ class header extends Component {
           </Navbar.Collapse>
         </Navbar>
         <TeacherRegistration ref={this.teacherModalRef} />
-        {/* <Test name="sdfsdf" style={{display:"none"}}/> */}
       </div>
     );
   }
