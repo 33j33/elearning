@@ -112,6 +112,7 @@ children=[]
     return (
       <div>
         <Modal
+          width={600}
           style={{ top: 20 }}
           visible={this.state.visible}
           onOk={this.handleOk}
