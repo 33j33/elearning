@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Modal, Tabs, Select, Row, Col, Form, Input, Button } from "antd";
-import { LoginOutlined, UserAddOutlined, PlusCircleOutlined,DeleteOutlined  } from "@ant-design/icons";
-
-
+import {
+  LoginOutlined,
+  UserAddOutlined,
+  PlusCircleOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+import axios from "axios";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -16,13 +20,12 @@ class Teacherregistration extends Component {
       confirmLoading: false,
       timeSlot: [],
       days: "",
-      allDays: []
+      allDays: [],
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
     this.onClicked = this.onClicked.bind(this);
   }
-
 
   //@DESC MODAL OPERATIONS
   showModal = () => {
@@ -49,25 +52,59 @@ class Teacherregistration extends Component {
       visible: false,
     });
   };
+  //Login for Teachers
   onFinish = (values) => {
-    console.log("Success:", values);
+    const dataBody = {
+      email: values.email,
+      password: values.password,
+    };
+    axios
+      .post("https://elearningserver.herokuapp.com/teacherlogin", {
+        dataBody,
+      })
+      .then(function (response) {
+        console.log(response);
+      });
   };
 
   onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  //for Registering Student
+  onFinishRegis = (values) => {
+    console.log("success", values);
+    const dataBody = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+      mobile: values.mobile,
+      // date_of_birth: values.dob,
+      // class_12_status: values.class_12_status,
+      // college_name: values.college_name,
+      // college_branch: values.branch,
+    };
+    // axios
+    //   .post("https://elearningserver.herokuapp.com/registerteacher", {
+    //     dataBody,
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   });
+  };
 
+  onFinishFailedRegis = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   //@DESC ADD OR REMOVE COURSE SCHEDULE ROW
   handleAdd = () => {
-    this.setState({ allDays: [...this.state.allDays, ""] })
+    this.setState({ allDays: [...this.state.allDays, ""] });
   };
   removeRow = (index) => {
-    this.state.allDays.splice(index, 1)
-    this.setState({ allDays: this.state.allDays })
-    this.final_selectedtime.pop(index)
+    this.state.allDays.splice(index, 1);
+    this.setState({ allDays: this.state.allDays });
+    this.final_selectedtime.pop(index);
     console.log(this.final_selectedtime);
-  }
-
+  };
 
   //SELECTED DAYS AND TIME SLOTS
   selectedDay(e) {
@@ -76,9 +113,9 @@ class Teacherregistration extends Component {
   }
 
   handleChange = (value) => {
-    console.log(value)
-    this.setState({ timeSlot: value })
-  }
+    console.log(value);
+    this.setState({ timeSlot: value });
+  };
 
   final_selectedtime = [];
   onClicked() {
@@ -90,11 +127,13 @@ class Teacherregistration extends Component {
     console.log(this.final_selectedtime);
   }
 
-children=[]
+  children = [];
   componentDidMount() {
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
-        <Option key={i + "-" + (Number(i) + 1)}>{i + "-" + (Number(i) + 1)}</Option>
+        <Option key={i + "-" + (Number(i) + 1)}>
+          {i + "-" + (Number(i) + 1)}
+        </Option>
       );
     }
   }
@@ -107,7 +146,6 @@ children=[]
         span: 16,
       },
     };
-  
 
     return (
       <div>
@@ -139,12 +177,12 @@ children=[]
                 <Row justify="center">
                   <Col span={24}>
                     <Form.Item
-                      label="Username"
-                      name="username"
+                      label="Email"
+                      name="email"
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Username!",
+                          message: "Please input your Email!",
                         },
                       ]}
                     >
@@ -189,8 +227,8 @@ children=[]
               <Form
                 name="basic"
                 initialValues={{ remember: true }}
-                onFinish={this.onFinish}
-                onFinishFailed={this.onFinishFailed}
+                onFinish={this.onFinishRegis}
+                onFinishFailed={this.onFinishFailedRegis}
                 size="medium"
               >
                 <Row justify="space-between">
@@ -245,7 +283,7 @@ children=[]
                         },
                       ]}
                     >
-                                        <Input.Password placeholder="Password" />
+                      <Input.Password placeholder="Password" />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -271,8 +309,7 @@ children=[]
                       rules={[
                         {
                           required: true,
-                          message:
-                            "Please input your Course Price!",
+                          message: "Please input your Course Price!",
                         },
                       ]}
                     >
@@ -328,10 +365,16 @@ children=[]
                         >
                           <Select.Option value="Monday">Monday</Select.Option>
                           <Select.Option value="Tuesday">Tuesday</Select.Option>
-                          <Select.Option value="Wednesday">Wednesday</Select.Option>
-                          <Select.Option value="Thursday">Thursday</Select.Option>
+                          <Select.Option value="Wednesday">
+                            Wednesday
+                          </Select.Option>
+                          <Select.Option value="Thursday">
+                            Thursday
+                          </Select.Option>
                           <Select.Option value="Friday">Friday</Select.Option>
-                          <Select.Option value="Saturday">Saturday</Select.Option>
+                          <Select.Option value="Saturday">
+                            Saturday
+                          </Select.Option>
                           <Select.Option value="Sunday">Sunday</Select.Option>
                         </Select>
                       </Col>
@@ -342,28 +385,27 @@ children=[]
                           placeholder="Select Timeslots"
                           onChange={this.handleChange}
                           onBlur={this.onClicked}
-
                         >
                           {this.children}
                         </Select>
                       </Col>
-                      <Col >
-                        <Button onClick={() => this.removeRow(index)}><DeleteOutlined /></Button>
+                      <Col>
+                        <Button onClick={() => this.removeRow(index)}>
+                          <DeleteOutlined />
+                        </Button>
                       </Col>
                     </Row>
-                  )
+                  );
                 })}
-
                 <br />
                 <Row justify="center">
-                  <Col >
+                  <Col>
                     <Form.Item>
                       <Button type="primary" htmlType="submit">
                         Submit
-                  </Button>
+                      </Button>
                     </Form.Item>
                   </Col>
-
                 </Row>
               </Form>{" "}
             </TabPane>
