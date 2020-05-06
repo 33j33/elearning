@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import TeacherRegistration from "../Regis-Signin-Modal/teacherregistration";
 import StudentModal from "../Regis-Signin-Modal/studentModal";
-
 class header extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.gotocourses = this.gotocourses.bind(this);
   }
 
   teacherModalRef = ({ showModal }) => {
@@ -22,12 +22,14 @@ class header extends Component {
   showModalForStudents = () => {
     this.showStudentsModal();
   };
-
+  gotocourses = () => {
+    this.props.history.push("/courses");
+  };
   render() {
     return (
       <div>
-        <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
-          <Navbar.Brand>e-Learning Market</Navbar.Brand>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar.Brand>E-Learning Market</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"
@@ -35,7 +37,7 @@ class header extends Component {
           >
             <Nav>
               <Nav.Link>About Us</Nav.Link>
-              <Nav.Link>All Courses</Nav.Link>
+              <Nav.Link href="/courses">All Courses</Nav.Link>
               <Nav.Link onClick={this.showModalForTeachers}>
                 For Teachers
               </Nav.Link>

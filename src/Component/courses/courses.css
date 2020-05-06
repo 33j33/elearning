@@ -1,0 +1,39 @@
+form.example input[type="text"] {
+  padding: 5px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  height: 20%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 4px;
+  background: #2196f3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+/* form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+} */
+@media only screen and (min-width: 150px) and (max-width: 780px) {
+  .search {
+    margin-left: 0;
+  }
+  .row-search {
+    width: 100%;
+  }
+}
