@@ -1,3 +1,7 @@
+
+html,body{
+  background-color: rgb(249, 251, 252);
+}
 .editable-cell {
     position: relative;
   }
@@ -15,4 +19,18 @@
   
   [data-theme='dark'] .editable-row:hover .editable-cell-value-wrap {
     border: 1px solid #434343;
+  }
+
+  #components-layout-demo-responsive .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+  }
+  
+  .site-layout-sub-header-background {
+    background: #fff;
+  }
+  
+  .site-layout-background {
+    background: #fff;
   }
