@@ -288,7 +288,9 @@ class Teacherregistration extends Component {
                   </Col>
                 </Row>
                 {/* <Divider /> */}
-                Add Course Details
+                <Row>
+                <Button>Add Course Details</Button>
+                </Row>
                 <Row justify="space-between">
                   <Col span={11}>
                     <Form.Item

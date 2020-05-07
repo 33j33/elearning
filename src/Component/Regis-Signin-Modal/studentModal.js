@@ -59,13 +59,18 @@ class studentModal extends Component {
       email: values.email,
       password: values.password,
     };
-    axios
-      .post("https://elearningserver.herokuapp.com/studentlogin", {
-        dataBody,
-      })
-      .then(function (response) {
-        console.log(response);
-      });
+    console.log(dataBody)
+
+    axios.post('https://elearningserver.herokuapp.com/studentlogin', 
+      values
+    )
+    .then(response => { 
+      console.log(response)
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
+    
   };
 
   onFinishFailed = (errorInfo) => {
@@ -246,7 +251,7 @@ class studentModal extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
-                <Row justify="space-between">
+                {/* <Row justify="space-between">
                   <Col span={12}>
                     <Form.Item
                       name="dob"
@@ -263,8 +268,8 @@ class studentModal extends Component {
                       />
                     </Form.Item>
                   </Col>
-                </Row>
-                <Divider plain>Educational Details</Divider>
+                </Row> */}
+                {/* <Divider plain>Educational Details</Divider>
 
                 <Row>
                   <Col span={24}>
@@ -308,7 +313,7 @@ class studentModal extends Component {
                       <Input placeholder="Branch" />
                     </Form.Item>
                   </Col>
-                </Row>
+                </Row> */}
 
                 <br />
                 <Row justify="center">

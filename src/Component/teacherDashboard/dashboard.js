@@ -1,21 +1,35 @@
 import React, { Component } from "react";
 import { Layout, Menu ,Divider} from 'antd';
 import { CalendarOutlined , FormOutlined, BookOutlined ,DollarOutlined } from '@ant-design/icons';
+import { withRouter } from "react-router-dom";
 
-import { BrowserRouter as Router, Switch, Route,Link } from "react-router-dom";
 
 
 
 class dashboard extends Component {
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        selected:"1,2,3"
+      };
+      this.profile=this.profile.bind(this)
     }
 
     profile=() =>{
+      this.setState({selected:"1"})
+
       this.props.history.push("/profile")
     }
+    courses=()=>{
+      this.props.history.push("/courses")
+      this.setState({selected:"2"})
 
+    }
+    payment=()=>{
+      this.props.history.push("/payment")
+      this.setState({selected:"3"})
+
+    }
     render() {
       const {  Sider } = Layout;
 
@@ -39,27 +53,23 @@ class dashboard extends Component {
       marginTop: 10
     }}    >
 
-    <Menu  mode="inline" style={{ minHeight:"100vh",overflow:"hidden" }} defaultSelectedKeys="1"  theme="dark">
+    <Menu  mode="inline" style={{ minHeight:"100vh",overflow:"hidden" }} defaultSelectedKeys={[this.state.selected]} theme="dark">
     <Menu.Item disabled>
         <span className="nav-text">Teacher Username</span>
       </Menu.Item>      
-      <Menu.Item key="1" >
-      <FormOutlined />
-      <Link to="/profile"><span className="nav-text">Profile</span> </Link>
+      <Menu.Item key="1" onClick={this.profile} >
+      <span className="nav-text">Profile</span> 
       </Menu.Item>   
     
-      <Menu.Item key="3">
+      <Menu.Item key="2" onClick={this.courses}>
         <BookOutlined  />
-        <Link to="/courses"> <span className="nav-text">Courses</span></Link>
+ <span className="nav-text">Courses</span>
       </Menu.Item>
-      <Menu.Item key="4">
-        <CalendarOutlined  />
-        <span className="nav-text">Calender</span>
-      </Menu.Item>
+ 
       
-      <Menu.Item key="5">
+      <Menu.Item key="3" onClick={this.payment}>
       <DollarOutlined />      
-      <Link to="/payment"> <span className="nav-text">Payment</span></Link>
+       <span className="nav-text">Payment</span>
       </Menu.Item>
       {/* <Divider /> */}
       <Menu.Item >
@@ -76,4 +86,4 @@ class dashboard extends Component {
     }
 }
 
-export default dashboard;
+export default withRouter(dashboard);
