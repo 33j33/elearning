@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route,Link } from "react-router-dom";
 import Test from "./Component/test";
 import Homepage from "./Component/homePage";
 import Profile from "./Component/teacherDashboard/TeacherProfile";
+import TeacherDashboard from './Component/teacherDashboard/dashboard'
 /*Code by Tavishi, used http://localhost:3000/teacherDashboard/Teacherprofile to access it*/
 
 class App extends Component {
@@ -12,20 +13,11 @@ class App extends Component {
       <div>
         <Router>
             <Route path="/" exact component={Homepage} />
-            <Route path="/test" exact component={Test} />
-            <Route path="/teacherDashboard" exact component={Teacherdashboard} />
-
-            <Route path="/courses" exact component={Courses} />
-            <Route
-              path="/teacherDashboard"
-              exact
-              component={Teacherdashboard}
-            />
-          <Switch>
-            <Route path="/" exact component={Homepage} />
-            <Route path="/test" exact component={Test} />
-            <Route path="/teacherDashboard/TeacherProfile" exact component={Profile}/>
-          </Switch>
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/teacherDashboard"exact component={TeacherDashboard} />
+            {/* <Route path="/courses" exact component={Courses} /> */}
+      
+   
         </Router>
       </div>
     );

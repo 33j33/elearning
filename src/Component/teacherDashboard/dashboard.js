@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Layout, Menu ,Divider} from 'antd';
 import { CalendarOutlined , FormOutlined, BookOutlined ,DollarOutlined } from '@ant-design/icons';
 
+import { BrowserRouter as Router, Switch, Route,Link } from "react-router-dom";
 
 
 
@@ -12,7 +13,7 @@ class dashboard extends Component {
     }
 
     profile=() =>{
-      this.props.history.push("/test")
+      this.props.history.push("/profile")
     }
 
     render() {
@@ -42,9 +43,9 @@ class dashboard extends Component {
     <Menu.Item disabled>
         <span className="nav-text">Teacher Username</span>
       </Menu.Item>      
-      <Menu.Item key="1" onClick={this.profile}>
+      <Menu.Item key="1" >
       <FormOutlined />
-       <span className="nav-text">Profile</span> 
+      <Link to="/profile"><span className="nav-text">Profile</span> </Link>
       </Menu.Item>   
     
       <Menu.Item key="3">
