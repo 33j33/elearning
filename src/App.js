@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import {BrowserRouter as Router , Switch, Route,Link} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Test from "./Component/test";
 import Homepage from "./Component/homePage";
-import Courses from "./Component/courses/courses";
+import Profile from "./Component/teacherDashboard/TeacherProfile";
+/*Code by Tavishi, used http://localhost:3000/teacherDashboard/Teacherprofile to access it*/
 
-import Teacherdashboard from "./Component/teacherDashboard/dashboard";
 class App extends Component {
   render() {
     return (
@@ -21,6 +21,11 @@ class App extends Component {
               exact
               component={Teacherdashboard}
             />
+          <Switch>
+            <Route path="/" exact component={Homepage} />
+            <Route path="/test" exact component={Test} />
+            <Route path="/teacherDashboard/TeacherProfile" exact component={Profile}/>
+          </Switch>
         </Router>
       </div>
     );

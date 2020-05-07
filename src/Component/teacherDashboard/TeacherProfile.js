@@ -3,7 +3,9 @@ import { Descriptions} from 'antd';
 import { Input } from 'antd';
 import { PageHeader } from 'antd';
 
-class test extends Component {
+/*Code by Tavishi, used http://localhost:3000/teacherDashboard/Teacherprofile to access it*/
+
+class TeacherProfile extends Component {
 
   render() {
     return (
@@ -33,4 +35,4 @@ class test extends Component {
   }
 }
 
-export default test;
+export default TeacherProfile;

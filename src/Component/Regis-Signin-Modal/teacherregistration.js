@@ -345,21 +345,19 @@ class Teacherregistration extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
-                <Row justify="space-between">
-                  Course Schdedule
-                  {/* <Button
-                  
+                <Row>Course Schdedule</Row>
+                <Button
+                  onClick={this.handleAdd}
                   style={{
                     marginBottom: 16,
                   }}
-                > */}
-                  <PlusCircleOutlined onClick={this.handleAdd} />
-                </Row>
-                {/* </Button> */}
+                >
+                  <PlusCircleOutlined />
+                </Button>
                 {this.state.allDays.map((day, index) => {
                   return (
                     <Row justify="space-between" key={index}>
-                      <Col span={7}>
+                      <Col span={9}>
                         <Select
                           placeholder="Select Day"
                           onChange={this.selectedDay}
@@ -380,7 +378,7 @@ class Teacherregistration extends Component {
                           <Select.Option value="Sunday">Sunday</Select.Option>
                         </Select>
                       </Col>
-                      <Col span={15}>
+                      <Col span={9}>
                         <Select
                           mode="multiple"
                           style={{ width: "100%" }}
