@@ -7,6 +7,7 @@ import Profile from "./Component/teacherDashboard/TeacherProfile";
 import TeacherDashboard from './Component/teacherDashboard/dashboard'
 /*Code by Tavishi, used http://localhost:3000/teacherDashboard/Teacherprofile to access it*/
 import Courses from "./Component/teacherDashboard/courses";
+import Dashboard from "./Component/teacherDashboard/dashboard";
 
 class App extends Component {
   render() {
@@ -21,6 +22,11 @@ class App extends Component {
    
             <Route path="/test" exact component={Test} />
             <Route path="/courses" exact component={Courses} />
+            <Route
+              path="/teacherDashboard/payment"
+              exact
+              component={Dashboard}
+            />
         </Router>
       </div>
     );
