@@ -28,8 +28,6 @@ class Footer extends Component {
         <br />
         <br />
         <br />
-        <br />
-        <br />
         Copyright @blabla
       </div>
     );
