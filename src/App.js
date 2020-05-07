@@ -6,6 +6,7 @@ import Homepage from "./Component/homePage";
 import Profile from "./Component/teacherDashboard/TeacherProfile";
 import TeacherDashboard from './Component/teacherDashboard/dashboard'
 /*Code by Tavishi, used http://localhost:3000/teacherDashboard/Teacherprofile to access it*/
+import Courses from "./Component/teacherDashboard/courses";
 
 class App extends Component {
   render() {
@@ -18,6 +19,8 @@ class App extends Component {
             {/* <Route path="/courses" exact component={Courses} /> */}
       
    
+            <Route path="/test" exact component={Test} />
+            <Route path="/courses" exact component={Courses} />
         </Router>
       </div>
     );

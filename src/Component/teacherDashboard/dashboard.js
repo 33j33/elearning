@@ -50,7 +50,7 @@ class dashboard extends Component {
     
       <Menu.Item key="3">
         <BookOutlined  />
-        <span className="nav-text">Courses</span>
+        <Link to="/courses  "> <span className="nav-text">Courses</span></Link>
       </Menu.Item>
       <Menu.Item key="4">
         <CalendarOutlined  />
