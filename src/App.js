@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 
 import { BrowserRouter as Router, Switch, Route,Link } from "react-router-dom";
-import Test from "./Component/test";
+// import Test from "./Component/test";
 import Homepage from "./Component/homePage";
 import Profile from "./Component/teacherDashboard/TeacherProfile";
 import TeacherDashboard from './Component/teacherDashboard/dashboard'
 /*Code by Tavishi, used http://localhost:3000/teacherDashboard/Teacherprofile to access it*/
 import Courses from "./Component/teacherDashboard/courses";
-import Dashboard from "./Component/teacherDashboard/dashboard";
-
+import Payment from './Component/teacherDashboard/payment'
 class App extends Component {
   render() {
     return (
@@ -20,12 +19,12 @@ class App extends Component {
             {/* <Route path="/courses" exact component={Courses} /> */}
       
    
-            <Route path="/test" exact component={Test} />
+            {/* <Route path="/test" exact component={Test} /> */}
             <Route path="/courses" exact component={Courses} />
             <Route
-              path="/teacherDashboard/payment"
+              path="/payment"
               exact
-              component={Dashboard}
+              component={Payment}
             />
         </Router>
       </div>

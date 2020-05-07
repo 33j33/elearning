@@ -50,7 +50,7 @@ class dashboard extends Component {
     
       <Menu.Item key="3">
         <BookOutlined  />
-        <Link to="/courses  "> <span className="nav-text">Courses</span></Link>
+        <Link to="/courses"> <span className="nav-text">Courses</span></Link>
       </Menu.Item>
       <Menu.Item key="4">
         <CalendarOutlined  />
@@ -59,9 +59,9 @@ class dashboard extends Component {
       
       <Menu.Item key="5">
       <DollarOutlined />      
-        <span className="nav-text">Payment</span>
+      <Link to="/payment"> <span className="nav-text">Payment</span></Link>
       </Menu.Item>
-      <Divider />
+      {/* <Divider /> */}
       <Menu.Item >
         <span className="nav-text">Sign Out</span>
       </Menu.Item> 
