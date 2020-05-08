@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Table, Tag } from "antd";
 import "./payment.css";
 import Sidenav from './dashboard'
-import { Row, Col, Divider, Card, Layout } from 'antd';
+import { Layout } from 'antd';
 
 //Payment section of the Teacher Dashboard
 
@@ -37,13 +37,13 @@ class payment extends Component {
         title: "S.no",
         dataIndex: "number",
         key: "number",
-        render: (text) => <a>{text}</a>,
+        // render: (text) => <a>{text}</a>,
       },
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
-        render: (text) => <a>{text}</a>,
+        // render: (text) => <a>{text}</a>,
       },
       {
         title: "Course",
@@ -54,7 +54,7 @@ class payment extends Component {
         title: "Date",
         dataIndex: "date",
         key: "date",
-        render: (text) => <a>{text}</a>,
+        // render: (text) => <a>{text}</a>,
       },
       {
         title: "Amount Received",
@@ -77,7 +77,7 @@ class payment extends Component {
         title: "Mobile Number",
         dataIndex: "mob",
         key: "mob",
-        render: (text) => <a>{text}</a>,
+        // render: (text) => <a>{text}</a>,
       },
     ];
 

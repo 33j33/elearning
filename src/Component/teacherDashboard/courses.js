@@ -8,12 +8,10 @@ const { Search } = Input;
 const { Text } = Typography;
 const { Panel } = Collapse;
 class Courses extends Component {
-    constructor(props) {
-        super(props)
-    }
-    // teacherModalRef = ({ showModal }) => {
-    //     this.showTeacherModal = showModal;
-    // };
+    // constructor(props) {
+    //     super(props)
+    // }
+   
     showModalForTeachers = () => {
         this.showTeacherModal();
     };

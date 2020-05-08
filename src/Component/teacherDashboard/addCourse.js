@@ -51,7 +51,6 @@ class AddCourse extends Component {
 
   onFinishRegis = (values) => {
     console.log("success", values);
-    const dataBody = {};
     // axios
     //   .post("https://elearningserver.herokuapp.com/registerteacher", {
     //     dataBody,

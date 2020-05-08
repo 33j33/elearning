@@ -8,7 +8,7 @@ import {
   Input,
   Button
 } from "antd";
-import { message, Space } from 'antd';
+import { message } from 'antd';
 
 import { LoginOutlined, UserAddOutlined } from "@ant-design/icons";
 import axios from "axios";
