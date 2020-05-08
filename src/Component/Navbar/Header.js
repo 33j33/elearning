@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import TeacherRegistration from "../Regis-Signin-Modal/teacherregistration";
 import StudentModal from "../Regis-Signin-Modal/studentModal";
+
 class header extends Component {
   constructor(props) {
     super(props);

@@ -6,14 +6,29 @@ import {
   Col,
   Form,
   Input,
-  Button,
-  Radio,
-  Divider,
-  DatePicker,
+  Button
 } from "antd";
+import { message, Space } from 'antd';
+
 import { LoginOutlined, UserAddOutlined } from "@ant-design/icons";
 import axios from "axios";
 
+
+const successForregistration = () => {
+  message.success('Succesfully Registered Login to Continue');
+};
+
+const errorForRegistration = () => {
+  message.error('Registration Failed');
+};
+
+const successForlogin = () => {
+  message.success('Succesfully Loggedin');
+};
+
+const errorForlogin = () => {
+  message.error('Login Failed');
+};
 const { TabPane } = Tabs;
 
 class studentModal extends Component {
@@ -26,6 +41,7 @@ class studentModal extends Component {
     };
     this.showSModal = this.showSModal.bind(this);
   }
+  formRef = React.createRef();
 
   //@DESC MODAL OPERATIONS
   showSModal = () => {
@@ -55,50 +71,55 @@ class studentModal extends Component {
   };
   //Login for students
   onFinish = (values) => {
-    const dataBody = {
-      email: values.email,
-      password: values.password,
-    };
-    console.log(dataBody)
 
-    axios.post('https://elearningserver.herokuapp.com/studentlogin', 
+    axios.post('https://elearningserver.herokuapp.com/studentlogin',
       values
     )
-    .then(response => { 
-      console.log(response)
-    })
-    .catch(error => {
+      .then(response => {
+        console.log(response);
+        this.formRef.current.resetFields()
+        successForlogin();
+        this.setState({
+          visible: false,
+        });
+      })
+      .catch(error => {
         console.log(error.response)
-    });
-    
+        errorForlogin()
+              });
+
   };
 
   onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+
   //for Registering Student
   onFinishRegis = (values) => {
-    const dataBody = {
-      username: values.username,
-      email: values.email,
-      password: values.password,
-      mobile: values.mobile,
-      date_of_birth: values.dob,
-      class_12_status: values.class_12_status,
-      college_name: values.college_name,
-      college_branch: values.branch,
-    };
+    console.log(values)
     axios
-      .post("https://elearningserver.herokuapp.com/registerstudent", {
-        dataBody,
-      })
-      .then(function (response) {
+      .post("https://elearningserver.herokuapp.com/registerstudent",
+        values
+      )
+      .then(response => {
         console.log(response);
+        this.setState({
+          visible: false,
+        });
+        successForregistration();
+        this.formRef.current.resetFields();
+
+      })
+      .catch(error => {
+        console.log(error.response)
+        errorForRegistration()
       });
   };
 
   onFinishFailedRegis = (errorInfo) => {
     console.log("Failed:", errorInfo);
+
   };
 
   render() {
@@ -133,6 +154,8 @@ class studentModal extends Component {
               key="1"
             >
               <Form
+                ref={this.formRef}
+
                 {...layout}
                 name="basic"
                 onFinish={this.onFinish}
@@ -189,6 +212,7 @@ class studentModal extends Component {
               key="2"
             >
               <Form
+                ref={this.formRef}
                 name="basic"
                 initialValues={{ remember: true }}
                 onFinish={this.onFinishRegis}
@@ -251,69 +275,6 @@ class studentModal extends Component {
                     </Form.Item>
                   </Col>
                 </Row>
-                {/* <Row justify="space-between">
-                  <Col span={12}>
-                    <Form.Item
-                      name="dob"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your DOB",
-                        },
-                      ]}
-                    >
-                      <DatePicker
-                        placeholder="Select DOB"
-                        style={{ width: "92%" }}
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row> */}
-                {/* <Divider plain>Educational Details</Divider>
-
-                <Row>
-                  <Col span={24}>
-                    <Form.Item
-                      name="12th"
-                      label="12th"
-                      rules={[{ required: true }]}
-                    >
-                      <Radio.Group name="class_12_status">
-                        <Radio value={true}>Passed</Radio>
-                        <Radio value={false}>Appearing</Radio>
-                      </Radio.Group>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row>If Passed</Row>
-                <Row justify="space-between">
-                  <Col span={11}>
-                    <Form.Item
-                      name="college_name"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your College/School Name!",
-                        },
-                      ]}
-                    >
-                      <Input placeholder="College Name" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={11}>
-                    <Form.Item
-                      name="branch"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Branch!",
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Branch" />
-                    </Form.Item>
-                  </Col>
-                </Row> */}
 
                 <br />
                 <Row justify="center">
