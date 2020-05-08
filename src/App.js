@@ -3,11 +3,11 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Homepage from "./Component/homePage";
 import Profile from "./Component/teacherDashboard/TeacherProfile";
-import TeacherDashboard from './Component/teacherDashboard/dashboard'
+import TeacherDashboard from "./Component/teacherDashboard/dashboard";
 import Courses from "./Component/teacherDashboard/courses";
-import Payment from './Component/teacherDashboard/payment'
-import courseinfo from "./Component/teacherDashboard/courseinfo";
-
+import Payment from "./Component/teacherDashboard/payment";
+import courseinfo from "./Component/courses/courseinfo";
+import AllCourses from "./Component/courses/courses";
 
 class App extends Component {
   render() {
@@ -18,6 +18,8 @@ class App extends Component {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/teacherDashboard" component={TeacherDashboard} />
           <Route exact path="/courses" component={Courses} />
+          <Route exact path="/AllCourses" component={AllCourses} />
+
           <Route exact path="/courseinfo" component={courseinfo} />
           <Route path="/payment" exact component={Payment} />
         </Router>

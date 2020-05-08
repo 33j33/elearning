@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Card } from "antd";
 import AliceCarousel from "react-alice-carousel";
 import { BookOutlined } from "@ant-design/icons";
+import axios from "axios";
 import "./courses.css";
 const { Meta } = Card;
 
@@ -9,34 +10,75 @@ class courses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      galleryItems: this.items.map((i) => (
-        <Row style={{ marginLeft: 12 }}>
-          <Col span={23}>
-            <Card
-              cover={
-                <img
-                  alt="example"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-              }
-              actions={[
-                <h6>Price:xxx</h6>,
-                <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
-              ]}
-            >
-              <Meta style={{ fontSize: "16px" }} description="Course Name" />
-            </Card>
-          </Col>
-        </Row>
-      )),
+      myarray: [],
+      galleryItems: [],
+      // this.state.myarray.map((i) => (
+      //   <Row style={{ marginLeft: 12 }}>
+      //     <Col span={23}>
+      //       <Card
+      //         cover={<h1>Hi</h1>}
+      //         actions={[
+      //           <h6>Price:xxx</h6>,
+      //           <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
+      //         ]}
+      //       >
+      //         <Meta style={{ fontSize: "16px" }} />
+      //       </Card>
+      //     </Col>
+      //   </Row>
+      // )),
     };
   }
-
-  items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  couseArray = [];
+  items;
 
   responsive = {
     0: { items: 1 },
     1024: { items: 5 },
+  };
+
+  componentDidMount = () => {
+    console.log("worked");
+    axios
+      .get("https://elearningserver.herokuapp.com/getallCourses")
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ myarray: response.data });
+        this.couseArray.push(response.data);
+        this.setState({
+          galleryItems: response.data.map((i) => (
+            <Row style={{ marginLeft: 12 }}>
+              <Col span={23}>
+                <Card
+                  style={{ height: "180px", maxWidth: "300px" }}
+                  hoverable
+                  cover={
+                    <img
+                      alt="example"
+                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                      // height="150px"
+                    />
+                  }
+                  actions={[
+                    <h6>Price:{i.course_price}</h6>,
+                    <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
+                  ]}
+                >
+                  <Meta
+                    style={{ fontSize: "16px" }}
+                    description={i.course_name}
+                  />
+                </Card>
+              </Col>
+            </Row>
+          )),
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    console.log("array", this.couseArray);
+    console.log("array2", this.myarray);
   };
 
   render() {
