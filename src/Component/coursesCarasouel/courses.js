@@ -50,13 +50,14 @@ class courses extends Component {
             <Row style={{ marginLeft: 12 }}>
               <Col span={23}>
                 <Card
-                  style={{ height: "180px", maxWidth: "300px" }}
                   hoverable
+
+                  // style={{ height: "180px", maxWidth: "300px" }}
                   cover={
                     <img
                       alt="example"
                       src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                      // height="150px"
+                    // height="150px"
                     />
                   }
                   actions={[
