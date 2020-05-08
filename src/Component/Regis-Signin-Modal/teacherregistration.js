@@ -73,16 +73,16 @@ class Teacherregistration extends Component {
   //for Registering Student
   onFinishRegis = (values) => {
     console.log("success", values);
-    const dataBody = {
-      username: values.username,
-      email: values.email,
-      password: values.password,
-      mobile: values.mobile,
-      // date_of_birth: values.dob,
-      // class_12_status: values.class_12_status,
-      // college_name: values.college_name,
-      // college_branch: values.branch,
-    };
+    // const dataBody = {
+    //   username: values.username,
+    //   email: values.email,
+    //   password: values.password,
+    //   mobile: values.mobile,
+    // date_of_birth: values.dob,
+    // class_12_status: values.class_12_status,
+    // college_name: values.college_name,
+    // college_branch: values.branch,
+    // };
     // axios
     //   .post("https://elearningserver.herokuapp.com/registerteacher", {
     //     dataBody,
@@ -289,7 +289,7 @@ class Teacherregistration extends Component {
                 </Row>
                 {/* <Divider /> */}
                 <Row>
-                <Button>Add Course Details</Button>
+                  <Button>Add Course Details</Button>
                 </Row>
                 <Row justify="space-between">
                   <Col span={11}>

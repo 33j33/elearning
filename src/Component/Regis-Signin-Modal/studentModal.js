@@ -59,18 +59,16 @@ class studentModal extends Component {
       email: values.email,
       password: values.password,
     };
-    console.log(dataBody)
+    console.log(dataBody);
 
-    axios.post('https://elearningserver.herokuapp.com/studentlogin', 
-      values
-    )
-    .then(response => { 
-      console.log(response)
-    })
-    .catch(error => {
-        console.log(error.response)
-    });
-    
+    axios
+      .post("https://elearningserver.herokuapp.com/studentlogin", values)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   onFinishFailed = (errorInfo) => {
