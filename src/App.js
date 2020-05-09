@@ -8,6 +8,7 @@ import Courses from "./Component/teacherDashboard/courses";
 import Payment from "./Component/teacherDashboard/payment";
 import courseinfo from "./Component/courses/courseinfo";
 import AllCourses from "./Component/courses/courses";
+import StudentDashboard from "./Component/studentDashboard/sDashboard";
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
 
           <Route exact path="/courseinfo" component={courseinfo} />
           <Route path="/payment" exact component={Payment} />
+          <Route exact path="/studentDashboard" component={StudentDashboard} />
         </Router>
       </div>
     );
