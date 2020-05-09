@@ -12,21 +12,6 @@ class courses extends Component {
     this.state = {
       myarray: [],
       galleryItems: [],
-      // this.state.myarray.map((i) => (
-      //   <Row style={{ marginLeft: 12 }}>
-      //     <Col span={23}>
-      //       <Card
-      //         cover={<h1>Hi</h1>}
-      //         actions={[
-      //           <h6>Price:xxx</h6>,
-      //           <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
-      //         ]}
-      //       >
-      //         <Meta style={{ fontSize: "16px" }} />
-      //       </Card>
-      //     </Col>
-      //   </Row>
-      // )),
     };
   }
   couseArray = [];
@@ -37,28 +22,36 @@ class courses extends Component {
     1024: { items: 5 },
   };
 
+  selectedCourse=(i)=>{
+console.log(i)
+  }
+
+  handleOnDragStart = (e) =>
+  { e.preventDefault()
+  }
   componentDidMount = () => {
-    console.log("worked");
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
-        console.log(response.data);
         this.setState({ myarray: response.data });
         this.couseArray.push(response.data);
         this.setState({
           galleryItems: response.data.map((i) => (
             <Row style={{ marginLeft: 12 }}>
-              <Col span={23}>
+              <Col span={23}  
+>
                 <Card
                   hoverable
-
-                  // style={{ height: "180px", maxWidth: "300px" }}
+                  key={i}
+                  onClick={ () => this.selectedCourse(i) }
+                  // style={{ height: "180px", maxWidth: "300px" }
                   cover={
                     <img
                       alt="example"
                       src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                     // height="150px"
                     />
+                  
                   }
                   actions={[
                     <h6>Price:{i.course_price}</h6>,
@@ -78,8 +71,6 @@ class courses extends Component {
       .catch((error) => {
         console.log(error.response);
       });
-    console.log("array", this.couseArray);
-    console.log("array2", this.myarray);
   };
 
   render() {
@@ -117,7 +108,9 @@ class courses extends Component {
             fadeOutAnimation={true}
             mouseTrackingEnabled={true}
             buttonsDisabled={true}
-          />
+            onSlideChange={this.onSlideChange}
+            onSlideChanged={this.onSlideChanged}     
+               />
         </Row>
       </div>
     );
