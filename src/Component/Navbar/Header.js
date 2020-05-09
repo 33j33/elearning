@@ -164,6 +164,16 @@ class header extends Component {
         this.setState({
           visible: false,
         });
+          const token = response.data.token;
+          const email = response.data.email;
+          const phone = response.data.mobile;
+          const username = response.data.username;
+          const teacherid=response.data.teacherid;
+          window.localStorage.setItem(
+            "currentUser",
+            JSON.stringify({ token, email, phone, username,teacherid })
+          );
+          this.props.history.push("/teacherDashboard")
       })
       .catch((error) => {
         console.log(error.response);
@@ -234,6 +244,68 @@ class header extends Component {
   onFinishFailedRegisTeacher = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  //Login for students
+  onFinish = (values) => {
+
+    axios.post('https://elearningserver.herokuapp.com/studentlogin',
+      values
+    )
+      .then(response => {
+        console.log(response);
+        this.formRef.current.resetFields()
+        successForlogin();
+        this.setState({
+          visible: false,
+        });
+        const token = response.data.token;
+        const email = response.data.email;
+        const phone = response.data.mobile;
+        const username = response.data.username;
+        const studentid=response.data.studentid;
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify({ token, email, phone, username,studentid })
+        );
+      })
+      .catch(error => {
+        console.log(error.response)
+        errorForlogin()
+              });
+
+  };
+
+  onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+    //for Registering Student
+    onFinishRegisStudent = (values) => {
+      console.log(values)
+      axios
+        .post("https://elearningserver.herokuapp.com/registerstudent",
+          values
+        )
+        .then(response => {
+          console.log(response);
+          this.setState({
+            visible: false,
+          });
+          successForregistration();
+          this.formRef.current.resetFields();
+  
+        })
+        .catch(error => {
+          console.log(error.response)
+          errorForRegistration()
+        });
+    };
+  
+    onFinishFailedRegisStudent = (errorInfo) => {
+      console.log("Failed:", errorInfo);
+  
+    };
+  
   children = [];
 
   componentDidMount() {
@@ -357,8 +429,8 @@ class header extends Component {
                 ref={this.formRef}
                 name="basic"
                 initialValues={{ remember: true }}
-                onFinish={this.onFinishRegis}
-                onFinishFailed={this.onFinishFailedRegis}
+                onFinish={this.onFinishRegisStudent}
+                onFinishFailed={this.onFinishFailedRegisStudent}
                 size="medium"
               >
                 <Row justify="space-between">
