@@ -17,6 +17,10 @@ class dashboard extends Component {
     this.props.history.push("/profile");
   };
 
+  componentDidMount(){
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+console.log(currentUser.username)
+  }
   render() {
     const { Sider } = Layout;
 

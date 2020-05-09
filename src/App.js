@@ -8,6 +8,7 @@ import Courses from "./Component/teacherDashboard/courses";
 import Payment from "./Component/teacherDashboard/payment";
 import courseinfo from "./Component/courses/courseinfo";
 import AllCourses from "./Component/courses/courses";
+import {PrivateRoute} from "./Component/Privateroute/index";
 
 class App extends Component {
   render() {
