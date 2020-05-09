@@ -49,9 +49,9 @@ class test extends Component {
   }
   formRef = React.createRef();
 
-  gotocourses = () => {
-    this.props.history.push("/allcourses");
-  };
+  // gotocourses = () => {
+  //   this.props.history.push("/allcourses");
+  // };
 
   showModalForTeachers = () => {
     this.showModal();

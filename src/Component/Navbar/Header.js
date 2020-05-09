@@ -265,7 +265,7 @@ class header extends Component {
           >
             <Nav>
               <Nav.Link>About Us</Nav.Link>
-              <Nav.Link onClick={this.gotocourses}>All Courses </Nav.Link>
+              <Nav.Link onClick={this.gotocourses}><Link to="/">All Courses</Link> </Nav.Link>
               <Nav.Link onClick={this.showModalForTeachers}>
                 For Teachers
               </Nav.Link>
