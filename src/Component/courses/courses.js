@@ -5,6 +5,7 @@ import { Row, Col } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import "./courses.css";
 import axios from "axios";
+import Test from "../test";
 
 const { Meta } = Card;
 
@@ -34,10 +35,9 @@ class courses extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Test />
         <br />
         <br />
-
         <Row>
           <Col span={7} offset={8}>
             <form
