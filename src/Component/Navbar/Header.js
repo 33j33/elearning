@@ -9,8 +9,8 @@ import {
 import axios from "axios";
 import { message } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -54,7 +54,9 @@ class header extends Component {
   gotocourses = () => {
     this.props.history.push("/allcourses");
   };
-
+  gotoHome=()=>{
+    this.props.history.push("/")
+  }
   showModalForTeachers = () => {
     this.showModal();
   };
@@ -255,7 +257,7 @@ class header extends Component {
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand>TURNSKILL 1 to 1</Navbar.Brand>
+        <Link to="/">  <Navbar.Brand onClick={this.gotoHome}>TURNSKILL 1 to 1</Navbar.Brand></Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"

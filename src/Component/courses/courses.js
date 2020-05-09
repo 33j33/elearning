@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card } from "antd";
-import Header from "../Navbar/Header";
+// import Header from "../Navbar/Header";
 import { Row, Col } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import "./courses.css";

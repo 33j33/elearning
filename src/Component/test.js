@@ -9,8 +9,6 @@ import {
 import axios from "axios";
 import { message } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { withRouter } from "react-router-dom";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");

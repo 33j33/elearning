@@ -8,7 +8,7 @@ import Courses from "./Component/teacherDashboard/courses";
 import Payment from "./Component/teacherDashboard/payment";
 import courseinfo from "./Component/courses/courseinfo";
 import AllCourses from "./Component/courses/courses";
-import {PrivateRoute} from "./Component/Privateroute/index";
+// import {PrivateRoute} from "./Component/Privateroute/index";
 import Test from "./Component/test";
 
 class App extends Component {
