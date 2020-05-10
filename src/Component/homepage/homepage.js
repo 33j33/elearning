@@ -1,15 +1,16 @@
+// @desc THIS PAGE CONTAINS COURSES CARASOUEL AND TEACHERINFO COMPONENTS OF HOMEPAGE
+
 import React, { Component } from "react";
 import { Row, Col, Card } from "antd";
 import AliceCarousel from "react-alice-carousel";
 import { BookOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./homepage.css";
-import { withRouter } from "react-router-dom";
 import SearchInput, { createFilter } from 'react-search-input';
-import Teacher from "../teacher/teacher";
+import Teacher from "./teacher/teacher";
 
 const KEYS_TO_FILTERS = ['course_name']
-
+  
 const { Meta } = Card;
 
 class courses extends Component {

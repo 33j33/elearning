@@ -1,3 +1,5 @@
+// @desc THIS PAGE CONTAINS ALL COURSES
+
 import React, { Component } from "react";
 import { Card } from "antd";
 import { Row, Col } from "antd";
