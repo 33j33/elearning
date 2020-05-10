@@ -1,66 +1,65 @@
+// @desc THIS PAGE CONTAINS ALL COURSES
+
 import React, { Component } from "react";
 import { Card } from "antd";
-import Header from "../Navbar/Header";
 import { Row, Col } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
 import "./courses.css";
 import axios from "axios";
+import SearchInput, {createFilter} from 'react-search-input'
+const KEYS_TO_FILTERS = ['course_name','teacher_name']
 
 const { Meta } = Card;
 
 class courses extends Component {
   constructor(props) {
     super(props);
-    this.state = { myarray: [] };
+    this.state = {
+       coursesArray: [],
+      searchTerm: ''
+    };
+    this.searchUpdated = this.searchUpdated.bind(this)
   }
-
+  searchUpdated(term) {
+    this.setState({ searchTerm: term })
+  }
   componentDidMount = () => {
-    console.log("worked");
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
         console.log(response.data);
 
-        const myarray = response.data;
-        this.setState({ myarray });
+        const coursesArray = response.data;
+        this.setState({ coursesArray });
       })
       .catch((error) => {
         console.log(error.response);
       });
-    console.log("array", this.couseArray);
-    console.log("array2", this.myarray);
   };
 
   render() {
+    const filteredCourses = this.state.coursesArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+
     return (
       <div>
-        <Header />
-        <br />
-        <br />
-
         <Row>
           <Col span={7} offset={8}>
-            <form
-              className="example"
-              style={{ margin: "auto", maxWidth: "500px" }}
-            >
-              <input type="text" placeholder="Search.." />
-              <button type="submit">
-                <SearchOutlined />
-              </button>
-            </form>
+          <div className="search">
+                <form className="search-form">
+                  <SearchInput onChange={this.searchUpdated} placeholder="Search for a course" style={{ width: "100%", border: "none" }} />
+                </form>
+              </div>
           </Col>
         </Row>
         <br />
         <Row>
-          {this.state.myarray.map((i) => (
+          {filteredCourses.map((i) => (
             <Col offset={1} span={5}>
               <Card
                 hoverable
                 style={{ width: 240, minWidth: 100, marginBottom: 40 }}
               >
                 <p>{i.course_name}</p>
-                <Meta title="Europe Street beat" description={i.course_price} />
+                <Meta title={i.teacher_name} description={i.course_price} />
               </Card>
             </Col>
           ))}

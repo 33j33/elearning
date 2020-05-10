@@ -9,6 +9,8 @@ import {
 import axios from "axios";
 import { message } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -30,7 +32,7 @@ const successForCourses = () => {
 };
 const { TabPane } = Tabs;
 const { Option } = Select;
-class test extends Component {
+class header extends Component {
   constructor(props) {
     super(props);
 
@@ -49,10 +51,12 @@ class test extends Component {
   }
   formRef = React.createRef();
 
-  // gotocourses = () => {
-  //   this.props.history.push("/allcourses");
-  // };
-
+  gotocourses = () => {
+    this.props.history.push("/allcourses");
+  };
+  gotoHome = () => {
+    this.props.history.push("/");
+  };
   showModalForTeachers = () => {
     this.showModal();
   };
@@ -160,10 +164,24 @@ class test extends Component {
         this.setState({
           visible: false,
         });
+          const token = response.data.token;
+          const email = response.data.email;
+          const phone = response.data.mobile;
+          const username = response.data.username;
+          const teacherid=response.data.teacherid;
+          window.localStorage.setItem(
+            "currentUser",
+            JSON.stringify({ token, email, phone, username,teacherid })
+          );
+          console.log( this.props.history)
+          this.props.history.push("teacherDashboard")
+      
       })
       .catch((error) => {
+        if(error.response!==undefined){
         console.log(error.response);
         errorForlogin();
+        }
       });
   };
 
@@ -230,6 +248,61 @@ class test extends Component {
   onFinishFailedRegisTeacher = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  //Login for students
+  onFinish = (values) => {
+    axios
+      .post("https://elearningserver.herokuapp.com/studentlogin", values)
+      .then((response) => {
+        console.log(response);
+        this.formRef.current.resetFields();
+        successForlogin();
+        this.setState({
+          visible: false,
+        });
+        const token = response.data.token;
+        const email = response.data.email;
+        const phone = response.data.mobile;
+        const username = response.data.username;
+        const studentid = response.data.studentid;
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify({ token, email, phone, username, studentid })
+        );
+      })
+      .catch((error) => {
+        console.log(error.response);
+        errorForlogin();
+      });
+  };
+
+  onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  //for Registering Student
+  onFinishRegisStudent = (values) => {
+    console.log(values);
+    axios
+      .post("https://elearningserver.herokuapp.com/registerstudent", values)
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          visible: false,
+        });
+        successForregistration();
+        this.formRef.current.resetFields();
+      })
+      .catch((error) => {
+        console.log(error.response);
+        errorForRegistration();
+      });
+  };
+
+  onFinishFailedRegisStudent = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   children = [];
 
   componentDidMount() {
@@ -253,7 +326,12 @@ class test extends Component {
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand>TURNSKILL 1 to 1</Navbar.Brand>
+          <Link to="/">
+            {" "}
+            <Navbar.Brand onClick={this.gotoHome}>
+              TURNSKILL 1 to 1
+            </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"
@@ -261,7 +339,9 @@ class test extends Component {
           >
             <Nav>
               <Nav.Link>About Us</Nav.Link>
-              <Nav.Link onClick={this.gotocourses}>All Courses </Nav.Link>
+              <Nav.Link onClick={this.gotocourses}>
+                <Link to="/">All Courses</Link>{" "}
+              </Nav.Link>
               <Nav.Link onClick={this.showModalForTeachers}>
                 For Teachers
               </Nav.Link>
@@ -353,8 +433,8 @@ class test extends Component {
                 ref={this.formRef}
                 name="basic"
                 initialValues={{ remember: true }}
-                onFinish={this.onFinishRegis}
-                onFinishFailed={this.onFinishFailedRegis}
+                onFinish={this.onFinishRegisStudent}
+                onFinishFailed={this.onFinishFailedRegisStudent}
                 size="medium"
               >
                 <Row justify="space-between">
@@ -720,4 +800,4 @@ class test extends Component {
   }
 }
 
-export default test;
+export default withRouter(header);
