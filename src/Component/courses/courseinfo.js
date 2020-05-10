@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from "../Navbar/Header";
 import {Select, Row, Col, Button, Radio, Card, Collapse } from "antd";
 import {PlusCircleOutlined, DeleteOutlined} from "@ant-design/icons";
 
@@ -18,6 +17,7 @@ class courseinfo extends Component {
           value1: '',
           value2: '',
           value3: '',
+          cardData: JSON.parse(localStorage.getItem("cardData")) 
         };
         this.selectedDay = this.selectedDay.bind(this);
         this.onClicked = this.onClicked.bind(this);
@@ -57,6 +57,9 @@ class courseinfo extends Component {
 
     children = [];
     componentDidMount() {
+      console.log(this.state.cardData)
+
+
       for (let i = 8; i < 22; i = i + 1) {
         this.children.push(
           <Option key={i + "-" + (Number(i) + 1)}>
@@ -64,6 +67,9 @@ class courseinfo extends Component {
           </Option>
         );
       }
+    }
+    componentWillMount(){
+      console.log(this.props.data)
     }
 
     //For radio button group
@@ -95,7 +101,6 @@ class courseinfo extends Component {
     render() {
         return (
             <div>
-                <Header/>
                 <h1 style={{textAlign: 'center', marginTop: 15}}>HTML and CSS Fundamentals</h1>
                 <h5 style={{textAlign: 'center'}}>Learn how to create and style webpages</h5>
                 <Card title="Course Description" style={{marginRight: 300, marginLeft: 300, marginTop: 20, fontSize: 15 }}>

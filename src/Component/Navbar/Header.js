@@ -173,11 +173,15 @@ class header extends Component {
             "currentUser",
             JSON.stringify({ token, email, phone, username,teacherid })
           );
-          this.props.history.push("/teacherDashboard")
+          console.log( this.props.history)
+          this.props.history.push("teacherDashboard")
+      
       })
       .catch((error) => {
+        if(error.response!==undefined){
         console.log(error.response);
         errorForlogin();
+        }
       });
   };
 

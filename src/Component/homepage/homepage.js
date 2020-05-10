@@ -3,9 +3,10 @@ import { Row, Col, Card } from "antd";
 import AliceCarousel from "react-alice-carousel";
 import { BookOutlined } from "@ant-design/icons";
 import axios from "axios";
-import "./courses.css";
+import "./homepage.css";
 import { withRouter } from "react-router-dom";
 import SearchInput, { createFilter } from 'react-search-input';
+import Teacher from "../teacher/teacher";
 
 const KEYS_TO_FILTERS = ['course_name', 'teacher_name']
 
@@ -30,22 +31,18 @@ class courses extends Component {
     0: { items: 1 },
     1024: { items: 5 },
   };
-  data = {}
-
-
-  selectedCourse = (i) => {
-    console.log(i)
-    this.data = i
-    this.props.history.push("/courseinfo")
-
-  }
+  
+  
 
   searchUpdated(term) {
     this.setState({ searchTerm: term })
     console.log(this.state.galleryItems)
   }
+
+
   filteredCourses = []
   componentDidMount = () => {
+console.log(this.props.selectCard)
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
@@ -56,18 +53,27 @@ class courses extends Component {
         console.log(error.response);
       });
   };
+  // componentWillMount(){
+  //   console.log
+  // }
+  onCardClick=(i)=>{
+    console.log(i)
+    localStorage.setItem("cardData",JSON.stringify(i) )
+    const path=`courseinfo`
+    this.props.history.push(path)
+  }
 
   render() {
     this.filteredCourses = this.state.galleryItems.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     const arr = this.filteredCourses.map((i) => (
       <Row style={{ marginLeft: 12 }} >
-        <Col span={23}
+        <Col span={23}             key={i._id}
+
         >
           <Card
-            key={i._id}
             hoverable
-            onClick={() => this.selectedCourse(i)}
+            onClick={()=>this.onCardClick(i)}
             // style={{ height: "180px", maxWidth: "300px" }}
             cover={
               <img
@@ -130,7 +136,7 @@ class courses extends Component {
           />
 
         </Row>
-
+ <Teacher />
       </div>
     );
   }
