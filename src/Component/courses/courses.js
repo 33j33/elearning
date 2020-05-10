@@ -12,14 +12,13 @@ class courses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       myarray: [],
+       coursesArray: [],
       searchTerm: ''
     };
     this.searchUpdated = this.searchUpdated.bind(this)
   }
   searchUpdated(term) {
     this.setState({ searchTerm: term })
-    console.log(this.state.galleryItems)
   }
   componentDidMount = () => {
     axios
@@ -27,8 +26,8 @@ class courses extends Component {
       .then((response) => {
         console.log(response.data);
 
-        const myarray = response.data;
-        this.setState({ myarray });
+        const coursesArray = response.data;
+        this.setState({ coursesArray });
       })
       .catch((error) => {
         console.log(error.response);
@@ -36,7 +35,7 @@ class courses extends Component {
   };
 
   render() {
-    const filteredCourses = this.state.myarray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+    const filteredCourses = this.state.coursesArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     return (
       <div>

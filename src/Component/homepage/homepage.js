@@ -16,11 +16,11 @@ class courses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      myarray: [],
       galleryItems: [],
+      searchTerm:""
     };
+    this.searchUpdated=this.searchUpdated.bind(this)
   }
-  couseArray = [];
   items;
 
   responsive = {
@@ -42,8 +42,6 @@ console.log(this.props.selectCard)
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
-        this.setState({ myarray: response.data });
-        this.couseArray.push(response.data);
         this.setState({
           galleryItems: response.data.map((i) => (
             <Row style={{ marginLeft: 12 }}>
@@ -79,9 +77,7 @@ console.log(this.props.selectCard)
         console.log(error.response);
       });
   };
-  // componentWillMount(){
-  //   console.log
-  // }
+
   onCardClick=(i)=>{
     console.log(i)
     sessionStorage.setItem("cardData",JSON.stringify(i) )
@@ -94,8 +90,8 @@ console.log(this.props.selectCard)
 
     const arr = this.filteredCourses.map((i) => (
       <Row style={{ marginLeft: 12 }} >
-        <Col span={23}             key={i._id}
-
+        <Col span={23}             
+        key={i._id}
         >
           <Card
             hoverable
@@ -137,9 +133,9 @@ console.log(this.props.selectCard)
           <br />
           <Row className="row-search">
             <Col span={10}>
-              <div className="search">
+            <div className="search">
                 <form className="search-form">
-                  <input type="text" placeholder="Search " />
+                  <SearchInput onChange={this.searchUpdated} placeholder="Search for a course" style={{ width: "100%", border: "none" }} />
                 </form>
               </div>
             </Col>
@@ -148,7 +144,7 @@ console.log(this.props.selectCard)
         <br />
         <Row>
           <AliceCarousel
-            items={this.state.galleryItems}
+            items={arr}
             responsive={this.responsive}
             autoPlayInterval={3000}
             autoPlayDirection="ltr"
@@ -156,8 +152,7 @@ console.log(this.props.selectCard)
             fadeOutAnimation={true}
             mouseTrackingEnabled={true}
             buttonsDisabled={true}
-            onSlideChange={this.onSlideChange}
-            onSlideChanged={this.onSlideChanged}
+   
           />
         </Row>
  <Teacher />
