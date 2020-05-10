@@ -4,6 +4,8 @@ import AliceCarousel from "react-alice-carousel";
 import { BookOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./courses.css";
+import Courseinfo from '../courses/courseinfo';
+import { withRouter } from "react-router-dom";
 const { Meta } = Card;
 
 class courses extends Component {
@@ -21,9 +23,16 @@ class courses extends Component {
     0: { items: 1 },
     1024: { items: 5 },
   };
+  data={}
 
   selectedCourse=(i)=>{
 console.log(i)
+this.data=i
+this.props.history.push("/courseinfo")
+return(
+  <Courseinfo courseinfo={this.data} />
+
+)
   }
 
   handleOnDragStart = (e) =>
@@ -74,8 +83,10 @@ console.log(i)
   };
 
   render() {
+
     return (
       <div>
+        
         <div
           style={{
             backgroundColor: "whitesmoke",
@@ -112,9 +123,12 @@ console.log(i)
             onSlideChanged={this.onSlideChanged}     
                />
         </Row>
+        <Row style={{display:"none"}}>
+        <Courseinfo courseinfo={this.data} />
+        </Row>
       </div>
     );
   }
 }
 
-export default courses;
+export default withRouter(courses);
