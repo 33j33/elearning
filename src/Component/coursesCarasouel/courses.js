@@ -4,8 +4,11 @@ import AliceCarousel from "react-alice-carousel";
 import { BookOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./courses.css";
-import Courseinfo from '../courses/courseinfo';
 import { withRouter } from "react-router-dom";
+import SearchInput, { createFilter } from 'react-search-input';
+
+const KEYS_TO_FILTERS = ['course_name']
+
 const { Meta } = Card;
 
 class courses extends Component {
@@ -14,7 +17,11 @@ class courses extends Component {
     this.state = {
       myarray: [],
       galleryItems: [],
+      searchTerm: ''
+
     };
+    this.searchUpdated = this.searchUpdated.bind(this)
+
   }
   couseArray = [];
   items;
@@ -23,59 +30,27 @@ class courses extends Component {
     0: { items: 1 },
     1024: { items: 5 },
   };
-  data={}
+  data = {}
 
-  selectedCourse=(i)=>{
-console.log(i)
-this.data=i
-this.props.history.push("/courseinfo")
-return(
-  <Courseinfo courseinfo={this.data} />
 
-)
+  selectedCourse = (i) => {
+    console.log(i)
+    this.data = i
+    this.props.history.push("/courseinfo")
+
   }
 
-  handleOnDragStart = (e) =>
-  { e.preventDefault()
+  searchUpdated(term) {
+    this.setState({ searchTerm: term })
+    console.log(this.state.galleryItems)
   }
+  filteredCourses = []
   componentDidMount = () => {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
-        this.setState({ myarray: response.data });
-        this.couseArray.push(response.data);
-        this.setState({
-          galleryItems: response.data.map((i) => (
-            <Row style={{ marginLeft: 12 }}>
-              <Col span={23}  
->
-                <Card
-                  hoverable
-                  key={i}
-                  onClick={ () => this.selectedCourse(i) }
-                  // style={{ height: "180px", maxWidth: "300px" }
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    // height="150px"
-                    />
-                  
-                  }
-                  actions={[
-                    <h6>Price:{i.course_price}</h6>,
-                    <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
-                  ]}
-                >
-                  <Meta
-                    style={{ fontSize: "16px" }}
-                    description={i.course_name}
-                  />
-                </Card>
-              </Col>
-            </Row>
-          )),
-        });
+        console.log(response.data)
+        this.setState({ galleryItems: response.data })
       })
       .catch((error) => {
         console.log(error.response);
@@ -83,10 +58,41 @@ return(
   };
 
   render() {
+    this.filteredCourses = this.state.galleryItems.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
+    const arr = this.filteredCourses.map((i) => (
+      <Row style={{ marginLeft: 12 }}>
+        <Col span={23}
+        >
+          <Card
+            hoverable
+            key={i}
+            onClick={() => this.selectedCourse(i)}
+            // style={{ height: "180px", maxWidth: "300px" }}
+            cover={
+              <img
+                alt="example"
+                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              // height="150px"
+              />
+
+            }
+            actions={[
+              <h6>Price:{i.course_price}</h6>,
+              <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
+            ]}
+          >
+            <Meta
+              // style={{ fontSize: "16px" }}
+              description={i.course_name}
+            />
+          </Card>
+        </Col>
+      </Row>
+    ))
     return (
       <div>
-        
+
         <div
           style={{
             backgroundColor: "whitesmoke",
@@ -102,7 +108,7 @@ return(
             <Col span={10}>
               <div className="search">
                 <form className="search-form">
-                  <input type="text" placeholder="Search " />
+                  <SearchInput onChange={this.searchUpdated} placeholder="Search " style={{ width: "100%", border: "none" }} />
                 </form>
               </div>
             </Col>
@@ -110,8 +116,9 @@ return(
         </div>
         <br />
         <Row>
+
           <AliceCarousel
-            items={this.state.galleryItems}
+            items={arr}
             responsive={this.responsive}
             autoPlayInterval={3000}
             autoPlayDirection="ltr"
@@ -119,16 +126,16 @@ return(
             fadeOutAnimation={true}
             mouseTrackingEnabled={true}
             buttonsDisabled={true}
-            onSlideChange={this.onSlideChange}
-            onSlideChanged={this.onSlideChanged}     
-               />
+
+          />
+
         </Row>
-        <Row style={{display:"none"}}>
-        <Courseinfo courseinfo={this.data} />
-        </Row>
+     
       </div>
     );
   }
+
+
 }
 
 export default withRouter(courses);
