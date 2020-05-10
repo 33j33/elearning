@@ -54,9 +54,9 @@ class header extends Component {
   gotocourses = () => {
     this.props.history.push("/allcourses");
   };
-  gotoHome=()=>{
-    this.props.history.push("/")
-  }
+  gotoHome = () => {
+    this.props.history.push("/");
+  };
   showModalForTeachers = () => {
     this.showModal();
   };
@@ -251,13 +251,11 @@ class header extends Component {
 
   //Login for students
   onFinish = (values) => {
-
-    axios.post('https://elearningserver.herokuapp.com/studentlogin',
-      values
-    )
-      .then(response => {
+    axios
+      .post("https://elearningserver.herokuapp.com/studentlogin", values)
+      .then((response) => {
         console.log(response);
-        this.formRef.current.resetFields()
+        this.formRef.current.resetFields();
         successForlogin();
         this.setState({
           visible: false,
@@ -266,50 +264,45 @@ class header extends Component {
         const email = response.data.email;
         const phone = response.data.mobile;
         const username = response.data.username;
-        const studentid=response.data.studentid;
+        const studentid = response.data.studentid;
         window.localStorage.setItem(
           "currentUser",
-          JSON.stringify({ token, email, phone, username,studentid })
+          JSON.stringify({ token, email, phone, username, studentid })
         );
       })
-      .catch(error => {
-        console.log(error.response)
-        errorForlogin()
-              });
-
+      .catch((error) => {
+        console.log(error.response);
+        errorForlogin();
+      });
   };
 
   onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-    //for Registering Student
-    onFinishRegisStudent = (values) => {
-      console.log(values)
-      axios
-        .post("https://elearningserver.herokuapp.com/registerstudent",
-          values
-        )
-        .then(response => {
-          console.log(response);
-          this.setState({
-            visible: false,
-          });
-          successForregistration();
-          this.formRef.current.resetFields();
-  
-        })
-        .catch(error => {
-          console.log(error.response)
-          errorForRegistration()
+  //for Registering Student
+  onFinishRegisStudent = (values) => {
+    console.log(values);
+    axios
+      .post("https://elearningserver.herokuapp.com/registerstudent", values)
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          visible: false,
         });
-    };
-  
-    onFinishFailedRegisStudent = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-  
-    };
-  
+        successForregistration();
+        this.formRef.current.resetFields();
+      })
+      .catch((error) => {
+        console.log(error.response);
+        errorForRegistration();
+      });
+  };
+
+  onFinishFailedRegisStudent = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   children = [];
 
   componentDidMount() {
@@ -333,7 +326,12 @@ class header extends Component {
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Link to="/">  <Navbar.Brand onClick={this.gotoHome}>TURNSKILL 1 to 1</Navbar.Brand></Link>
+          <Link to="/">
+            {" "}
+            <Navbar.Brand onClick={this.gotoHome}>
+              TURNSKILL 1 to 1
+            </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"
@@ -341,7 +339,9 @@ class header extends Component {
           >
             <Nav>
               <Nav.Link>About Us</Nav.Link>
-              <Nav.Link onClick={this.gotocourses}><Link to="/">All Courses</Link> </Nav.Link>
+              <Nav.Link onClick={this.gotocourses}>
+                <Link to="/">All Courses</Link>{" "}
+              </Nav.Link>
               <Nav.Link onClick={this.showModalForTeachers}>
                 For Teachers
               </Nav.Link>

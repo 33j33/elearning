@@ -17,7 +17,7 @@ class courseinfo extends Component {
           value1: '',
           value2: '',
           value3: '',
-          cardData: JSON.parse(localStorage.getItem("cardData")) 
+          cardData: JSON.parse(sessionStorage.getItem("cardData")) 
         };
         this.selectedDay = this.selectedDay.bind(this);
         this.onClicked = this.onClicked.bind(this);
