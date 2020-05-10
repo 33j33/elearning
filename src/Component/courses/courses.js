@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Card } from "antd";
-import Header from "../Navbar/Header";
 import { Row, Col } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
 import "./courses.css";
 import axios from "axios";
 import SearchInput, {createFilter} from 'react-search-input'
@@ -42,9 +40,6 @@ class courses extends Component {
 
     return (
       <div>
-        <Header />
-        <br />
-        <br />
         <Row>
           <Col span={7} offset={8}>
           <div className="search">

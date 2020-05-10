@@ -3,7 +3,13 @@ import { Row, Col, Card } from "antd";
 import AliceCarousel from "react-alice-carousel";
 import { BookOutlined } from "@ant-design/icons";
 import axios from "axios";
-import "./courses.css";
+import "./homepage.css";
+import { withRouter } from "react-router-dom";
+import SearchInput, { createFilter } from 'react-search-input';
+import Teacher from "../teacher/teacher";
+
+const KEYS_TO_FILTERS = ['course_name', 'teacher_name']
+
 const { Meta } = Card;
 
 class courses extends Component {
@@ -21,15 +27,18 @@ class courses extends Component {
     0: { items: 1 },
     1024: { items: 5 },
   };
+  
+  
 
-  selectedCourse = (i) => {
-    console.log(i);
-  };
+  searchUpdated(term) {
+    this.setState({ searchTerm: term })
+    console.log(this.state.galleryItems)
+  }
 
-  handleOnDragStart = (e) => {
-    e.preventDefault();
-  };
+
+  filteredCourses = []
   componentDidMount = () => {
+console.log(this.props.selectCard)
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
@@ -70,8 +79,49 @@ class courses extends Component {
         console.log(error.response);
       });
   };
+  // componentWillMount(){
+  //   console.log
+  // }
+  onCardClick=(i)=>{
+    console.log(i)
+    sessionStorage.setItem("cardData",JSON.stringify(i) )
+    const path=`courseinfo`
+    this.props.history.push(path)
+  }
 
   render() {
+    this.filteredCourses = this.state.galleryItems.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+
+    const arr = this.filteredCourses.map((i) => (
+      <Row style={{ marginLeft: 12 }} >
+        <Col span={23}             key={i._id}
+
+        >
+          <Card
+            hoverable
+            onClick={()=>this.onCardClick(i)}
+            // style={{ height: "180px", maxWidth: "300px" }}
+            cover={
+              <img
+                alt="example"
+                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              // height="150px"
+              />
+
+            }
+            actions={[
+              <h6>Price:{i.course_price}</h6>,
+              <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
+            ]}
+          >
+            <Meta
+              // style={{ fontSize: "16px" }}
+              description={i.course_name}
+            />
+          </Card>
+        </Col>
+      </Row>
+    ))
     return (
       <div>
         <div
@@ -110,6 +160,7 @@ class courses extends Component {
             onSlideChanged={this.onSlideChanged}
           />
         </Row>
+ <Teacher />
       </div>
     );
   }

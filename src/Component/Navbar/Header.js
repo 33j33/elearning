@@ -164,20 +164,24 @@ class header extends Component {
         this.setState({
           visible: false,
         });
-        const token = response.data.token;
-        const email = response.data.email;
-        const phone = response.data.mobile;
-        const username = response.data.username;
-        const teacherid = response.data.teacherid;
-        window.localStorage.setItem(
-          "currentUser",
-          JSON.stringify({ token, email, phone, username, teacherid })
-        );
-        this.props.history.push("/teacherprofile");
+          const token = response.data.token;
+          const email = response.data.email;
+          const phone = response.data.mobile;
+          const username = response.data.username;
+          const teacherid=response.data.teacherid;
+          window.localStorage.setItem(
+            "currentUser",
+            JSON.stringify({ token, email, phone, username,teacherid })
+          );
+          console.log( this.props.history)
+          this.props.history.push("teacherDashboard")
+      
       })
       .catch((error) => {
+        if(error.response!==undefined){
         console.log(error.response);
         errorForlogin();
+        }
       });
   };
 
