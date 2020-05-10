@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import SearchInput, { createFilter } from 'react-search-input';
 import Teacher from "../teacher/teacher";
 
-const KEYS_TO_FILTERS = ['course_name', 'teacher_name']
+const KEYS_TO_FILTERS = ['course_name']
 
 const { Meta } = Card;
 
@@ -37,42 +37,16 @@ class courses extends Component {
 
 
   filteredCourses = []
+
   componentDidMount = () => {
 console.log(this.props.selectCard)
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
+
         this.setState({
-          galleryItems: response.data.map((i) => (
-            <Row style={{ marginLeft: 12 }}>
-              <Col span={23}>
-                <Card
-                  hoverable
-                  key={i}
-                  onClick={() => this.selectedCourse(i)}
-                  // style={{ height: "180px", maxWidth: "300px" }
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                      // height="150px"
-                    />
-                  }
-                  actions={[
-                    <h6>Price:{i.course_price}</h6>,
-                    <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
-                  ]}
-                >
-                  <Meta
-                    style={{ fontSize: "16px" }}
-                    description={i.course_name}
-                  />
-                </Card>
-              </Col>
-            </Row>
-          )),
-        });
-      })
+          galleryItems: response.data})
+        })
       .catch((error) => {
         console.log(error.response);
       });
