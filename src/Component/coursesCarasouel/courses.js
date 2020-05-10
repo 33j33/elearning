@@ -108,7 +108,7 @@ class courses extends Component {
             <Col span={10}>
               <div className="search">
                 <form className="search-form">
-                  <SearchInput onChange={this.searchUpdated} placeholder="Search " style={{ width: "100%", border: "none" }} />
+                  <SearchInput onChange={this.searchUpdated} placeholder="Search for a course" style={{ width: "100%", border: "none" }} />
                 </form>
               </div>
             </Col>
