@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { Layout, Menu } from 'antd';
-import { CalendarOutlined , FormOutlined, BookOutlined ,DollarOutlined } from '@ant-design/icons';
+import { Layout, Menu } from "antd";
+import {
+  CalendarOutlined,
+  FormOutlined,
+  BookOutlined,
+  DollarOutlined,
+} from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
 
-
-
-import { BrowserRouter as  Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 class dashboard extends Component {
   constructor(props) {
@@ -17,9 +20,9 @@ class dashboard extends Component {
     this.props.history.push("/profile");
   };
 
-  componentDidMount(){
+  componentDidMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-console.log(currentUser.username)
+    console.log(currentUser.username);
   }
   render() {
     const { Sider } = Layout;
@@ -53,14 +56,14 @@ console.log(currentUser.username)
           </Menu.Item>
           <Menu.Item key="1">
             <FormOutlined />
-            <Link to="/profile">
+            <Link to="/teacherprofile">
               <span className="nav-text">Profile</span>{" "}
             </Link>
           </Menu.Item>
 
           <Menu.Item key="3">
             <BookOutlined />
-            <Link to="/courses">
+            <Link to="/teachercourses">
               {" "}
               <span className="nav-text">Courses</span>
             </Link>
@@ -72,7 +75,7 @@ console.log(currentUser.username)
 
           <Menu.Item key="5">
             <DollarOutlined />
-            <Link to="/payment">
+            <Link to="/teacherpayment">
               {" "}
               <span className="nav-text">Payment</span>
             </Link>

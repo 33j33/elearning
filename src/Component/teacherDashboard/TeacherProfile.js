@@ -1,13 +1,22 @@
 import React, { Component } from "react";
-import { Descriptions } from "antd";
 import { Input } from "antd";
-import { PageHeader } from "antd";
+import { Row, Col } from "antd";
 import Sidenav from "./dashboard";
 import { Layout } from "antd";
-
-/*Code by Tavishi, used http://localhost:3000/teacherDashboard/Teacherprofile to access it*/
+import { Button } from "antd";
 
 class TeacherProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+    };
+  }
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    console.log(currentUser);
+    this.setState({ username: currentUser.username });
+  }
   render() {
     const { Content } = Layout;
 
@@ -27,35 +36,56 @@ class TeacherProfile extends Component {
                 className="site-layout-background"
                 style={{ padding: 24, minHeight: 360 }}
               >
-                <PageHeader
-                  className="site-page-header"
-                  onBack={() => null}
-                  title="Profile Information"
-                  subTitle=""
-                />
-                <Descriptions title="" bordered>
-                  <Descriptions.Item label="Name" span={2}>
-                    <Input placeholder="Radhika Kumar" />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Telephone" span={2}>
-                    <Input placeholder="9953421678" />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Address" span={2}>
-                    <Input placeholder="New Delhi, India" />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Qualification" span={2}>
-                    <Input placeholder="Post Graduation" />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Educational Qualification" span={2}>
-                    <Input placeholder="Math teacher at DAV" />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Languages Spoken" span={2}>
-                    <Input placeholder="Hindi,English" />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Remarks" span={2}>
-                    <Input placeholder="Tell us more about you..." />
-                  </Descriptions.Item>
-                </Descriptions>
+                <Row>
+                  <Col span={20} offset={2} style={{ marginBottom: 30 }}>
+                    Asterick(*) Fields are necessary. You can save your data by
+                    clicking the save button.
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                    <Input
+                      size="large"
+                      placeholder="UserName*"
+                      value={this.state.username}
+                      disabled
+                      // prefix={<UserOutlined />}
+                    />
+                  </Col>
+                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                    <Input size="large" placeholder="Telephone*" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                    <Input size="large" placeholder="Address*" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                    <span>Educational Details:</span>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                    <Input size="large" placeholder="Qualification*" />
+                  </Col>
+                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                    <Input size="large" placeholder="Languages Spoken" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                    <Input size="large" placeholder="Remarks" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={20} offset={2} style={{ marginBottom: 30 }}>
+                    <Button type="primary" size="large">
+                      Save
+                    </Button>
+                  </Col>
+                </Row>
               </div>
             </Content>
           </Layout>
