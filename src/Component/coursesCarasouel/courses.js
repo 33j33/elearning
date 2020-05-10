@@ -7,7 +7,7 @@ import "./courses.css";
 import { withRouter } from "react-router-dom";
 import SearchInput, { createFilter } from 'react-search-input';
 
-const KEYS_TO_FILTERS = ['course_name']
+const KEYS_TO_FILTERS = ['course_name', 'teacher_name']
 
 const { Meta } = Card;
 
@@ -61,12 +61,12 @@ class courses extends Component {
     this.filteredCourses = this.state.galleryItems.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     const arr = this.filteredCourses.map((i) => (
-      <Row style={{ marginLeft: 12 }}>
+      <Row style={{ marginLeft: 12 }} >
         <Col span={23}
         >
           <Card
+            key={i._id}
             hoverable
-            key={i}
             onClick={() => this.selectedCourse(i)}
             // style={{ height: "180px", maxWidth: "300px" }}
             cover={
@@ -130,7 +130,7 @@ class courses extends Component {
           />
 
         </Row>
-     
+
       </div>
     );
   }
