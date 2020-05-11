@@ -12,7 +12,7 @@ class dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleKey: "payment",
+      titleKey: "todaysSchedule",
     };
   }
 
