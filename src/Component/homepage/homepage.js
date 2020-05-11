@@ -37,6 +37,7 @@ class courses extends Component {
   filteredCourses = [];
 
   componentDidMount = () => {
+    
     console.log(this.props.selectCard);
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
@@ -77,7 +78,6 @@ class courses extends Component {
             }
             actions={[
               <h6>Price:{i.course_price}</h6>,
-              <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
             ]}
           >
             <Meta

@@ -40,7 +40,7 @@ class courses extends Component {
     const filteredCourses = this.state.coursesArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     return (
-      <div>
+      <div style={{marginTop:10}}>
         <Row>
           <Col span={7} offset={8}>
           <div className="search">
