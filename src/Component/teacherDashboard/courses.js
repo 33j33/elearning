@@ -9,14 +9,34 @@ const { Search } = Input;
 const { Text } = Typography;
 const { Panel } = Collapse;
 class Courses extends Component {
-  // constructor(props) {
-  //     super(props)
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      coursesArray: [],
+    };
+  }
   componentDidMount() {
     let teacherEmail;
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     console.log(currentUser);
     teacherEmail = currentUser.email;
+    const headers = { "x-auth-token": currentUser.token };
+    axios
+      .get(
+        `https://elearningserver.herokuapp.com/teacher/addedCourseDetails/${teacherEmail}`,
+        { headers }
+      )
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ coursesArray: response.data });
+
+        // this.setState({
+        //   visible: false,
+        // });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }
   showModalForTeachers = () => {
     this.showTeacherModal();
@@ -80,23 +100,21 @@ class Courses extends Component {
                   </Col>
                 </Row>
                 <br />
-                <Row justify="center">
-                  <Col span={20}>
-                    <Collapse>
-                      <Panel header="Fundamentals of Machine Learning" key="1">
-                        <p>
-                          Description: "Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit. Ut sollicitudin velit a diam
-                          dignissim blandit. Nulla non libero orci. Morbi auctor
-                          consequat pellentesque. Phasellus sit amet quam odio.
-                          Quisque id mollis augue, nec varius ipsum. Fusce
-                          rhoncus nulla non laoreet ullamcorper. Cras lacinia
-                          sollicitudin tempus"
-                        </p>
-                        <p>"Monday 8-9AM, 10-11AM, 2-3AM"</p>
-                        <p>"Tuesday 9-10AM"</p>
-                      </Panel>
-                      <Panel
+                {this.state.coursesArray.map((i) => (
+                  <Row justify="center" style={{ marginBottom: 10 }}>
+                    <Col span={20}>
+                      <Collapse>
+                        <Panel key={i._id} header={i.course_name}>
+                          <p>{i.course_description}</p>
+                          <p>Course Price: {i.course_price}</p>
+                          <p>Course Duration: {i.course_duration}</p>
+                          {i.course_schedule.map((j) => (
+                            <p>
+                              {j.day} -- {j.time + ","}
+                            </p>
+                          ))}
+                        </Panel>
+                        {/* <Panel
                         header="Introduction to HTML, CSS and JavaScript"
                         key="2"
                       >
@@ -127,10 +145,11 @@ class Courses extends Component {
                         </p>
                         <p>"Saturday 8-9AM"</p>
                         <p> "Friday 8-9AM"</p>
-                      </Panel>
-                    </Collapse>
-                  </Col>
-                </Row>
+                      </Panel> */}
+                      </Collapse>
+                    </Col>
+                  </Row>
+                ))}
               </div>
             </Content>
           </Layout>

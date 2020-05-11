@@ -8,13 +8,10 @@ import courseinfo from "./Component/courses/courseinfo";
 import courses from "./Component/courses/courses";
 // import {PrivateRoute} from "./Component/Privateroute/index";
 import Test from "./Component/test";
-import Homepage from './Component/homepage/homepage';
+import Homepage from "./Component/homepage/homepage";
 import Header from "./Component/homepage/Navbar/Header";
-import Footer from './Component/homepage/footer/footer'
-
+import Footer from "./Component/homepage/footer/footer";
 class App extends Component {
-
-
   render() {
     return (
       <div>
@@ -28,7 +25,7 @@ class App extends Component {
               path="/teacherDashboard"
               component={TeacherDashboard}
             />
-            <Route exact path="/courses" component={Courses} />
+            <Route exact path="/teachercourses" component={Courses} />
             <Route exact path="/allcourses" component={courses} />
             <Route exact path="/test" component={Test} />
             <Route exact path="/courseinfo" component={courseinfo} />
