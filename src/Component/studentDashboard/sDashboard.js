@@ -161,7 +161,7 @@ class StudentDashboard extends Component {
             md={{ span: 10 }}
           >
             <Card
-              hoverable
+              
               style={{ width: "100%" }}
               //cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
               cover={
@@ -191,7 +191,7 @@ class StudentDashboard extends Component {
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 14 }}>
             <Card
-              hoverable
+              
               style={{ width: "100%" }}
               tabList={tabList}
               activeTabKey={this.state.titleKey}

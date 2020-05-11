@@ -26,13 +26,13 @@ const successForlogin = () => {
 };
 
 const errorForlogin = () => {
-  message.error("Login Failed");
+  message.error("Invalid Credentials");
 };
 const successForCourses = () => {
   message.success("Succesfully Added a course");
 };
 const logoutMessage = () => {
-  message.success("Succesfully Loggedout");
+  message.success("Succesfully Logged out");
 };
 const { TabPane } = Tabs;
 const { Option } = Select;

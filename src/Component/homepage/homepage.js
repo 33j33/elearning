@@ -7,6 +7,7 @@ import axios from "axios";
 import "./homepage.css";
 import SearchInput, { createFilter } from "react-search-input";
 import Teacher from "./teacher/teacher";
+import { Link } from "react-router-dom";
 
 const KEYS_TO_FILTERS = ["course_name"];
 
@@ -122,7 +123,7 @@ class courses extends Component {
             </h3>
           </Col>
           <Col style={{ marginRight: 12 }}>
-            <Button>View All</Button>
+            <Button ><Link to="allcourses">View All</Link></Button>
           </Col>
         </Row>
         ;
