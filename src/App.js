@@ -24,15 +24,17 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route exact path="/profile" component={Profile} />
-            <Route exact path="/teacherDashboard" component={TeacherDashboard} />
+            <Route
+              exact
+              path="/teacherDashboard"
+              component={TeacherDashboard}
+            />
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/allcourses" component={courses} />
             <Route exact path="/test" component={Test} />
             <Route exact path="/courseinfo" component={courseinfo} />
             <Route path="/payment" exact component={Payment} />
           </Switch>
-
-
         </BrowserRouter>
         <Footer />
       </div>
