@@ -63,12 +63,23 @@ class header extends Component {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 if(!currentUser){
     this.setState({ showField: false });
-    logoutMessage()
+    logoutMessage();
+    this.props.history.push("/")
 }
 else{
   console.log("log out failed")
 }
   };
+  gotoProfile=()=>{
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+if(currentUser.studentid){
+  this.props.history.push("/student/dashboard")
+}
+else{
+  this.props.history.push("/teacher/dashboard")
+
+}
+  }
 
   gotocourses = () => {
     this.props.history.push("/allcourses");
@@ -194,8 +205,7 @@ else{
           JSON.stringify({ token, email, phone, username, teacherid })
         );
         this.setState({ showField: true, username: username });
-        console.log(this.props.history);
-        // this.props.history.push("/");
+        this.props.history.push("teacher/dashboard");
       })
       .catch((error) => {
         if (error.response !== undefined) {
@@ -289,8 +299,9 @@ else{
           "currentUser",
           JSON.stringify({ token, email, phone, username, studentid })
         );
-        this.setState({ showField: true, username: username });
-        this.setState({visibleModalForStudents:false})
+        this.setState({ showField: true, username: username,visibleModalForStudents:false });
+        this.props.history.push("student/dashboard");
+
       })
       .catch((error) => {
         console.log(error.response);
@@ -373,7 +384,7 @@ else{
               </Nav.Link>
               {this.state.showField ? (
                 <Row>
-                  <Nav.Link>{this.state.username}</Nav.Link>
+                  <Nav.Link onClick={this.gotoProfile}>{this.state.username}</Nav.Link>
                   <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
                 </Row>
               ) : (
