@@ -44,12 +44,20 @@ class header extends Component {
       allDays: [],
       coursesModal: false,
       visibleModalForStudents: false,
+      showField: false,
+      username: "",
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
     this.onClicked = this.onClicked.bind(this);
   }
   formRef = React.createRef();
+
+  //Onclicking Logout
+  onClickLogout = () => {
+    window.localStorage.clear();
+    this.setState({ showField: false });
+  };
 
   gotocourses = () => {
     this.props.history.push("/allcourses");
@@ -164,23 +172,24 @@ class header extends Component {
         this.setState({
           visible: false,
         });
-          const token = response.data.token;
-          const email = response.data.email;
-          const phone = response.data.mobile;
-          const username = response.data.username;
-          const teacherid=response.data.teacherid;
-          window.localStorage.setItem(
-            "currentUser",
-            JSON.stringify({ token, email, phone, username,teacherid })
-          );
-          console.log( this.props.history)
-          this.props.history.push("teacherDashboard")
-      
+        const token = response.data.token;
+        const email = response.data.email;
+        const phone = response.data.mobile;
+        const username = response.data.username;
+        const teacherid = response.data.teacherid;
+
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify({ token, email, phone, username, teacherid })
+        );
+        this.setState({ showField: true, username: username });
+        console.log(this.props.history);
+        // this.props.history.push("/");
       })
       .catch((error) => {
-        if(error.response!==undefined){
-        console.log(error.response);
-        errorForlogin();
+        if (error.response !== undefined) {
+          console.log(error.response);
+          errorForlogin();
         }
       });
   };
@@ -269,6 +278,7 @@ class header extends Component {
           "currentUser",
           JSON.stringify({ token, email, phone, username, studentid })
         );
+        this.setState({ showField: true, username: username });
       })
       .catch((error) => {
         console.log(error.response);
@@ -328,7 +338,7 @@ class header extends Component {
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Link to="/">
             {" "}
-            <Navbar.Brand onClick={this.gotoHome} style={{cursor:"pointer"}}>
+            <Navbar.Brand onClick={this.gotoHome} style={{ cursor: "pointer" }}>
               TURNSKILL 1 to 1
             </Navbar.Brand>
           </Link>
@@ -342,12 +352,21 @@ class header extends Component {
               <Nav.Link onClick={this.gotocourses}>
                 <Link to="/">All Courses</Link>{" "}
               </Nav.Link>
-              <Nav.Link onClick={this.showModalForTeachers}>
-                For Teachers
-              </Nav.Link>
-              <Nav.Link onClick={this.showModalForStudents}>
-                For Students
-              </Nav.Link>
+              {this.state.showField ? (
+                <Row>
+                  <Nav.Link>{this.state.username}</Nav.Link>
+                  <Nav.Link onClick={this.onClickLogout}>logout </Nav.Link>
+                </Row>
+              ) : (
+                <Row>
+                  <Nav.Link onClick={this.showModalForTeachers}>
+                    For Teachers
+                  </Nav.Link>
+                  <Nav.Link onClick={this.showModalForStudents}>
+                    For Students
+                  </Nav.Link>
+                </Row>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

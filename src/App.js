@@ -11,6 +11,7 @@ import Test from "./Component/test";
 import Homepage from "./Component/homepage/homepage";
 import Header from "./Component/homepage/Navbar/Header";
 import Footer from "./Component/homepage/footer/footer";
+import StudentDashboard from "./Component/studentDashboard/sDashboard";
 class App extends Component {
   render() {
     return (
@@ -30,6 +31,11 @@ class App extends Component {
             <Route exact path="/test" component={Test} />
             <Route exact path="/courseinfo" component={courseinfo} />
             <Route path="/payment" exact component={Payment} />
+            <Route
+              path="/studentdashboard"
+              exact
+              component={StudentDashboard}
+            />
           </Switch>
         </BrowserRouter>
         <Footer />

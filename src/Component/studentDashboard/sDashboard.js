@@ -189,20 +189,18 @@ class StudentDashboard extends Component {
               />
             </Card>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <div style={{ marginTop: "4%", marginRight: "1%" }}>
-              <Card
-                hoverable
-                style={{ width: "100%" }}
-                tabList={tabList}
-                activeTabKey={this.state.titleKey}
-                onTabChange={(key) => {
-                  this.onTabChange(key, "titleKey");
-                }}
-              >
-                {contentList[this.state.titleKey]}
-              </Card>
-            </div>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+            <Card
+              hoverable
+              style={{ width: "100%" }}
+              tabList={tabList}
+              activeTabKey={this.state.titleKey}
+              onTabChange={(key) => {
+                this.onTabChange(key, "titleKey");
+              }}
+            >
+              {contentList[this.state.titleKey]}
+            </Card>
           </Col>
         </Row>
       </div>
