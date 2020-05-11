@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Table, Tag } from "antd";
 const { Meta } = Card;
 
 

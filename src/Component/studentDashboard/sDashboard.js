@@ -44,7 +44,7 @@ class StudentDashboard extends Component {
         title: "S.no",
         dataIndex: "number",
         key: "number",
-        render: (text) => <a>{text}</a>,
+        
       },
       {
         title: "Course",
@@ -55,13 +55,13 @@ class StudentDashboard extends Component {
         title: "Teacher Name",
         dataIndex: "name",
         key: "name",
-        render: (text) => <a>{text}</a>,
+        
       },
       {
         title: "Starting Date",
         dataIndex: "date",
         key: "date",
-        render: (text) => <a>{text}</a>,
+        
       },
       {
         title: "Amount Paid",
@@ -84,7 +84,7 @@ class StudentDashboard extends Component {
         title: "Teacher Mobile Number",
         dataIndex: "mob",
         key: "mob",
-        render: (text) => <a>{text}</a>,
+        
       },
     ];
 

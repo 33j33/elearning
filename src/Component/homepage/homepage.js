@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import { Row, Col, Card, Button } from "antd";
 import AliceCarousel from "react-alice-carousel";
-import { BookOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./homepage.css";
 import SearchInput, { createFilter } from "react-search-input";
