@@ -60,8 +60,14 @@ class header extends Component {
   //Onclicking Logout
   onClickLogout = () => {
     window.localStorage.clear();
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+if(!currentUser){
     this.setState({ showField: false });
     logoutMessage()
+}
+else{
+  console.log("log out failed")
+}
   };
 
   gotocourses = () => {
