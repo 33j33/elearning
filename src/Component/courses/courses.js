@@ -53,7 +53,7 @@ class courses extends Component {
         <br />
         <Row>
           {filteredCourses.map((i) => (
-            <Col offset={1} span={5}>
+            <Col offset={1} span={5} key={i._id}>
               <Card
                 hoverable
                 style={{ width: 240, minWidth: 100, marginBottom: 40 }}

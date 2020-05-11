@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-// import Homepage from "./Component/homePage";
 import Profile from "./Component/teacherDashboard/TeacherProfile";
 import TeacherDashboard from "./Component/teacherDashboard/dashboard";
 import Courses from "./Component/teacherDashboard/courses";
