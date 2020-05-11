@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
-import { Layout } from "antd";
+import { Form, Input, Button } from "antd";
 
 class StudentProfile extends Component {
   constructor(props) {
@@ -21,23 +20,6 @@ class StudentProfile extends Component {
     });
   }
   render() {
-    const { Content } = Layout;
-
-    const layout2 = {
-      labelCol: {
-        span: 8,
-      },
-      wrapperCol: {
-        span: 16,
-      },
-    };
-    const tailLayout = {
-      wrapperCol: {
-        offset: 8,
-        span: 16,
-      },
-    };
-
     const onFinish = (values) => {
       console.log("Success:", values);
     };
