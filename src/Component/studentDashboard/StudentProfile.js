@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
-import { Row, Col } from "antd";
-import Sidenav from "./dashboard";
 import { Layout } from "antd";
 
-class TeacherProfile extends Component {
+class StudentProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,7 +45,6 @@ class TeacherProfile extends Component {
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
-
     return (
       <div>
         <Form
@@ -95,4 +92,4 @@ class TeacherProfile extends Component {
   }
 }
 
-export default TeacherProfile;
+export default StudentProfile;

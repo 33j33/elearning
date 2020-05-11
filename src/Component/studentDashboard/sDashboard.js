@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Table, Tag } from "antd";
+import Profile from "./StudentProfile";
+import Progress from "./Progress";
 const { Meta } = Card;
 
 /*
@@ -44,7 +46,6 @@ class StudentDashboard extends Component {
         title: "S.no",
         dataIndex: "number",
         key: "number",
-        
       },
       {
         title: "Course",
@@ -55,13 +56,11 @@ class StudentDashboard extends Component {
         title: "Teacher Name",
         dataIndex: "name",
         key: "name",
-        
       },
       {
         title: "Starting Date",
         dataIndex: "date",
         key: "date",
-        
       },
       {
         title: "Amount Paid",
@@ -84,7 +83,6 @@ class StudentDashboard extends Component {
         title: "Teacher Mobile Number",
         dataIndex: "mob",
         key: "mob",
-        
       },
     ];
 
@@ -146,8 +144,8 @@ class StudentDashboard extends Component {
     ];
 
     const contentList = {
-      profile: <p>profile content</p>,
-      progress: <p>progress content</p>,
+      profile: <Profile />,
+      progress: <Progress />,
       payment: <Table columns={columns} dataSource={data} />,
     };
 
