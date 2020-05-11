@@ -21,25 +21,10 @@ class TeacherProfile extends Component {
     const { Content } = Layout;
 
     return (
-      <Layout>
-        <Layout style={{ minHeight: "100vh" }}>
-          <Sidenav />
-          <Layout
-            className="site-layout"
-            style={{ marginLeft: 200, minHeight: "100vh" }}
-          >
-            <Content
-              className="site-layout"
-              style={{ padding: "0 50px", marginTop: 10 }}
-            >
+     
               <div
-                className="site-layout-background"
-                style={{ padding: 24, minHeight: 360 }}
+              
               >
-                <Row>
-                  <Col></Col>
-                </Row>
-
                 <Row>
                   <Col span={20} offset={2} style={{ marginBottom: 30 }}>
                     Asterick(*) Fields are necessary. You can save your data by
@@ -91,10 +76,7 @@ class TeacherProfile extends Component {
                   </Col>
                 </Row>
               </div>
-            </Content>
-          </Layout>
-        </Layout>
-      </Layout>
+           
     );
   }
 }

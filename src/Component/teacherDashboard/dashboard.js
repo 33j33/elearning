@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import Addedcourses from './courses';
+import Payment from './payment';
+import Profile from './TeacherProfile';
+
 const { Meta } = Card;
 
 
@@ -39,11 +43,11 @@ class dashboard extends Component {
 
   
     const contentList = {
-      todaysSchedule:<p>Today classes</p>,
-      profile: <p>profile content</p>,
-      adddedCourses: <p>all adddedCourses content</p>,
-      payment: <p>Paymenmt</p>,
-    };
+      todaysSchedule:<p>Todys schedule</p>,
+      // profile: <Profile />,
+      adddedCourses: <Addedcourses />,
+      payment: <Payment /> 
+        };
 
     return (
       <div style={{ margin: "5% 7% 5%" }}>

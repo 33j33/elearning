@@ -139,22 +139,9 @@ class payment extends Component {
     ];
 
     return (
-      <Layout >
-      <Layout style={{ minHeight: '100vh'}}>
-        <Sidenav />
-        <Layout className="site-layout" style={{ marginLeft: 200, minHeight: "100vh" }}>
-          <Content className="site-layout" style={{ padding: '0 50px', marginTop: 10 }}>
-            <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-        <h1 id="hello">Payments</h1>
-        <br />
-        <h5 id="hello">Payments Received From Students!</h5>
-        <br />
+     
         <Table columns={columns} dataSource={data} />
-        </div>
-            </Content>
-          </Layout>
-        </Layout>
-      </Layout>
+           
     );
   }
 }
