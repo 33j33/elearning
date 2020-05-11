@@ -21,23 +21,28 @@ class dashboard extends Component {
   render() {
     const tabList = [
       {
+        key: "todaysSchedule",
+        tab: "todaysSchedule",
+      },
+      {
         key: "profile",
         tab: "profile",
       },
       {
-        key: "progress",
-        tab: "progress",
+        key: "adddedCourses",
+        tab: "adddedCourses",
       },
       {
-        key: "payment",
+        key: "payment ",
         tab: "payment",
       },
     ];
 
   
     const contentList = {
+      todaysSchedule:<p>Today classes</p>,
       profile: <p>profile content</p>,
-      progress: <p>progress content</p>,
+      adddedCourses: <p>all adddedCourses content</p>,
       payment: <p>Paymenmt</p>,
     };
 
