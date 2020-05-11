@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { Input, Row, Col, Button, Typography, Collapse, Layout } from "antd";
+import {  Row, Col, Button, Typography } from "antd";
 import { PlusCircleTwoTone } from "@ant-design/icons";
-import AddCourse from "./addCourse.js";
-import Sidenav from "./dashboard";
 import axios from "axios";
 
-const { Search } = Input;
 const { Text } = Typography;
-const { Panel } = Collapse;
+
 class Courses extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +39,6 @@ class Courses extends Component {
     this.showTeacherModal();
   };
   render() {
-    const { Content } = Layout;
 
     return (
    

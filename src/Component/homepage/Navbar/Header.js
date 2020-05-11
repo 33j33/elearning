@@ -510,7 +510,7 @@ else{
                         },
                       ]}
                     >
-                      <InputNumber placeholder="Mobile" />
+                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -667,7 +667,7 @@ else{
                         },
                       ]}
                     >
-                      <InputNumber placeholder="Mobile" />
+                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
                     </Form.Item>
                   </Col>
                 </Row>

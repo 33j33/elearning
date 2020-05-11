@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Table, Tag } from "antd";
 import "./payment.css";
-import Sidenav from './dashboard'
-import { Layout } from 'antd';
 
 //Payment section of the Teacher Dashboard
 
@@ -30,7 +28,6 @@ class payment extends Component {
   }
 
   render() {
-    const { Content } = Layout;
 
     const columns = [
       {
