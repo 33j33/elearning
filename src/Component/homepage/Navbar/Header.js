@@ -743,7 +743,6 @@ else{
                   rules={[
                     {
                       required: true,
-                      type: 'email',
                       message: "Please input your Course Name!",
                     },
                   ]}
