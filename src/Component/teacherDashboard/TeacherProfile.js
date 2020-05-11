@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Input } from "antd";
 import { Row, Col } from "antd";
-import Sidenav from "./dashboard";
-import { Layout } from "antd";
+
 import { Button } from "antd";
 
 class TeacherProfile extends Component {
@@ -18,7 +17,6 @@ class TeacherProfile extends Component {
     this.setState({ username: currentUser.username });
   }
   render() {
-    const { Content } = Layout;
 
     return (
      
@@ -26,50 +24,49 @@ class TeacherProfile extends Component {
               
               >
                 <Row>
-                  <Col span={20} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     Asterick(*) Fields are necessary. You can save your data by
                     clicking the save button.
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={16} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <Input
                       size="large"
                       placeholder="UserName*"
                       value={this.state.username}
                       disabled
-                      // prefix={<UserOutlined />}
                     />
                   </Col>
-                  <Col span={4} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <Input size="large" placeholder="Telephone*" />
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <Input size="large" placeholder="Address*" />
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <span>Educational Details:</span>
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <Input size="large" placeholder="Qualification*" />
                   </Col>
-                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <Input size="large" placeholder="Languages Spoken" />
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <Input size="large" placeholder="Remarks" />
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={20} offset={2} style={{ marginBottom: 30 }}>
+                  <Col >
                     <Button type="primary" size="large">
                       Save
                     </Button>

@@ -12,7 +12,7 @@ class dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleKey: "profile",
+      titleKey: "payment",
     };
   }
 
@@ -36,17 +36,17 @@ class dashboard extends Component {
         tab: "adddedCourses",
       },
       {
-        key: "payment ",
+        key: "payment",
         tab: "payment",
       },
     ];
 
   
     const contentList = {
-      todaysSchedule:<p>Todys schedule</p>,
-      // profile: <Profile />,
+      profile: <Profile />,
       adddedCourses: <Addedcourses />,
-      payment: <Payment /> 
+      todaysSchedule: <p>Today schedule</p>,
+      payment: <Payment />
         };
 
     return (
@@ -59,9 +59,7 @@ class dashboard extends Component {
             md={{ span: 10 }}
           >
             <Card
-              hoverable
               style={{ width: "100%" }}
-              //cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
               cover={
                 <Avatar
                   size={150}
@@ -89,7 +87,7 @@ class dashboard extends Component {
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 14 }}>
             <Card
-              hoverable
+              
               style={{ width: "100%" }}
               tabList={tabList}
               activeTabKey={this.state.titleKey}

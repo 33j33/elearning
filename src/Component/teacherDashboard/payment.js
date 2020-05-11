@@ -37,23 +37,30 @@ class payment extends Component {
         title: "S.no",
         dataIndex: "number",
         key: "number",
+        responsive: ['sm']
         // render: (text) => <a>{text}</a>,
       },
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
+        responsive: ['sm']
+
         // render: (text) => <a>{text}</a>,
       },
       {
         title: "Course",
         dataIndex: "course",
         key: "course",
+        responsive: ['sm']
+
       },
       {
         title: "Date",
         dataIndex: "date",
         key: "date",
+        responsive: ['sm']
+
         // render: (text) => <a>{text}</a>,
       },
       {
@@ -72,6 +79,8 @@ class payment extends Component {
             })}
           </span>
         ),
+        responsive: ['sm']
+
       },
       {
         title: "Mobile Number",
@@ -139,9 +148,9 @@ class payment extends Component {
     ];
 
     return (
-     
-        <Table columns={columns} dataSource={data} />
-           
+     <div>
+        <Table columns={columns} dataSource={data} size="small"/>
+        </div> 
     );
   }
 }
