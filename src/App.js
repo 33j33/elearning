@@ -10,13 +10,10 @@ import courseinfo from "./Component/courses/courseinfo";
 import courses from "./Component/courses/courses";
 // import {PrivateRoute} from "./Component/Privateroute/index";
 import Test from "./Component/test";
-import Homepage from './Component/homepage/homepage';
+import Homepage from "./Component/homepage/homepage";
 import Header from "./Component/Navbar/Header";
-import Footer from './Component/footer/footer'
+import Footer from "./Component/footer/footer";
 class App extends Component {
-
-
-
   render() {
     return (
       <div>
@@ -25,16 +22,18 @@ class App extends Component {
 
           <Switch>
             <Route path="/" exact component={Homepage} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/teacherDashboard" component={TeacherDashboard} />
+            <Route exact path="/teacherprofile" component={Profile} />
+            <Route
+              exact
+              path="/teacherDashboard"
+              component={TeacherDashboard}
+            />
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/allcourses" component={courses} />
             <Route exact path="/test" component={Test} />
             <Route exact path="/courseinfo" component={courseinfo} />
             <Route path="/payment" exact component={Payment} />
           </Switch>
-
-
         </BrowserRouter>
         <Footer />
       </div>
