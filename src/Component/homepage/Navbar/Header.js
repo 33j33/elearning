@@ -424,8 +424,8 @@ else{
                       name="email"
                       rules={[
                         {
+                          type: 'email',
                           required: true,
-                          message: "Please input your Email!",
                         },
                       ]}
                     >
@@ -511,7 +511,6 @@ else{
                         {
                           required: true,
                           type: 'email',
-                          message: "Please input your Email!",
                         },
                       ]}
                     >
@@ -584,7 +583,6 @@ else{
                         {
                           required: true,
                           type: 'email',
-                          message: "Please input your Email!",
                         },
                       ]}
                     >
@@ -670,7 +668,6 @@ else{
                         {
                           required: true,
                           type: 'email',
-                          message: "Please input your Email!",
                         },
                       ]}
                     >
