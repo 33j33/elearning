@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Table, Tag } from "antd";
+import Addedcourses from './courses';
+import Payment from './payment';
+import Profile from './TeacherProfile';
+
 const { Meta } = Card;
 
 
@@ -9,7 +12,7 @@ class dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleKey: "profile",
+      titleKey: "payment",
     };
   }
 
@@ -33,18 +36,18 @@ class dashboard extends Component {
         tab: "adddedCourses",
       },
       {
-        key: "payment ",
+        key: "payment",
         tab: "payment",
       },
     ];
 
   
     const contentList = {
-      todaysSchedule:<p>Today classes</p>,
-      profile: <p>profile content</p>,
-      adddedCourses: <p>all adddedCourses content</p>,
-      payment: <p>Paymenmt</p>,
-    };
+      profile: <Profile />,
+      adddedCourses: <Addedcourses />,
+      todaysSchedule: <p>Today schedule</p>,
+      payment: <Payment />
+        };
 
     return (
       <div style={{ margin: "5% 7% 5%" }}>
@@ -56,9 +59,7 @@ class dashboard extends Component {
             md={{ span: 10 }}
           >
             <Card
-              hoverable
               style={{ width: "100%" }}
-              //cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
               cover={
                 <Avatar
                   size={150}
@@ -86,7 +87,7 @@ class dashboard extends Component {
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 14 }}>
             <Card
-              hoverable
+              
               style={{ width: "100%" }}
               tabList={tabList}
               activeTabKey={this.state.titleKey}

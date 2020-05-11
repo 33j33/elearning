@@ -11,6 +11,7 @@ import { message } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Link } from "react-router-dom";
+import { InputNumber } from 'antd';
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -29,6 +30,9 @@ const errorForlogin = () => {
 };
 const successForCourses = () => {
   message.success("Succesfully Added a course");
+};
+const logoutMessage = () => {
+  message.success("Succesfully Loggedout");
 };
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -56,8 +60,26 @@ class header extends Component {
   //Onclicking Logout
   onClickLogout = () => {
     window.localStorage.clear();
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+if(!currentUser){
     this.setState({ showField: false });
+    logoutMessage();
+    this.props.history.push("/")
+}
+else{
+  console.log("log out failed")
+}
   };
+  gotoProfile=()=>{
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+if(currentUser.studentid){
+  this.props.history.push("/student/dashboard")
+}
+else{
+  this.props.history.push("/teacher/dashboard")
+
+}
+  }
 
   gotocourses = () => {
     this.props.history.push("/allcourses");
@@ -183,8 +205,7 @@ class header extends Component {
           JSON.stringify({ token, email, phone, username, teacherid })
         );
         this.setState({ showField: true, username: username });
-        console.log(this.props.history);
-        // this.props.history.push("/");
+        this.props.history.push("teacher/dashboard");
       })
       .catch((error) => {
         if (error.response !== undefined) {
@@ -235,7 +256,7 @@ class header extends Component {
         };
         console.log(databody);
         axios
-          .post("https://elearningserver.herokuapp.com/addCourse", databody)
+          .post("https://elearningserver.herokuapp.com/teacher/addCourse", databody)
           .then((response) => {
             console.log(response);
             this.formRef.current.resetFields();
@@ -278,7 +299,9 @@ class header extends Component {
           "currentUser",
           JSON.stringify({ token, email, phone, username, studentid })
         );
-        this.setState({ showField: true, username: username });
+        this.setState({ showField: true, username: username,visibleModalForStudents:false });
+        this.props.history.push("student/dashboard");
+
       })
       .catch((error) => {
         console.log(error.response);
@@ -313,9 +336,16 @@ class header extends Component {
     console.log("Failed:", errorInfo);
   };
 
+  checkifUserloggedIn(){
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    if(currentUser){
+      this.setState({ showField: true, username: currentUser.username });
+    };
+  }
   children = [];
 
   componentDidMount() {
+    this.checkifUserloggedIn()
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
         <Option key={i + "-" + (Number(i) + 1)}>
@@ -354,8 +384,8 @@ class header extends Component {
               </Nav.Link>
               {this.state.showField ? (
                 <Row>
-                  <Nav.Link>{this.state.username}</Nav.Link>
-                  <Nav.Link onClick={this.onClickLogout}>logout </Nav.Link>
+                  <Nav.Link onClick={this.gotoProfile}>{this.state.username}</Nav.Link>
+                  <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
                 </Row>
               ) : (
                 <Row>
@@ -405,8 +435,8 @@ class header extends Component {
                       name="email"
                       rules={[
                         {
+                          type: 'email',
                           required: true,
-                          message: "Please input your Email!",
                         },
                       ]}
                     >
@@ -480,7 +510,7 @@ class header extends Component {
                         },
                       ]}
                     >
-                      <Input placeholder="Mobile" />
+                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -491,7 +521,7 @@ class header extends Component {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Email!",
+                          type: 'email',
                         },
                       ]}
                     >
@@ -563,7 +593,7 @@ class header extends Component {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Email!",
+                          type: 'email',
                         },
                       ]}
                     >
@@ -637,7 +667,7 @@ class header extends Component {
                         },
                       ]}
                     >
-                      <Input placeholder="Mobile" />
+                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -648,7 +678,7 @@ class header extends Component {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Email!",
+                          type: 'email',
                         },
                       ]}
                     >
@@ -713,6 +743,7 @@ class header extends Component {
                   rules={[
                     {
                       required: true,
+                      type: 'email',
                       message: "Please input your Course Name!",
                     },
                   ]}

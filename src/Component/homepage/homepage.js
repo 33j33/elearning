@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import { Row, Col, Card, Button } from "antd";
 import AliceCarousel from "react-alice-carousel";
-import { BookOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./homepage.css";
 import SearchInput, { createFilter } from "react-search-input";
@@ -37,6 +36,7 @@ class courses extends Component {
   filteredCourses = [];
 
   componentDidMount = () => {
+    
     console.log(this.props.selectCard);
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
@@ -77,7 +77,6 @@ class courses extends Component {
             }
             actions={[
               <h6>Price:{i.course_price}</h6>,
-              <BookOutlined key="ellipsis" style={{ fontSize: 20 }} />,
             ]}
           >
             <Meta
