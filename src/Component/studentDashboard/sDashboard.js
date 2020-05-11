@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import Progress from "../studentDashboard/progress"
 const { Meta } = Card;
 
 
@@ -39,7 +40,7 @@ class StudentDashboard extends Component {
 
         const contentList = {
             profile: <p>profile content</p>,
-            progress: <p>progress content</p>,
+            progress: <Progress/>,
             payment: <p>payment content</p>,
         };
 
