@@ -37,13 +37,17 @@ class TeacherProfile extends Component {
                 style={{ padding: 24, minHeight: 360 }}
               >
                 <Row>
+                  <Col></Col>
+                </Row>
+
+                <Row>
                   <Col span={20} offset={2} style={{ marginBottom: 30 }}>
                     Asterick(*) Fields are necessary. You can save your data by
                     clicking the save button.
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                  <Col span={16} offset={2} style={{ marginBottom: 30 }}>
                     <Input
                       size="large"
                       placeholder="UserName*"
@@ -52,7 +56,7 @@ class TeacherProfile extends Component {
                       // prefix={<UserOutlined />}
                     />
                   </Col>
-                  <Col span={10} offset={2} style={{ marginBottom: 30 }}>
+                  <Col span={4} offset={2} style={{ marginBottom: 30 }}>
                     <Input size="large" placeholder="Telephone*" />
                   </Col>
                 </Row>
