@@ -1,95 +1,107 @@
 import React, { Component } from "react";
-import { Layout, Menu } from "antd";
-import {
-  CalendarOutlined,
-  FormOutlined,
-  BookOutlined,
-  DollarOutlined,
-} from "@ant-design/icons";
-import { withRouter } from "react-router-dom";
+import { Avatar, Card, Row, Col } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import Addedcourses from './courses';
+import Payment from './payment';
+import Profile from './TeacherProfile';
 
-import { BrowserRouter as Link } from "react-router-dom";
+const { Meta } = Card;
+
 
 class dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      titleKey: "payment",
+    };
   }
 
-  profile = () => {
-    this.props.history.push("/profile");
+  onTabChange = (key, type) => {
+    console.log(key, type);
+    this.setState({ [type]: key });
   };
 
-  componentDidMount() {
-    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    console.log(currentUser.username);
-  }
   render() {
-    const { Sider } = Layout;
+    const tabList = [
+      {
+        key: "todaysSchedule",
+        tab: "todaysSchedule",
+      },
+      {
+        key: "profile",
+        tab: "profile",
+      },
+      {
+        key: "adddedCourses",
+        tab: "adddedCourses",
+      },
+      {
+        key: "payment",
+        tab: "payment",
+      },
+    ];
+
+  
+    const contentList = {
+      profile: <Profile />,
+      adddedCourses: <Addedcourses />,
+      todaysSchedule: <p>Today schedule</p>,
+      payment: <Payment />
+        };
 
     return (
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-        style={{
-          overflow: "auto",
-          minHeight: "100vh",
-          position: "fixed",
-          left: 0,
-          marginTop: 10,
-        }}
-      >
-        <Menu
-          mode="inline"
-          style={{ minHeight: "100vh", overflow: "hidden" }}
-          defaultSelectedKeys="1"
-          theme="dark"
-        >
-          <Menu.Item disabled>
-            <span className="nav-text">Teacher Username</span>
-          </Menu.Item>
-          <Menu.Item key="1">
-            <FormOutlined />
-            <Link to="/teacherprofile">
-              <span className="nav-text">Profile</span>{" "}
-            </Link>
-          </Menu.Item>
+      <div style={{ margin: "5% 7% 5%" }}>
+        <Row gutter={16}>
+          <Col
+            xs={{ span: 24 }}
+            lg={{ span: 6 }}
+            sm={{ span: 10 }}
+            md={{ span: 10 }}
+          >
+            <Card
+              style={{ width: "100%" }}
+              cover={
+                <Avatar
+                  size={150}
+                  style={{ margin: "5% auto 2%" }}
+                  icon={<UserOutlined style={{ margin: "auto" }} />}
+                />
+              }
+            >
+              <p style={{ fontSize: "200%", textAlign: "Center" }}>John Doe</p>
+              <hr
+                style={{
+                  height: "2px",
+                  width: "100%",
+                  color: "black",
+                  backgroundColor: "gray",
+                }}
+              />
 
-          <Menu.Item key="3">
-            <BookOutlined />
-            <Link to="/teachercourses">
-              {" "}
-              <span className="nav-text">Courses</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <CalendarOutlined />
-            <span className="nav-text">Calender</span>
-          </Menu.Item>
-
-          <Menu.Item key="5">
-            <DollarOutlined />
-            <Link to="/teacherpayment">
-              {" "}
-              <span className="nav-text">Payment</span>
-            </Link>
-          </Menu.Item>
-          {/* <Divider /> */}
-          <Menu.Item>
-            <span className="nav-text">Sign Out</span>
-          </Menu.Item>
-
-          <br />
-        </Menu>
-      </Sider>
+              <Meta
+                style={{ textAlign: "center" }}
+                title="Email Address"
+                description="john@xyz.com"
+              />
+            </Card>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+            <Card
+              
+              style={{ width: "100%" }}
+              tabList={tabList}
+              activeTabKey={this.state.titleKey}
+              onTabChange={(key) => {
+                this.onTabChange(key, "titleKey");
+              }}
+            >
+              {contentList[this.state.titleKey]}
+            </Card>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }
 
-export default withRouter(dashboard);
+export default dashboard;

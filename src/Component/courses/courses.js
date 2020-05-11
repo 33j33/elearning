@@ -1,3 +1,5 @@
+// @desc THIS PAGE CONTAINS ALL COURSES
+
 import React, { Component } from "react";
 import { Card } from "antd";
 import { Row, Col } from "antd";
@@ -38,7 +40,7 @@ class courses extends Component {
     const filteredCourses = this.state.coursesArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     return (
-      <div>
+      <div style={{marginTop:10}}>
         <Row>
           <Col span={7} offset={8}>
           <div className="search">
@@ -51,7 +53,7 @@ class courses extends Component {
         <br />
         <Row>
           {filteredCourses.map((i) => (
-            <Col offset={1} span={5}>
+            <Col offset={1} span={5} key={i._id}>
               <Card
                 hoverable
                 style={{ width: 240, minWidth: 100, marginBottom: 40 }}

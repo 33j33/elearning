@@ -11,6 +11,7 @@ import { message } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Link } from "react-router-dom";
+import { InputNumber } from 'antd';
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -28,7 +29,10 @@ const errorForlogin = () => {
   message.error("Login Failed");
 };
 const successForCourses = () => {
-  message.success("Succesfully Loggedin");
+  message.success("Succesfully Added a course");
+};
+const logoutMessage = () => {
+  message.success("Succesfully Loggedout");
 };
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -44,12 +48,38 @@ class header extends Component {
       allDays: [],
       coursesModal: false,
       visibleModalForStudents: false,
+      showField: false,
+      username: "",
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
     this.onClicked = this.onClicked.bind(this);
   }
   formRef = React.createRef();
+
+  //Onclicking Logout
+  onClickLogout = () => {
+    window.localStorage.clear();
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+if(!currentUser){
+    this.setState({ showField: false });
+    logoutMessage();
+    this.props.history.push("/")
+}
+else{
+  console.log("log out failed")
+}
+  };
+  gotoProfile=()=>{
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+if(currentUser.studentid){
+  this.props.history.push("/student/dashboard")
+}
+else{
+  this.props.history.push("/teacher/dashboard")
+
+}
+  }
 
   gotocourses = () => {
     this.props.history.push("/allcourses");
@@ -164,23 +194,23 @@ class header extends Component {
         this.setState({
           visible: false,
         });
-          const token = response.data.token;
-          const email = response.data.email;
-          const phone = response.data.mobile;
-          const username = response.data.username;
-          const teacherid=response.data.teacherid;
-          window.localStorage.setItem(
-            "currentUser",
-            JSON.stringify({ token, email, phone, username,teacherid })
-          );
-          console.log( this.props.history)
-          this.props.history.push("teacherDashboard")
-      
+        const token = response.data.token;
+        const email = response.data.email;
+        const phone = response.data.mobile;
+        const username = response.data.username;
+        const teacherid = response.data.teacherid;
+
+        window.localStorage.setItem(
+          "currentUser",
+          JSON.stringify({ token, email, phone, username, teacherid })
+        );
+        this.setState({ showField: true, username: username });
+        this.props.history.push("teacher/dashboard");
       })
       .catch((error) => {
-        if(error.response!==undefined){
-        console.log(error.response);
-        errorForlogin();
+        if (error.response !== undefined) {
+          console.log(error.response);
+          errorForlogin();
         }
       });
   };
@@ -226,7 +256,7 @@ class header extends Component {
         };
         console.log(databody);
         axios
-          .post("https://elearningserver.herokuapp.com/addCourse", databody)
+          .post("https://elearningserver.herokuapp.com/teacher/addCourse", databody)
           .then((response) => {
             console.log(response);
             this.formRef.current.resetFields();
@@ -269,6 +299,9 @@ class header extends Component {
           "currentUser",
           JSON.stringify({ token, email, phone, username, studentid })
         );
+        this.setState({ showField: true, username: username,visibleModalForStudents:false });
+        this.props.history.push("student/dashboard");
+
       })
       .catch((error) => {
         console.log(error.response);
@@ -303,9 +336,16 @@ class header extends Component {
     console.log("Failed:", errorInfo);
   };
 
+  checkifUserloggedIn(){
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    if(currentUser){
+      this.setState({ showField: true, username: currentUser.username });
+    };
+  }
   children = [];
 
   componentDidMount() {
+    this.checkifUserloggedIn()
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
         <Option key={i + "-" + (Number(i) + 1)}>
@@ -328,7 +368,7 @@ class header extends Component {
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Link to="/">
             {" "}
-            <Navbar.Brand onClick={this.gotoHome}>
+            <Navbar.Brand onClick={this.gotoHome} style={{ cursor: "pointer" }}>
               TURNSKILL 1 to 1
             </Navbar.Brand>
           </Link>
@@ -342,12 +382,21 @@ class header extends Component {
               <Nav.Link onClick={this.gotocourses}>
                 <Link to="/">All Courses</Link>{" "}
               </Nav.Link>
-              <Nav.Link onClick={this.showModalForTeachers}>
-                For Teachers
-              </Nav.Link>
-              <Nav.Link onClick={this.showModalForStudents}>
-                For Students
-              </Nav.Link>
+              {this.state.showField ? (
+                <Row>
+                  <Nav.Link onClick={this.gotoProfile}>{this.state.username}</Nav.Link>
+                  <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
+                </Row>
+              ) : (
+                <Row>
+                  <Nav.Link onClick={this.showModalForTeachers}>
+                    For Teachers
+                  </Nav.Link>
+                  <Nav.Link onClick={this.showModalForStudents}>
+                    For Students
+                  </Nav.Link>
+                </Row>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -386,8 +435,8 @@ class header extends Component {
                       name="email"
                       rules={[
                         {
+                          type: 'email',
                           required: true,
-                          message: "Please input your Email!",
                         },
                       ]}
                     >
@@ -461,7 +510,7 @@ class header extends Component {
                         },
                       ]}
                     >
-                      <Input placeholder="Mobile" />
+                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -472,7 +521,7 @@ class header extends Component {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Email!",
+                          type: 'email',
                         },
                       ]}
                     >
@@ -544,7 +593,7 @@ class header extends Component {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Email!",
+                          type: 'email',
                         },
                       ]}
                     >
@@ -618,7 +667,7 @@ class header extends Component {
                         },
                       ]}
                     >
-                      <Input placeholder="Mobile" />
+                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -629,7 +678,7 @@ class header extends Component {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Email!",
+                          type: 'email',
                         },
                       ]}
                     >
@@ -677,7 +726,7 @@ class header extends Component {
           title="Add Courses"
           style={{ top: 20 }}
           visible={this.state.coursesModal}
-          onOk={() => this.setState({ coursesModal: false })}
+          footer={[]}
           onCancel={() => this.setState({ coursesModal: false })}
         >
           <Form
@@ -694,6 +743,7 @@ class header extends Component {
                   rules={[
                     {
                       required: true,
+                      type: 'email',
                       message: "Please input your Course Name!",
                     },
                   ]}
