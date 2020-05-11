@@ -28,7 +28,7 @@ const errorForlogin = () => {
   message.error("Login Failed");
 };
 const successForCourses = () => {
-  message.success("Succesfully Loggedin");
+  message.success("Succesfully Added a course");
 };
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -677,7 +677,7 @@ class header extends Component {
           title="Add Courses"
           style={{ top: 20 }}
           visible={this.state.coursesModal}
-          onOk={() => this.setState({ coursesModal: false })}
+          footer={[]}
           onCancel={() => this.setState({ coursesModal: false })}
         >
           <Form

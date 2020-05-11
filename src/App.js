@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-// import Homepage from "./Component/homePage";
 import Profile from "./Component/teacherDashboard/TeacherProfile";
 import TeacherDashboard from "./Component/teacherDashboard/dashboard";
 import Courses from "./Component/teacherDashboard/courses";
@@ -11,10 +9,10 @@ import courses from "./Component/courses/courses";
 // import {PrivateRoute} from "./Component/Privateroute/index";
 import Test from "./Component/test";
 import Homepage from './Component/homepage/homepage';
-import Header from "./Component/Navbar/Header";
-import Footer from './Component/footer/footer'
-class App extends Component {
+import Header from "./Component/homepage/Navbar/Header";
+import Footer from './Component/homepage/footer/footer'
 
+class App extends Component {
 
 
   render() {
