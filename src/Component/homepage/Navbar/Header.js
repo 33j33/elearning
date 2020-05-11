@@ -328,7 +328,7 @@ class header extends Component {
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Link to="/">
             {" "}
-            <Navbar.Brand onClick={this.gotoHome}>
+            <Navbar.Brand onClick={this.gotoHome} style={{cursor:"pointer"}}>
               TURNSKILL 1 to 1
             </Navbar.Brand>
           </Link>

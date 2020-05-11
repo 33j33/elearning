@@ -20,7 +20,6 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Header />
-
           <Switch>
             <Route path="/" exact component={Homepage} />
             <Route exact path="/profile" component={Profile} />
