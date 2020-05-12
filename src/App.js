@@ -6,7 +6,7 @@ import Courses from "./Component/teacherDashboard/courses";
 import Payment from "./Component/teacherDashboard/payment";
 import courseinfo from "./Component/courses/courseinfo";
 import courses from "./Component/courses/courses";
-import {PrivateRoute} from "./Component/Privateroute/index";
+import { PrivateRoute } from "./Component/Privateroute/index";
 import Test from "./Component/test";
 import Homepage from "./Component/homepage/homepage";
 import Header from "./Component/homepage/Navbar/Header";
@@ -38,7 +38,6 @@ class App extends Component {
             />
           </Switch>
           <Footer />
-
         </BrowserRouter>
       </div>
     );

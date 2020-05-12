@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table, Tag } from "antd";
 import "./payment.css";
+import axios from "axios";
 
 //Payment section of the Teacher Dashboard
 
@@ -24,24 +25,45 @@ class payment extends Component {
     this.state = {
       visible: false,
       confirmLoading: false,
+      coursesArray: [],
     };
   }
 
-  render() {
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    const headers = { "x-auth-token": currentUser.token };
+    console.log("currentuser", currentUser);
+    axios
+      .get(
+        `https://elearningserver.herokuapp.com/teacher/selectedCoursebyStudent/${currentUser.email}`,
+        { headers }
+      )
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ coursesArray: response.data });
 
+        // this.setState({
+        //   visible: false,
+        // });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+  render() {
     const columns = [
       {
         title: "S.no",
         dataIndex: "number",
         key: "number",
-        responsive: ['sm']
+        responsive: ["sm"],
         // render: (text) => <a>{text}</a>,
       },
       {
         title: "Name",
         dataIndex: "name",
-        key: "name",
-        responsive: ['sm']
+        key: "student_name",
+        responsive: ["sm"],
 
         // render: (text) => <a>{text}</a>,
       },
@@ -49,14 +71,13 @@ class payment extends Component {
         title: "Course",
         dataIndex: "course",
         key: "course",
-        responsive: ['sm']
-
+        responsive: ["sm"],
       },
       {
         title: "Date",
         dataIndex: "date",
         key: "date",
-        responsive: ['sm']
+        responsive: ["sm"],
 
         // render: (text) => <a>{text}</a>,
       },
@@ -76,8 +97,7 @@ class payment extends Component {
             })}
           </span>
         ),
-        responsive: ['sm']
-
+        responsive: ["sm"],
       },
       {
         title: "Mobile Number",
@@ -145,9 +165,9 @@ class payment extends Component {
     ];
 
     return (
-     <div>
-        <Table columns={columns} dataSource={data} size="small"/>
-        </div> 
+      <div>
+        <Table columns={columns} dataSource={data} size="small" />
+      </div>
     );
   }
 }
