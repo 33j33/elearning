@@ -37,7 +37,6 @@ class courses extends Component {
   filteredCourses = [];
 
   componentDidMount = () => {
-    
     console.log(this.props.selectCard);
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
@@ -52,7 +51,6 @@ class courses extends Component {
   };
 
   onCardClick = (i) => {
-    console.log(i);
     sessionStorage.setItem("cardData", JSON.stringify(i));
     const path = `courseinfo`;
     this.props.history.push(path);
@@ -76,9 +74,7 @@ class courses extends Component {
                 // height="150px"
               />
             }
-            actions={[
-              <h6>Price:{i.course_price}</h6>,
-            ]}
+            actions={[<h6>Price:{i.course_price}</h6>]}
           >
             <Meta
               // style={{ fontSize: "16px" }}
@@ -102,12 +98,13 @@ class courses extends Component {
           </Row>
           <br />
           <Row className="row-search">
-            <Col span={10}>
+            <Col span={13}>
               <div className="search">
                 <form className="search-form">
                   <SearchInput
                     onChange={this.searchUpdated}
                     placeholder="Search for a course"
+                    id="navBar"
                     style={{ width: "100%", border: "none" }}
                   />
                 </form>
@@ -123,7 +120,9 @@ class courses extends Component {
             </h3>
           </Col>
           <Col style={{ marginRight: 12 }}>
-            <Button ><Link to="allcourses">View All</Link></Button>
+            <Button>
+              <Link to="allcourses">View All</Link>
+            </Button>
           </Col>
         </Row>
         ;
