@@ -98,7 +98,7 @@ class courses extends Component {
           </Row>
           <br />
           <Row className="row-search">
-            <Col span={13}>
+            <Col span={10}>
               <div className="search">
                 <form className="search-form">
                   <SearchInput
