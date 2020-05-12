@@ -126,7 +126,6 @@ class courseinfo extends Component {
             }}
           >
             <p>
-              {/* {this.state.cardData.course_description} */}
               <ul>
                 <li>{this.state.cardData.course_description}</li>
               </ul>
@@ -205,7 +204,7 @@ class courseinfo extends Component {
             <Row>
               <Col>
                 {" "}
-                Course Fees: ₹1000
+                Course Fees: Rs.{this.state.cardData.course_price}
                 <Button
                   type="primary"
                   htmlType="submit"

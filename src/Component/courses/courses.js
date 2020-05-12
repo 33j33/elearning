@@ -22,6 +22,14 @@ class courses extends Component {
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
+
+  onCardClick = (i) => {
+    console.log(i);
+    sessionStorage.setItem("cardData", JSON.stringify(i));
+    const path = `courseinfo`;
+    this.props.history.push(path);
+  };
+
   componentDidMount = () => {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
