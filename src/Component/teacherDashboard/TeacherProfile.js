@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
-import { Row, Col } from "antd";
-import Sidenav from "./dashboard";
-import { Layout } from "antd";
+import { Form, Input, Button } from "antd";
 
 class TeacherProfile extends Component {
   constructor(props) {
@@ -13,6 +10,14 @@ class TeacherProfile extends Component {
       email: "",
     };
   }
+
+  onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+   onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   componentDidMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     console.log(currentUser);
@@ -23,50 +28,34 @@ class TeacherProfile extends Component {
     });
   }
   render() {
-    const { Content } = Layout;
 
-    const layout2 = {
-      labelCol: {
-        span: 8,
-      },
-      wrapperCol: {
-        span: 16,
-      },
-    };
-    const tailLayout = {
-      wrapperCol: {
-        offset: 8,
-        span: 16,
-      },
+    const layout = {
+      labelCol: { span: 5 },
+      wrapperCol: { span: 16 },
     };
 
-    const onFinish = (values) => {
-      console.log("Success:", values);
-    };
-
-    const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-    };
+   
 
     return (
       <div>
         <Form
-          layout2
+                {...layout}
+
           name="basic"
           initialValues={{
             remember: true,
           }}
           layout="Horizontal"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          onFinish={this.onFinish}
+          onFinishFailed={this.onFinishFailed}
         >
           <Form.Item label="Username">
             <Input value={this.state.username} disabled />
           </Form.Item>
 
-          <Form.Item label="Email">
+          {/* <Form.Item label="Email">
             <Input value={this.state.email} />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item label="Mobile Number">
             <Input value={this.state.phone} />
@@ -76,12 +65,12 @@ class TeacherProfile extends Component {
             <h6>Change Password</h6>
           </Form.Item>
 
-          <Form.Item label="Password" layout="inline" id="p1">
-            <Input placeholder="Enter Password" />
+          <Form.Item label="New Password" layout="inline" id="p1">
+            <Input placeholder="Enter New Password" type="password"/>
           </Form.Item>
 
           <Form.Item label="Confirm Password" layout="inline" id="p2">
-            <Input placeholder="Confirm Password" />
+            <Input placeholder="Confirm Password" type="password"/>
           </Form.Item>
 
           <Form.Item tailLayout>
