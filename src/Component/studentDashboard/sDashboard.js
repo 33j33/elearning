@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Table, Tag } from "antd";
+import Profile from "./StudentProfile";
+import Progress from "./Progress";
 const { Meta } = Card;
 
 /*
@@ -15,6 +17,8 @@ class StudentDashboard extends Component {
     super(props);
     this.state = {
       titleKey: "profile",
+      username:"",
+      email:""
     };
   }
 
@@ -22,6 +26,13 @@ class StudentDashboard extends Component {
     console.log(key, type);
     this.setState({ [type]: key });
   };
+
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    this.setState({
+      username: currentUser.username,
+      email: currentUser.email    });
+  }
 
   render() {
     const tabList = [
@@ -44,7 +55,6 @@ class StudentDashboard extends Component {
         title: "S.no",
         dataIndex: "number",
         key: "number",
-        
       },
       {
         title: "Course",
@@ -55,13 +65,11 @@ class StudentDashboard extends Component {
         title: "Teacher Name",
         dataIndex: "name",
         key: "name",
-        
       },
       {
         title: "Starting Date",
         dataIndex: "date",
         key: "date",
-        
       },
       {
         title: "Amount Paid",
@@ -84,7 +92,6 @@ class StudentDashboard extends Component {
         title: "Teacher Mobile Number",
         dataIndex: "mob",
         key: "mob",
-        
       },
     ];
 
@@ -146,8 +153,8 @@ class StudentDashboard extends Component {
     ];
 
     const contentList = {
-      profile: <p>profile content</p>,
-      progress: <p>progress content</p>,
+      profile: <Profile />,
+      progress: <Progress />,
       payment: <Table columns={columns} dataSource={data} />,
     };
 
@@ -161,9 +168,7 @@ class StudentDashboard extends Component {
             md={{ span: 10 }}
           >
             <Card
-              hoverable
               style={{ width: "100%" }}
-              //cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
               cover={
                 <Avatar
                   size={150}
@@ -172,7 +177,7 @@ class StudentDashboard extends Component {
                 />
               }
             >
-              <p style={{ fontSize: "200%", textAlign: "Center" }}>John Doe</p>
+              <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
               <hr
                 style={{
                   height: "2px",
@@ -185,13 +190,12 @@ class StudentDashboard extends Component {
               <Meta
                 style={{ textAlign: "center" }}
                 title="Email Address"
-                description="john@xyz.com"
+                description={this.state.email}
               />
             </Card>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 14 }}>
             <Card
-              hoverable
               style={{ width: "100%" }}
               tabList={tabList}
               activeTabKey={this.state.titleKey}

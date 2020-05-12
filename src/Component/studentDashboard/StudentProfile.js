@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
 
-class TeacherProfile extends Component {
+class StudentProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +11,7 @@ class TeacherProfile extends Component {
     };
   }
 
-  onFinish = (values) => {
+   onFinish = (values) => {
     console.log("Success:", values);
   };
 
@@ -27,19 +27,16 @@ class TeacherProfile extends Component {
     });
   }
   render() {
-
     const layout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 16 },
     };
 
-   
-
+  
     return (
       <div>
         <Form
-                {...layout}
-
+          {...layout}
           name="basic"
           initialValues={{
             remember: true,
@@ -65,11 +62,11 @@ class TeacherProfile extends Component {
           </Form.Item>
 
           <Form.Item label="New Password" layout="inline" id="p1">
-            <Input placeholder="Enter New Password" type="password"/>
+            <Input placeholder="Enter New Password"  type="password"/>
           </Form.Item>
 
           <Form.Item label="Confirm Password" layout="inline" id="p2">
-            <Input placeholder="Confirm Password" type="password"/>
+            <Input placeholder="Confirm Password"  type="password"/>
           </Form.Item>
 
           <Form.Item tailLayout>
@@ -83,4 +80,4 @@ class TeacherProfile extends Component {
   }
 }
 
-export default TeacherProfile;
+export default StudentProfile;
