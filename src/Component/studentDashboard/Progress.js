@@ -1,40 +1,60 @@
 import React, { Component } from "react";
 import { Card } from "antd";
+import axios from "axios"
 
 class progress extends Component {
+constructor(props){
+  super(props)
+  this.state={
+    enrolledCoursesArray:[]
+  }
+}
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    const headers = { "x-auth-token": currentUser.token };
+    axios
+      .get(
+        `https://elearningserver.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
+        { headers }
+      )
+      .then((response) => {
+      console.log(response.data)
+      for (const i in response.data) {
+        response.data[i].date = response.data[i].date.split("T")[0];
+      }
+        this.setState({ enrolledCoursesArray: response.data });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
   render() {
     return (
       <div>
         <h5 style={{ marginBottom: 20 }}>Current Courses: </h5>
-        <Card
-          style={{ marginTop: 16 }}
-          type="inner"
-          title="HTML and CSS Fundamentals"
-        >
-          <p style={{ marginBottom: 0 }}>Teacher: Mr. Aman Gupta</p>
-          <p style={{ marginBottom: 0 }}>
-            Slots: Monday: 9:00-10:0, 12:00-1:00
-          </p>
-        </Card>
-        <Card
-          style={{ marginTop: 16 }}
-          type="inner"
-          title="Fundamentals of Machine Learning"
-        >
-          <p style={{ marginBottom: 0 }}>Teacher: Ms. Sweta Sharma</p>
-          <p style={{ marginBottom: 0 }}>Slots: Wednesday: 13:00-14:00</p>
-          <p style={{ marginLeft: 40, marginBottom: 0 }}>
-            Friday: 8:00-9:00, 14:00-15:00
-          </p>
-        </Card>
-        <h5 style={{ marginTop: 20, marginBottom: 20 }}>Completed Courses: </h5>
-        <Card
-          style={{ marginTop: 16 }}
-          type="inner"
-          title="Data Structures using C"
-        >
-          <p style={{ marginBottom: 0 }}>Teacher: Mr. Amit Gupta</p>
-        </Card>
+        {this.state.enrolledCoursesArray.map(course=>
+             <Card
+             style={{ marginTop: 16 }}
+             type="inner"
+             title={course.course_name}
+             key={course._id}
+           >
+             <p style={{ marginBottom: 0 }}>Teacher Name: {course.teacher_name}</p>
+             <p style={{ marginBottom: 0 }}>Teacher Mobile: {course.teacher_mobile}</p>
+             <p style={{ marginBottom: 0 }}>Course Bought date: {course.date}</p>
+
+             <p>Course Duration: {course.course_duration}</p>
+                  {course.selected_course_schedule.map((j) => (
+                    <p>
+                      {j.day} -- {j.time + ","}
+                    </p>
+                  ))}
+           
+           </Card>
+          )}
+     
+       
+        
       </div>
     );
   }

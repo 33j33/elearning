@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Table, Tag } from "antd";
 import Profile from "./StudentProfile";
 import Progress from "./Progress";
+import Payment from './payment'
 const { Meta } = Card;
 
 /*
@@ -50,112 +50,13 @@ class StudentDashboard extends Component {
       },
     ];
 
-    const columns = [
-      {
-        title: "S.no",
-        dataIndex: "number",
-        key: "number",
-      },
-      {
-        title: "Course",
-        dataIndex: "course",
-        key: "course",
-      },
-      {
-        title: "Teacher Name",
-        dataIndex: "name",
-        key: "name",
-      },
-      {
-        title: "Starting Date",
-        dataIndex: "date",
-        key: "date",
-      },
-      {
-        title: "Amount Paid",
-        key: "tags",
-        dataIndex: "tags",
-        render: (tags) => (
-          <span>
-            {tags.map((tag) => {
-              let color = "green";
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </span>
-        ),
-      },
-      {
-        title: "Teacher Mobile Number",
-        dataIndex: "mob",
-        key: "mob",
-      },
-    ];
+ 
 
-    const data = [
-      {
-        key: "1",
-        number: 1,
-        course: "Java",
-        name: "Jai",
-        date: "25/03/2020",
-        tags: ["Rs.700"],
-        mob: "9898989898",
-      },
-      {
-        key: "2",
-        number: 2,
-        name: "Rajat",
-        course: "Python",
-        date: "25/03/2020",
-        tags: ["Rs.600"],
-        mob: "8989898989",
-      },
-      {
-        key: "3",
-        number: 3,
-        name: "Shalini",
-        course: "ML/Data Science",
-        date: "25/03/2020",
-        tags: ["Rs.500"],
-        mob: "9711708888",
-      },
-      {
-        key: "4",
-        number: 4,
-        course: "Data Structures",
-        name: "Tavishi",
-        date: "25/03/2020",
-        tags: ["Rs.700"],
-        mob: "9898989898",
-      },
-      {
-        key: "5",
-        number: 5,
-        course: "Ruby",
-        name: "Vikas",
-        date: "25/03/2020",
-        tags: ["Rs.600"],
-        mob: "8989898989",
-      },
-      {
-        key: "6",
-        number: 6,
-        course: "Data Science",
-        name: "Yash",
-        date: "25/03/2020",
-        tags: ["Rs.500"],
-        mob: "9711708888",
-      },
-    ];
-
+   
     const contentList = {
       profile: <Profile />,
       progress: <Progress />,
-      payment: <Table columns={columns} dataSource={data} />,
+      payment: <Payment/>,
     };
 
     return (
