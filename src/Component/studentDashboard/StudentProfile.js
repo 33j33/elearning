@@ -20,7 +20,6 @@ class StudentProfile extends Component {
   };
   componentDidMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    console.log(currentUser);
     this.setState({
       username: currentUser.username,
       email: currentUser.email,

@@ -108,7 +108,6 @@ class Courses extends Component {
   componentDidMount() {
     let teacherEmail;
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    console.log(currentUser);
     this.setState({ teacher_name: currentUser.username, teacher_mobile: currentUser.phone, teacher_email: currentUser.email })
 
 

@@ -17,6 +17,8 @@ class StudentDashboard extends Component {
     super(props);
     this.state = {
       titleKey: "profile",
+      username:"",
+      email:""
     };
   }
 
@@ -24,6 +26,13 @@ class StudentDashboard extends Component {
     console.log(key, type);
     this.setState({ [type]: key });
   };
+
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    this.setState({
+      username: currentUser.username,
+      email: currentUser.email    });
+  }
 
   render() {
     const tabList = [
@@ -160,7 +169,6 @@ class StudentDashboard extends Component {
           >
             <Card
               style={{ width: "100%" }}
-              //cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
               cover={
                 <Avatar
                   size={150}
@@ -169,7 +177,7 @@ class StudentDashboard extends Component {
                 />
               }
             >
-              <p style={{ fontSize: "200%", textAlign: "Center" }}>John Doe</p>
+              <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
               <hr
                 style={{
                   height: "2px",
@@ -182,7 +190,7 @@ class StudentDashboard extends Component {
               <Meta
                 style={{ textAlign: "center" }}
                 title="Email Address"
-                description="john@xyz.com"
+                description={this.state.email}
               />
             </Card>
           </Col>

@@ -13,6 +13,8 @@ class dashboard extends Component {
     super(props);
     this.state = {
       titleKey: "todaysSchedule",
+      username:"",
+      email:""
     };
   }
 
@@ -20,7 +22,12 @@ class dashboard extends Component {
     console.log(key, type);
     this.setState({ [type]: key });
   };
-
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    this.setState({
+      username: currentUser.username,
+      email: currentUser.email    });
+  }
   render() {
     const tabList = [
       {
@@ -68,7 +75,7 @@ class dashboard extends Component {
                 />
               }
             >
-              <p style={{ fontSize: "200%", textAlign: "Center" }}>John Doe</p>
+              <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
               <hr
                 style={{
                   height: "2px",
@@ -81,7 +88,7 @@ class dashboard extends Component {
               <Meta
                 style={{ textAlign: "center" }}
                 title="Email Address"
-                description="john@xyz.com"
+                description={this.state.email}
               />
             </Card>
           </Col>
