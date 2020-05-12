@@ -756,19 +756,33 @@ else{
               </Col>
               <Col span={11}>
                 <Form.Item
-                  name="course_price"
+                  name="full_course_price"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your Course Price!",
+                      message: "Please input your Full Course Price!",
                     },
                   ]}
                 >
-                  <Input placeholder="Course Price" />
+                  <Input placeholder="Full Course Price" />
                 </Form.Item>
               </Col>
             </Row>
+
             <Row justify="space-between">
+            <Col span={11}>
+                <Form.Item
+                  name="hour_based_course_price"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Hour Based Course Price!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Hour Based Course Price" />
+                </Form.Item>
+              </Col>
               <Col span={11}>
                 <Form.Item
                   name="course_duration"
@@ -782,6 +796,9 @@ else{
                   <Input placeholder="Course Duration" />
                 </Form.Item>
               </Col>
+            </Row>
+            <Row>
+             
               <Col span={11}>
                 <Form.Item
                   name="course_description"
@@ -792,7 +809,7 @@ else{
                     },
                   ]}
                 >
-                  <Input placeholder="Description of Course" />
+                  <Input.TextArea placeholder="Description of Course" />
                 </Form.Item>
               </Col>
             </Row>

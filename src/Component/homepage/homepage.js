@@ -52,7 +52,6 @@ class courses extends Component {
   };
 
   onCardClick = (i) => {
-    console.log(i);
     sessionStorage.setItem("cardData", JSON.stringify(i));
     const path = `courseinfo`;
     this.props.history.push(path);
