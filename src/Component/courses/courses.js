@@ -22,6 +22,14 @@ class courses extends Component {
   searchUpdated(term) {
     this.setState({ searchTerm: term })
   }
+
+  onCardClick = (i) => {
+    console.log(i);
+    sessionStorage.setItem("cardData", JSON.stringify(i));
+    const path = `courseinfo`;
+    this.props.history.push(path);
+  };
+
   componentDidMount = () => {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
@@ -57,6 +65,8 @@ class courses extends Component {
               <Card
                 hoverable
                 style={{ width: 240, minWidth: 100, marginBottom: 40 }}
+                onClick={() => this.onCardClick(i)}
+
               >
                 <p>{i.course_name}</p>
                 <Meta title={i.teacher_name} description={i.course_price} />

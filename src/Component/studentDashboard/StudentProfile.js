@@ -57,7 +57,7 @@ class StudentProfile extends Component {
             <Input value={this.state.phone} />
           </Form.Item>
 
-          <Form.Item tailLayout>
+          <Form.Item >
             <h6>Change Password</h6>
           </Form.Item>
 
@@ -69,7 +69,7 @@ class StudentProfile extends Component {
             <Input placeholder="Confirm Password"  type="password"/>
           </Form.Item>
 
-          <Form.Item tailLayout>
+          <Form.Item >
             <Button type="primary" htmlType="submit">
               Save
             </Button>
