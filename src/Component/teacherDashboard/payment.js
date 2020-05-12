@@ -1,22 +1,9 @@
 import React, { Component } from "react";
-import { Table, Tag } from "antd";
+import { Table } from "antd";
 import "./payment.css";
 import axios from "axios";
 
 //Payment section of the Teacher Dashboard
-
-//This has components
-
-/* Coded By: yash Khanna 
-THis is a Js File for the table of Payments received by teacher uptill now
-Things created are as follows :-
-1.  A constructor
-2.  An object type columns is there with types as s.no,name,course,date,Amount Received,Mobile Number
-3.  An object type of data which further connects with coulms for the data
-4.  An external feature of page change is also added in case data for a single page increases
-
-To access it :http://localhost:3000/teacherDashboard/payment
-*/
 
 class payment extends Component {
   constructor(props) {
@@ -32,7 +19,6 @@ class payment extends Component {
   componentDidMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     const headers = { "x-auth-token": currentUser.token };
-    console.log("currentuser", currentUser);
     axios
       .get(
         `https://elearningserver.herokuapp.com/teacher/selectedCoursebyStudent/${currentUser.email}`,
@@ -40,11 +26,13 @@ class payment extends Component {
       )
       .then((response) => {
         console.log(response.data);
-        this.setState({ coursesArray: response.data });
+        console.log(response.data[0].date.split("T"));
+        for (const i in response.data) {
+          response.data[i].date = response.data[i].date.split("T")[0];
+        }
 
-        // this.setState({
-        //   visible: false,
-        // });
+        this.setState({ coursesArray: response.data });
+        console.log(this.state.coursesArray);
       })
       .catch((error) => {
         console.log(error.response);
@@ -53,24 +41,21 @@ class payment extends Component {
   render() {
     const columns = [
       {
-        title: "S.no",
-        dataIndex: "number",
-        key: "number",
-        responsive: ["sm"],
-        // render: (text) => <a>{text}</a>,
-      },
-      {
         title: "Name",
-        dataIndex: "name",
+        dataIndex: "student_name",
         key: "student_name",
         responsive: ["sm"],
-
-        // render: (text) => <a>{text}</a>,
       },
       {
         title: "Course",
-        dataIndex: "course",
-        key: "course",
+        dataIndex: "course_name",
+        key: "course_name",
+        responsive: ["sm"],
+      },
+      {
+        title: "Course Type",
+        dataIndex: "course_type",
+        key: "course_type",
         responsive: ["sm"],
       },
       {
@@ -78,95 +63,20 @@ class payment extends Component {
         dataIndex: "date",
         key: "date",
         responsive: ["sm"],
-
-        // render: (text) => <a>{text}</a>,
       },
       {
-        title: "Amount Received",
-        key: "tags",
-        dataIndex: "tags",
-        render: (tags) => (
-          <span>
-            {tags.map((tag) => {
-              let color = "green";
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </span>
-        ),
-        responsive: ["sm"],
-      },
-      {
-        title: "Mobile Number",
-        dataIndex: "mob",
-        key: "mob",
-        // render: (text) => <a>{text}</a>,
+        title: "Payment",
+        key: "PaymentStatus",
+        dataIndex: "Remaining",
       },
     ];
-
-    const data = [
-      {
-        key: "1",
-        number: 1,
-        name: "Jai",
-        course: "Java",
-        date: "25/03/2020",
-        tags: ["Rs.700"],
-        mob: "9898989898",
-      },
-      {
-        key: "2",
-        number: 2,
-        course: "Python",
-        name: "Rajat",
-        date: "25/03/2020",
-        tags: ["Rs.600"],
-        mob: "8989898989",
-      },
-      {
-        key: "3",
-        number: 3,
-        course: "ML/Data Science",
-        name: "Shalini",
-        date: "25/03/2020",
-        tags: ["Rs.500"],
-        mob: "9711708888",
-      },
-      {
-        key: "4",
-        number: 4,
-        name: "Tavishi",
-        course: "Data Structures",
-        date: "25/03/2020",
-        tags: ["Rs.700"],
-        mob: "9898989898",
-      },
-      {
-        key: "5",
-        number: 5,
-        course: "Ruby",
-        name: "Vikas",
-        date: "25/03/2020",
-        tags: ["Rs.600"],
-        mob: "8989898989",
-      },
-      {
-        key: "6",
-        number: 6,
-        course: "Data Science",
-        name: "Yash",
-        date: "25/03/2020",
-        tags: ["Rs.500"],
-        mob: "9711708888",
-      },
-    ];
-
     return (
       <div>
-        <Table columns={columns} dataSource={data} size="small" />
+        <Table
+          columns={columns}
+          dataSource={this.state.coursesArray}
+          size="small"
+        />
       </div>
     );
   }

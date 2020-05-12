@@ -12,8 +12,7 @@ import Homepage from "./Component/homepage/homepage";
 import Header from "./Component/homepage/Navbar/Header";
 import Footer from "./Component/homepage/footer/footer";
 import StudentDashboard from "./Component/studentDashboard/sDashboard";
-
-
+import TeacherSchedule from "./Component/teacherDashboard/todaysSchdeule";
 
 class App extends Component {
   render() {
@@ -28,6 +27,11 @@ class App extends Component {
               exact
               path="/teacher/dashboard"
               component={TeacherDashboard}
+            />
+            <PrivateRoute
+              exact
+              path="/teacher/todayschedule"
+              component={TeacherSchedule}
             />
             <PrivateRoute exact path="/teacher/courses" component={Courses} />
             <Route exact path="/allcourses" component={courses} />

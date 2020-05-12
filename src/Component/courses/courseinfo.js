@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Select, Row, Col, Button, Radio, Card, Collapse } from "antd";
-import { PlusCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -201,22 +200,6 @@ class courseinfo extends Component {
                   </Select>
                 ) : null}
               </Col>
-              {/* <Col span={9}>
-                    <Select
-                      mode="multiple"
-                      style={{ width: "100%" }}
-                      placeholder="Select Timeslots"
-                      onChange={this.handleChange}
-                      onBlur={this.onClicked}
-                    >
-                      {this.children}
-                    </Select>
-                  </Col>
-                  <Col>
-                    <Button onClick={() => this.removeRow(index)}>
-                      <DeleteOutlined />
-                    </Button>
-                  </Col> */}
             </Row>
             <br />
             <Row>

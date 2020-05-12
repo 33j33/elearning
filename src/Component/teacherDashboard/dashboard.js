@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import Addedcourses from './courses';
-import Payment from './payment';
-import Profile from './TeacherProfile';
+import Addedcourses from "./courses";
+import Payment from "./payment";
+import Profile from "./TeacherProfile";
+import TodaysSchedule from "./todaysSchdeule";
 
 const { Meta } = Card;
-
 
 class dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       titleKey: "todaysSchedule",
-      username:"",
-      email:""
+      username: "",
+      email: "",
     };
   }
 
@@ -26,7 +26,8 @@ class dashboard extends Component {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     this.setState({
       username: currentUser.username,
-      email: currentUser.email    });
+      email: currentUser.email,
+    });
   }
   render() {
     const tabList = [
@@ -48,13 +49,12 @@ class dashboard extends Component {
       },
     ];
 
-  
     const contentList = {
       profile: <Profile />,
       adddedCourses: <Addedcourses />,
-      todaysSchedule: <p>Today schedule</p>,
-      payment: <Payment />
-        };
+      todaysSchedule: <TodaysSchedule />,
+      payment: <Payment />,
+    };
 
     return (
       <div style={{ margin: "5% 7% 5%" }}>
@@ -75,7 +75,9 @@ class dashboard extends Component {
                 />
               }
             >
-              <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
+              <p style={{ fontSize: "200%", textAlign: "Center" }}>
+                {this.state.username}
+              </p>
               <hr
                 style={{
                   height: "2px",
@@ -92,9 +94,8 @@ class dashboard extends Component {
               />
             </Card>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }} style={{ minWidth: 750 }}>
             <Card
-              
               style={{ width: "100%" }}
               tabList={tabList}
               activeTabKey={this.state.titleKey}
