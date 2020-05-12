@@ -57,6 +57,19 @@
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
+
+  .alice-carousel__stage-item *{
+    width: fit-content !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .ant-card-actions{
+    padding-left: 90px !important;
+    padding-right: 90px !important;
+  }
+
+
   /* ===========================
         ====== Medua Query for Search Box ====== 
         =========================== */

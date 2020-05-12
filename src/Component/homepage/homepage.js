@@ -25,7 +25,7 @@ class courses extends Component {
   items;
 
   responsive = {
-    0: { items: 2 },
+    0: { items: 1 },
     1024: { items: 5 },
   };
 
@@ -129,7 +129,7 @@ class courses extends Component {
         ;
         <Row>
           <AliceCarousel
-            style={{ maxWidth: 400 }}
+            //style={{ marginLeft: 0, marginRight: 0 }}
             items={arr}
             responsive={this.responsive}
             autoPlayInterval={3000}
