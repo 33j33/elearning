@@ -91,6 +91,7 @@ this.setState({coursesArray:this.newslicedCoursesArray})
                   minWidth: 100,
                   marginBottom: 40,
                 }}
+                onClick={()=>this.onCardClick(i)}
               >
                 <p>{i.course_name}</p>
                 <Meta title={i.teacher_name} description={i.full_course_price} />
