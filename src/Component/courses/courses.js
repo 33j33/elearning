@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { Card, Button } from "antd";
 import { Row, Col } from "antd";
+import { Spin } from "antd";
 import "./courses.css";
 import axios from "axios";
 import SearchInput, { createFilter } from "react-search-input";
@@ -16,6 +17,7 @@ class courses extends Component {
     this.state = {
       coursesArray: [],
       searchTerm: "",
+      loading: true,
     };
     this.searchUpdated = this.searchUpdated.bind(this);
   }
@@ -50,6 +52,7 @@ class courses extends Component {
 
         this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
         this.setState({ coursesArray: this.newslicedCoursesArray });
+        this.setState({ loading: false });
       })
       .catch((error) => {
         console.log(error.response);
@@ -78,31 +81,33 @@ class courses extends Component {
           </Col>
         </Row>
         <br />
-        <Row>
-          {filteredCourses.map((i) => (
-            <Col offset={2} /*span={5}*/ key={i._id}>
-              <Card
-                hoverable
-                style={{
-                  width: 240,
-                  height: 150,
-                  minWidth: 100,
-                  marginBottom: 40,
-                }}
-                onClick={() => this.onCardClick(i)}
-              >
-                <p>{i.course_name}</p>
-                <Meta
-                  title={i.teacher_name}
-                  description={i.full_course_price}
-                />
-              </Card>
-            </Col>
-          ))}
-        </Row>
-        <Row justify="center">
-          <Button onClick={this.loadMoreCourses}>Load More</Button>
-        </Row>
+        <Spin spinning={this.state.loading}>
+          <Row>
+            {filteredCourses.map((i) => (
+              <Col offset={2} /*span={5}*/ key={i._id}>
+                <Card
+                  hoverable
+                  style={{
+                    width: 240,
+                    height: 150,
+                    minWidth: 100,
+                    marginBottom: 40,
+                  }}
+                  onClick={() => this.onCardClick(i)}
+                >
+                  <p>{i.course_name}</p>
+                  <Meta
+                    title={i.teacher_name}
+                    description={i.full_course_price}
+                  />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+          <Row justify="center">
+            <Button onClick={this.loadMoreCourses}>Load More</Button>
+          </Row>
+        </Spin>
       </div>
     );
   }
