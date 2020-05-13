@@ -30,6 +30,10 @@ class courses extends Component {
     this.props.history.push(path);
   };
 
+  loadMore = () => {
+    console.log(this.state.coursesArray.length);
+  };
+
   componentDidMount = () => {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")

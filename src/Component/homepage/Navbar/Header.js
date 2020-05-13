@@ -5,13 +5,15 @@ import {
   UserAddOutlined,
   PlusCircleOutlined,
   DeleteOutlined,
+  StepBackwardOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
 import { message } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Link } from "react-router-dom";
-import { InputNumber } from 'antd';
+import { InputNumber } from "antd";
+import { Spin, Switch, Alert } from "antd";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -50,6 +52,8 @@ class header extends Component {
       visibleModalForStudents: false,
       showField: false,
       username: "",
+      loading: false,
+      showSubmitButton: false,
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
@@ -61,25 +65,22 @@ class header extends Component {
   onClickLogout = () => {
     window.localStorage.clear();
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-if(!currentUser){
-    this.setState({ showField: false });
-    logoutMessage();
-    this.props.history.push("/")
-}
-else{
-  console.log("log out failed")
-}
+    if (!currentUser) {
+      this.setState({ showField: false });
+      logoutMessage();
+      this.props.history.push("/");
+    } else {
+      console.log("log out failed");
+    }
   };
-  gotoProfile=()=>{
+  gotoProfile = () => {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-if(currentUser.studentid){
-  this.props.history.push("/student/dashboard")
-}
-else{
-  this.props.history.push("/teacher/dashboard")
-
-}
-  }
+    if (currentUser.studentid) {
+      this.props.history.push("/student/dashboard");
+    } else {
+      this.props.history.push("/teacher/dashboard");
+    }
+  };
 
   gotocourses = () => {
     this.props.history.push("/allcourses");
@@ -152,22 +153,19 @@ else{
     this.setState({ allDays: [...this.state.allDays, ""] });
   };
 
-
   removeRow = (e) => {
-console.log(e.target.value)
-    this.state.allDays.splice(e.target.value,1);
+    console.log(e.target.value);
+    this.state.allDays.splice(e.target.value, 1);
     this.setState({ allDays: this.state.allDays });
-    this.final_selectedtime.splice(e.target.value,1);
+    this.final_selectedtime.splice(e.target.value, 1);
     console.log(this.final_selectedtime);
   };
 
-
-  selectedDay(e,index) {
-    
-    this.state.allDays[index]=e
+  selectedDay(e, index) {
+    this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
-    console.log(this.state.allDays)
-    this.setState({days:e})
+    console.log(this.state.allDays);
+    this.setState({ days: e });
   }
 
   handleChange = (value) => {
@@ -176,11 +174,11 @@ console.log(e.target.value)
   };
 
   final_selectedtime = [];
-  
+
   onClicked(i) {
-    console.log(i)
+    console.log(i);
     var courseSchedule = {
-      index:i,
+      index: i,
       day: this.state.days,
       time: this.state.timeSlot,
     };
@@ -195,6 +193,8 @@ console.log(e.target.value)
 
   // @desc Login for Teachers
   onFinishTeacher = (values) => {
+    this.setState({ loading: true });
+
     axios
       .post("https://elearningserver.herokuapp.com/teacherlogin", values)
       .then((response) => {
@@ -203,6 +203,7 @@ console.log(e.target.value)
         successForlogin();
         this.setState({
           visible: false,
+          loading: false,
         });
         const token = response.data.token;
         const email = response.data.email;
@@ -232,6 +233,7 @@ console.log(e.target.value)
 
   onFinishCourseSelection = (values) => {
     console.log(values);
+    this.setState({ showSubmitButton: true });
     this.setState({
       course_name: values.course_name,
       course_duration: values.course_duration,
@@ -247,9 +249,7 @@ console.log(e.target.value)
   };
   // @desc  Registering teacher operations
   onFinishRegisTeacher = (values) => {
-    console.log("success", values);
-    console.log(this.final_selectedtime);
-
+    this.setState({ loading: true });
     axios
       .post("https://elearningserver.herokuapp.com/registerteacher", values)
       .then((response) => {
@@ -266,7 +266,10 @@ console.log(e.target.value)
         };
         console.log(databody);
         axios
-          .post("https://elearningserver.herokuapp.com/teacher/addCourse", databody)
+          .post(
+            "https://elearningserver.herokuapp.com/teacher/addCourse",
+            databody
+          )
           .then((response) => {
             console.log(response);
             this.formRef.current.resetFields();
@@ -291,10 +294,13 @@ console.log(e.target.value)
 
   //Login for students
   onFinish = (values) => {
+    this.setState({ loading: true });
+
     axios
       .post("https://elearningserver.herokuapp.com/studentlogin", values)
       .then((response) => {
         console.log(response);
+        this.setState({ loading: false });
         this.formRef.current.resetFields();
         successForlogin();
         this.setState({
@@ -309,9 +315,12 @@ console.log(e.target.value)
           "currentUser",
           JSON.stringify({ token, email, phone, username, studentid })
         );
-        this.setState({ showField: true, username: username,visibleModalForStudents:false });
+        this.setState({
+          showField: true,
+          username: username,
+          visibleModalForStudents: false,
+        });
         this.props.history.push("student/dashboard");
-
       })
       .catch((error) => {
         console.log(error.response);
@@ -326,12 +335,14 @@ console.log(e.target.value)
   //for Registering Student
   onFinishRegisStudent = (values) => {
     console.log(values);
+    this.setState({ loading: true });
     axios
       .post("https://elearningserver.herokuapp.com/registerstudent", values)
       .then((response) => {
         console.log(response);
         this.setState({
           visible: false,
+          loading: false,
         });
         successForregistration();
         this.formRef.current.resetFields();
@@ -346,16 +357,16 @@ console.log(e.target.value)
     console.log("Failed:", errorInfo);
   };
 
-  checkifUserloggedIn(){
+  checkifUserloggedIn() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    if(currentUser){
+    if (currentUser) {
       this.setState({ showField: true, username: currentUser.username });
-    };
+    }
   }
   children = [];
 
   componentDidMount() {
-    this.checkifUserloggedIn()
+    this.checkifUserloggedIn();
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
         <Option key={i + "-" + (Number(i) + 1)}>
@@ -394,7 +405,9 @@ console.log(e.target.value)
               </Nav.Link>
               {this.state.showField ? (
                 <Row>
-                  <Nav.Link onClick={this.gotoProfile}>{this.state.username}</Nav.Link>
+                  <Nav.Link onClick={this.gotoProfile}>
+                    {this.state.username}
+                  </Nav.Link>
                   <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
                 </Row>
               ) : (
@@ -421,151 +434,156 @@ console.log(e.target.value)
           onCancel={this.handleCancelStud}
           footer={[]}
         >
-          <Tabs defaultActiveKey="1">
-            <TabPane
-              tab={
-                <span>
-                  <LoginOutlined />
-                  Signin
-                </span>
-              }
-              key="1"
-            >
-              <Form
-                ref={this.formRef}
-                {...layout}
-                name="basic"
-                onFinish={this.onFinish}
-                onFinishFailed={this.onFinishFailed}
+          <Spin spinning={this.state.loading}>
+            <Tabs defaultActiveKey="1">
+              <TabPane
+                tab={
+                  <span>
+                    <LoginOutlined />
+                    Signin
+                  </span>
+                }
+                key="1"
               >
-                <Row justify="center">
-                  <Col span={24}>
-                    <Form.Item
-                      label="Email"
-                      name="email"
-                      rules={[
-                        {
-                          type: 'email',
-                          required: true,
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row justify="center">
-                  <Col span={24}>
-                    <Form.Item
-                      label="Password"
-                      name="password"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Password!",
-                        },
-                      ]}
-                    >
-                      <Input.Password />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row justify="center">
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                      Submit
-                    </Button>
-                  </Form.Item>
-                </Row>
-              </Form>
-            </TabPane>
-            <TabPane
-              tab={
-                <span>
-                  <UserAddOutlined />
-                  Sign Up
-                </span>
-              }
-              key="2"
-            >
-              <Form
-                ref={this.formRef}
-                name="basic"
-                initialValues={{ remember: true }}
-                onFinish={this.onFinishRegisStudent}
-                onFinishFailed={this.onFinishFailedRegisStudent}
-                size="medium"
-              >
-                <Row justify="space-between">
-                  <Col span={11}>
-                    <Form.Item
-                      name="username"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Username!",
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Username" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={11}>
-                    <Form.Item
-                      name="mobile"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Mobile Number!",
-                        },
-                      ]}
-                    >
-                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row justify="space-between">
-                  <Col span={11}>
-                    <Form.Item
-                      name="email"
-                      rules={[
-                        {
-                          required: true,
-                          type: 'email',
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Email" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={11}>
-                    <Form.Item
-                      name="password"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Password!",
-                        },
-                      ]}
-                    >
-                      <Input.Password placeholder="Password" />
-                    </Form.Item>
-                  </Col>
-                </Row>
-
-                <br />
-                <Row justify="center">
-                  <Col>
+                <Form
+                  ref={this.formRef}
+                  {...layout}
+                  name="basic"
+                  onFinish={this.onFinish}
+                  onFinishFailed={this.onFinishFailed}
+                >
+                  <Row justify="center">
+                    <Col span={24}>
+                      <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[
+                          {
+                            type: "email",
+                            required: true,
+                          },
+                        ]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row justify="center">
+                    <Col span={24}>
+                      <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row justify="center">
                     <Form.Item>
                       <Button type="primary" htmlType="submit">
                         Submit
                       </Button>
                     </Form.Item>
-                  </Col>
-                </Row>
-              </Form>{" "}
-            </TabPane>
-          </Tabs>
+                  </Row>
+                </Form>
+              </TabPane>
+              <TabPane
+                tab={
+                  <span>
+                    <UserAddOutlined />
+                    Sign Up
+                  </span>
+                }
+                key="2"
+              >
+                <Form
+                  ref={this.formRef}
+                  name="basic"
+                  initialValues={{ remember: true }}
+                  onFinish={this.onFinishRegisStudent}
+                  onFinishFailed={this.onFinishFailedRegisStudent}
+                  size="medium"
+                >
+                  <Row justify="space-between">
+                    <Col span={11}>
+                      <Form.Item
+                        name="username"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Username!",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Username" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={11}>
+                      <Form.Item
+                        name="mobile"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Mobile Number!",
+                          },
+                        ]}
+                      >
+                        <InputNumber
+                          placeholder="Mobile"
+                          style={{ width: "100%" }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row justify="space-between">
+                    <Col span={11}>
+                      <Form.Item
+                        name="email"
+                        rules={[
+                          {
+                            required: true,
+                            type: "email",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Email" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={11}>
+                      <Form.Item
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password placeholder="Password" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+
+                  <br />
+                  <Row justify="center">
+                    <Col>
+                      <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                          Submit
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Form>{" "}
+              </TabPane>
+            </Tabs>
+          </Spin>
         </Modal>
 
         {/* @ DESC TEACHERS MODALS */}
@@ -578,157 +596,164 @@ console.log(e.target.value)
           onCancel={this.handleCancel}
           footer={[]}
         >
-          <Tabs defaultActiveKey="1">
-            <TabPane
-              tab={
-                <span>
-                  <LoginOutlined />
-                  Signin
-                </span>
-              }
-              key="1"
-            >
-              <Form
-                ref={this.formRef}
-                {...layout}
-                name="basic"
-                onFinish={this.onFinishTeacher}
-                onFinishFailed={this.onFinishFailedTeacher}
+          <Spin spinning={this.state.loading}>
+            <Tabs defaultActiveKey="1">
+              <TabPane
+                tab={
+                  <span>
+                    <LoginOutlined />
+                    Signin
+                  </span>
+                }
+                key="1"
               >
-                <Row justify="center">
-                  <Col span={24}>
-                    <Form.Item
-                      label="Email"
-                      name="email"
-                      rules={[
-                        {
-                          required: true,
-                          type: 'email',
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row justify="center">
-                  <Col span={24}>
-                    <Form.Item
-                      label="Password"
-                      name="password"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Password!",
-                        },
-                      ]}
-                    >
-                      <Input.Password />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row justify="center">
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                      Submit
-                    </Button>
-                  </Form.Item>
-                </Row>
-              </Form>
-            </TabPane>
-            <TabPane
-              tab={
-                <span>
-                  <UserAddOutlined />
-                  Sign Up
-                </span>
-              }
-              key="2"
-            >
-              <Form
-                ref={this.formRef}
-                name="basic"
-                initialValues={{ remember: true }}
-                onFinish={this.onFinishRegisTeacher}
-                onFinishFailed={this.onFinishFailedRegisTeacher}
-                size="medium"
-              >
-                <Row justify="space-between">
-                  <Col span={11}>
-                    <Form.Item
-                      name="username"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Username!",
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Username" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={11}>
-                    <Form.Item
-                      name="mobile"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Mobile Number!",
-                        },
-                      ]}
-                    >
-                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row justify="space-between">
-                  <Col span={11}>
-                    <Form.Item
-                      name="email"
-                      rules={[
-                        {
-                          required: true,
-                          type: 'email',
-                        },
-                      ]}
-                    >
-                      <Input placeholder="Email" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={11}>
-                    <Form.Item
-                      name="password"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your Password!",
-                        },
-                      ]}
-                    >
-                      <Input.Password placeholder="Password" />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                {/* <Divider /> */}
-                <Row>
-                  <Button onClick={this.setModal1Visible}>
-                    Add Course Details
-                  </Button>
-                </Row>
-
-                <br />
-                <Row justify="center">
-                  <Col>
+                <Form
+                  ref={this.formRef}
+                  {...layout}
+                  name="basic"
+                  onFinish={this.onFinishTeacher}
+                  onFinishFailed={this.onFinishFailedTeacher}
+                >
+                  <Row justify="center">
+                    <Col span={24}>
+                      <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[
+                          {
+                            required: true,
+                            type: "email",
+                          },
+                        ]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row justify="center">
+                    <Col span={24}>
+                      <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row justify="center">
                     <Form.Item>
                       <Button type="primary" htmlType="submit">
                         Submit
                       </Button>
                     </Form.Item>
-                  </Col>
-                </Row>
-              </Form>{" "}
-            </TabPane>
-          </Tabs>
+                  </Row>
+                </Form>
+              </TabPane>
+              <TabPane
+                tab={
+                  <span>
+                    <UserAddOutlined />
+                    Sign Up
+                  </span>
+                }
+                key="2"
+              >
+                <Form
+                  ref={this.formRef}
+                  name="basic"
+                  initialValues={{ remember: true }}
+                  onFinish={this.onFinishRegisTeacher}
+                  onFinishFailed={this.onFinishFailedRegisTeacher}
+                  size="medium"
+                >
+                  <Row justify="space-between">
+                    <Col span={11}>
+                      <Form.Item
+                        name="username"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Username!",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Username" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={11}>
+                      <Form.Item
+                        name="mobile"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Mobile Number!",
+                          },
+                        ]}
+                      >
+                        <InputNumber
+                          placeholder="Mobile"
+                          style={{ width: "100%" }}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row justify="space-between">
+                    <Col span={11}>
+                      <Form.Item
+                        name="email"
+                        rules={[
+                          {
+                            required: true,
+                            type: "email",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Email" />
+                      </Form.Item>
+                    </Col>
+                    <Col span={11}>
+                      <Form.Item
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password placeholder="Password" />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  {/* <Divider /> */}
+                  <Row>
+                    <Button onClick={this.setModal1Visible}>
+                      Add Course Details
+                    </Button>
+                  </Row>
+
+                  <br />
+                  <Row justify="center">
+                    <Col>
+                      {this.state.showSubmitButton ? (
+                        <Form.Item>
+                          <Button type="primary" htmlType="submit">
+                            Submit
+                          </Button>
+                        </Form.Item>
+                      ) : null}
+                    </Col>
+                  </Row>
+                </Form>{" "}
+              </TabPane>
+            </Tabs>
+          </Spin>
         </Modal>
 
         <Modal
@@ -776,7 +801,7 @@ console.log(e.target.value)
             </Row>
 
             <Row justify="space-between">
-            <Col span={11}>
+              <Col span={11}>
                 <Form.Item
                   name="hour_based_course_price"
                   rules={[
@@ -804,7 +829,6 @@ console.log(e.target.value)
               </Col>
             </Row>
             <Row>
-             
               <Col span={11}>
                 <Form.Item
                   name="course_description"
@@ -823,13 +847,13 @@ console.log(e.target.value)
               Course Schdedule
               <PlusCircleOutlined onClick={this.handleAdd} />
             </Row>
-            {this.state.allDays.map((day,index) => {
+            {this.state.allDays.map((day, index) => {
               return (
                 <Row justify="space-between" key={index}>
                   <Col span={7}>
                     <Select
                       placeholder="Select Day"
-                      onChange={(e)=>this.selectedDay(e,index)}
+                      onChange={(e) => this.selectedDay(e, index)}
                       value={day}
                       style={{ width: "100%" }}
                     >
@@ -848,7 +872,7 @@ console.log(e.target.value)
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
                       onChange={this.handleChange}
-                      onBlur={()=>this.onClicked(index)}
+                      onBlur={() => this.onClicked(index)}
                     >
                       {this.children}
                     </Select>
@@ -865,7 +889,7 @@ console.log(e.target.value)
               <Col>
                 <Form.Item>
                   <Button type="primary" htmlType="submit">
-                    Submit
+                    <StepBackwardOutlined />
                   </Button>
                 </Form.Item>
               </Col>
