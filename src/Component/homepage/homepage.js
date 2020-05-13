@@ -48,6 +48,7 @@ class courses extends Component {
           galleryItems: response.data,
           loader: false,
         });
+       
       })
       .catch((error) => {
         console.log(error.response);
@@ -61,9 +62,11 @@ class courses extends Component {
   };
 
   render() {
+
     this.filteredCourses = this.state.galleryItems.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
+
     const arr = this.filteredCourses.map((i) => (
       <Row style={{ marginLeft: 12 }}>
         <Col span={23} key={i._id}>
@@ -88,6 +91,7 @@ class courses extends Component {
         </Col>
       </Row>
     ));
+    
     return (
       <div>
         {this.state.loader ? (

@@ -19,6 +19,11 @@ class courses extends Component {
     };
     this.searchUpdated = this.searchUpdated.bind(this);
   }
+
+  end = 13;
+  slicedCoursesArray = [];
+  newslicedCoursesArray = [];
+
   searchUpdated(term) {
     this.setState({ searchTerm: term });
   }
@@ -30,8 +35,10 @@ class courses extends Component {
     this.props.history.push(path);
   };
 
-  loadMore = () => {
-    console.log(this.state.coursesArray.length);
+  loadMoreCourses = () => {
+    this.end = this.end + 1;
+    this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
+    this.setState({ coursesArray: this.newslicedCoursesArray });
   };
 
   componentDidMount = () => {
@@ -39,9 +46,10 @@ class courses extends Component {
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
         console.log(response.data);
+        this.slicedCoursesArray = response.data;
 
-        const coursesArray = response.data;
-        this.setState({ coursesArray });
+        this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
+        this.setState({ coursesArray: this.newslicedCoursesArray });
       })
       .catch((error) => {
         console.log(error.response);
@@ -77,19 +85,23 @@ class courses extends Component {
                 hoverable
                 style={{
                   width: 240,
-                  height: 140,
+                  height: 150,
                   minWidth: 100,
                   marginBottom: 40,
                 }}
+                onClick={() => this.onCardClick(i)}
               >
                 <p>{i.course_name}</p>
-                <Meta title={i.teacher_name} description={i.course_price} />
+                <Meta
+                  title={i.teacher_name}
+                  description={i.full_course_price}
+                />
               </Card>
             </Col>
           ))}
         </Row>
         <Row justify="center">
-          <Button onClick={this.loadMore}>Load More</Button>
+          <Button onClick={this.loadMoreCourses}>Load More</Button>
         </Row>
       </div>
     );

@@ -12,7 +12,7 @@ class dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleKey: "todaysSchedule",
+      titleKey: "TodaysSchedule",
       username: "",
       email: "",
     };
@@ -32,27 +32,27 @@ class dashboard extends Component {
   render() {
     const tabList = [
       {
-        key: "todaysSchedule",
-        tab: "todaysSchedule",
+        key: "TodaysSchedule",
+        tab: "Courses Schedule",
       },
       {
         key: "profile",
-        tab: "profile",
+        tab: "Profile",
       },
       {
         key: "adddedCourses",
-        tab: "adddedCourses",
+        tab: "Addded Courses",
       },
       {
         key: "payment",
-        tab: "payment",
+        tab: "Payments History",
       },
     ];
 
     const contentList = {
       profile: <Profile />,
       adddedCourses: <Addedcourses />,
-      todaysSchedule: <TodaysSchedule />,
+      TodaysSchedule: <TodaysSchedule />,
       payment: <Payment />,
     };
 
