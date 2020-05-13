@@ -37,7 +37,6 @@ class Courses extends Component {
   };
 
   onFinishCourseSelection = (values) => {
-    console.log(values);
 
     const databody = {
       course_schedule: this.final_selectedtime,
@@ -85,7 +84,6 @@ class Courses extends Component {
   };
 
   selectedDay = (e) => {
-    console.log(e);
     this.setState({ days: e });
   }
 

@@ -31,13 +31,11 @@ class courses extends Component {
 
   searchUpdated(term) {
     this.setState({ searchTerm: term });
-    console.log(this.state.galleryItems);
   }
 
   filteredCourses = [];
 
   componentDidMount = () => {
-    console.log(this.props.selectCard);
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
