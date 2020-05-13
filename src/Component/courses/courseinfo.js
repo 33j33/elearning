@@ -18,78 +18,22 @@ class courseinfo extends Component {
       value3: "",
       showField: false,
       cardData: JSON.parse(sessionStorage.getItem("cardData")),
+      selectedTime:""
     };
-    this.selectedDay = this.selectedDay.bind(this);
-    this.onClicked = this.onClicked.bind(this);
   }
 
-  handleAdd = () => {
-    this.setState({ allDays: [...this.state.allDays, ""] });
-  };
 
-  removeRow = (index) => {
-    this.state.allDays.splice(index, 1);
-    this.setState({ allDays: this.state.allDays });
-    this.final_selectedtime.pop(index);
-    console.log(this.final_selectedtime);
-  };
-
-  //SELECTED DAYS AND TIME SLOTS
-  selectedDay(e) {
-    console.log(e);
-    this.setState({ days: e });
-  }
-  handleChange = (value) => {
-    console.log(value);
-    this.setState({ days: value });
-    console.log(this.state.cardData.course_schedule);
-    for (const i in this.state.cardData.course_schedule) {
-      console.log(this.state.cardData.course_schedule[i].day);
-      if (this.state.cardData.course_schedule[i].day === value) {
-        console.log(i.day);
-        this.setState({
-          timeSlot: this.state.cardData.course_schedule[i].time,
-          showField: true,
-        });
-      }
-    }
-    console.log(this.state.showField);
-  };
-
-  final_selectedtime = [];
-  onClicked() {
-    var courseSchedule = {
-      courseDay: this.state.days,
-      courseTime: this.state.timeSlot,
-    };
-    this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
-  }
-
-  children = [];
-
-  componentDidMount() {
-    console.log(this.state.cardData);
-    console.log(this.state.cardData.course_schedule);
-
-    for (let i = 8; i < 22; i = i + 1) {
-      this.children.push(
-        <Option key={i + "-" + (Number(i) + 1)}>
-          {i + "-" + (Number(i) + 1)}
-        </Option>
-      );
-    }
-  }
-  componentWillMount() {
-    console.log(this.props.data);
-  }
 
   //For radio button group
   onChange1 = (e) => {
     console.log("radio checked1", e.target.value);
     this.setState({
-      value1: e.target.value,
-    });
+      selectedTime:e.target.value
+    })
+    console.log(this.state.selectedTime)
+    // this.setState({
+    //   value1: e.target.value,
+    // });
   };
 
   onChange2 = (e) => {
@@ -110,6 +54,12 @@ class courseinfo extends Component {
   callback = (e) => {
     console.log(e);
   };
+
+
+  getSchedule=(data)=>{
+    console.log(data)
+
+  }
   render() {
     return (
       <div>
@@ -147,19 +97,18 @@ class courseinfo extends Component {
               Teacher's avalaible slots:
               <ul>
                 {this.state.cardData.course_schedule.map((i) => (
-                  <li>
+                  <li onBlur={()=>this.getSchedule(i.day)}>
                     {i.day}
-                    {i.time.map((i) => (
                       <Radio.Group
                         onChange={this.onChange1}
-                        value={this.state.value1}
                         style={{ marginLeft: 30 }}
+                        // value={j}
+                        options={i.time}
                       >
-                        <Radio value={1}>{i}</Radio>
                       </Radio.Group>
-                    ))}
                   </li>
                 ))}
+
               </ul>
             </p>
             <p>
