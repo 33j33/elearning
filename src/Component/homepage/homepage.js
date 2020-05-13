@@ -74,7 +74,7 @@ class courses extends Component {
                 // height="150px"
               />
             }
-            actions={[<h6>Price:{i.course_price}</h6>]}
+            actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
             <Meta
               // style={{ fontSize: "16px" }}
