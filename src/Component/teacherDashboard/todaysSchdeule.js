@@ -34,10 +34,9 @@ class TodaysSchdeule extends Component {
     return (
       <div>
         {this.state.courseArray.map((i) => (
-          <Descriptions title="Course">
-            <Descriptions.Item label="Course Name">
-              {i.course_name}
-            </Descriptions.Item>
+                            <Descriptions title=              {i.course_name}
+                            >
+
             <Descriptions.Item label="Student Name  ">
               {i.student_name}
             </Descriptions.Item>
@@ -59,9 +58,10 @@ class TodaysSchdeule extends Component {
             <Descriptions.Item label="Status" span={3}>
               <Badge status="processing" text="Running" />
             </Descriptions.Item>
-          </Descriptions>
+                              </Descriptions>
+
         ))}
-        hi
+    
       </div>
     );
   }

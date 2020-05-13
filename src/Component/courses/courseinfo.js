@@ -76,7 +76,6 @@ class courseinfo extends Component {
   getFullCourseTimeSlot = (e) => {
     for (const i in this.FullCourseTimeSlotArray) {
       if (this.FullCourseTimeSlotArray[i].day === this.selectedday) {
-        console.log(this.FullCourseTimeSlotArray[i]);
         this.FullCourseTimeSlotArray.pop(this.FullCourseTimeSlotArray[i], 1);
       }
     }

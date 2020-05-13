@@ -38,9 +38,10 @@ constructor(props){
              type="inner"
              title={course.course_name}
              key={course._id}
+             extra={<h5>By:{course.teacher_name} </h5>}
            >
-             <p style={{ marginBottom: 0 }}>Teacher Name: {course.teacher_name}</p>
-             <p style={{ marginBottom: 0 }}>Teacher Mobile: {course.teacher_mobile}</p>
+              <p style={{ marginBottom: 0 }}>Teacher Mobile: {course.teacher_mobile}</p>
+             <p style={{ marginBottom: 0 }}>Course Type: {course.course_type}</p>
              <p style={{ marginBottom: 0 }}>Course Bought date: {course.date}</p>
 
              <p>Course Duration: {course.course_duration}</p>

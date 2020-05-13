@@ -25,9 +25,9 @@ class Courses extends Component {
       timeSlot: [],
       days: "",
       allDays: [],
-      teacher_name:"",
-      teacher_mobile:"",
-      teacher_email:""
+      teacher_name: "",
+      teacher_mobile: "",
+      teacher_email: ""
     };
   }
   formRef = React.createRef();
@@ -38,7 +38,7 @@ class Courses extends Component {
 
   onFinishCourseSelection = (values) => {
     console.log(values);
- 
+
     const databody = {
       course_schedule: this.final_selectedtime,
       course_price: values.course_price,
@@ -54,12 +54,13 @@ class Courses extends Component {
       .then((response) => {
         console.log(response);
         this.formRef.current.resetFields();
-        this.setState({ 
+        this.setState({
           coursesModal: false,
-          timeSlot:[],
-          days:"",
-          allDays:[] });
-        this.final_selectedtime=[]
+          timeSlot: [],
+          days: "",
+          allDays: []
+        });
+        this.final_selectedtime = []
         successForCourses();
 
       })
@@ -142,7 +143,7 @@ class Courses extends Component {
       <div
 
       >
-        
+
         <Row justify="space-around">
           <Col>
             <Button
@@ -193,7 +194,7 @@ class Courses extends Component {
           onCancel={() => this.setState({ coursesModal: false })}
         >
           <Form
-                          ref={this.formRef}
+            ref={this.formRef}
 
             name="basic"
             initialValues={{ remember: true }}
