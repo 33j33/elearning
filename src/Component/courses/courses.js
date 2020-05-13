@@ -20,9 +20,9 @@ class courses extends Component {
     this.searchUpdated = this.searchUpdated.bind(this);
   }
 
-  end = 13
-  slicedCoursesArray=[]
-  newslicedCoursesArray=[]
+  end = 13;
+  slicedCoursesArray = [];
+  newslicedCoursesArray = [];
 
   searchUpdated(term) {
     this.setState({ searchTerm: term });
@@ -35,23 +35,21 @@ class courses extends Component {
     this.props.history.push(path);
   };
 
-  
   loadMoreCourses = () => {
     this.end = this.end + 1;
-    this.newslicedCoursesArray=this.slicedCoursesArray.slice(0,this.end)
-this.setState({coursesArray:this.newslicedCoursesArray})
-
-  }
+    this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
+    this.setState({ coursesArray: this.newslicedCoursesArray });
+  };
 
   componentDidMount = () => {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
         console.log(response.data);
-      this.slicedCoursesArray=response.data
-     
-      this.newslicedCoursesArray=this.slicedCoursesArray.slice(0,this.end)
-      this.setState({coursesArray:this.newslicedCoursesArray})  
+        this.slicedCoursesArray = response.data;
+
+        this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
+        this.setState({ coursesArray: this.newslicedCoursesArray });
       })
       .catch((error) => {
         console.log(error.response);
@@ -91,10 +89,13 @@ this.setState({coursesArray:this.newslicedCoursesArray})
                   minWidth: 100,
                   marginBottom: 40,
                 }}
-                onClick={()=>this.onCardClick(i)}
+                onClick={() => this.onCardClick(i)}
               >
                 <p>{i.course_name}</p>
-                <Meta title={i.teacher_name} description={i.full_course_price} />
+                <Meta
+                  title={i.teacher_name}
+                  description={i.full_course_price}
+                />
               </Card>
             </Col>
           ))}

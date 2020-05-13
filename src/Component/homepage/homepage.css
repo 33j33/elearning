@@ -2,75 +2,74 @@
    ====== Search Box ====== 
    =========================== */
 
-   .search {
-    border: 2px solid black;
-    overflow: auto;
-    /* min-width: 40%; */
-    border-radius: 40px;
-    -moz-border-radius: 40px;
-    -webkit-border-radius: 40px;
-  }
-  
-  .search input[type="text"] {
-    border: 0px;
-    width: 100%;
-    padding: 10px 10px;
-  }
-  
-  .search input[type="text"]:focus {
-    outline: 0;
-  }
-  
-  .search input[type="submit"] {
-    border: 0px;
-    background: none;
-    background-color: #cf5c3f;
-    color: #fff;
-    float: right;
-    padding: 10px;
-    border-radius-top-right: 5px;
-    -moz-border-radius-top-right: 5px;
-    -webkit-border-radius-top-right: 5px;
-    border-radius-bottom-right: 5px;
-    -moz-border-radius-bottom-right: 5px;
-    -webkit-border-radius-bottom-right: 5px;
-    cursor: pointer;
-  }
-  .row-search {
-    justify-content: space-around;
-  }
-  .heading {
-    justify-content: center;
-    letter-spacing: 8px;
-    margin-bottom: 30px;
-  }
-  
-  /* for carasiul */
-  .ant-carousel .slick-slide {
-    text-align: center;
-    height: 160px;
-    line-height: 160px;
-    background: #364d79;
-    overflow: hidden;
-  }
-  
-  .ant-carousel .slick-slide h3 {
-    color: #fff;
-  }
+.search {
+  border: 2px solid black;
+  overflow: auto;
+  /* min-width: 40%; */
+  border-radius: 40px;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+}
 
-  .alice-carousel__stage-item *{
-    width: fit-content !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
+.search input[type="text"] {
+  border: 0px;
+  width: 100%;
+  padding: 10px 10px;
+}
 
-  .ant-card-actions{
-    padding-left: 90px !important;
-    padding-right: 90px !important;
-  }
+.search input[type="text"]:focus {
+  outline: 0;
+}
 
+.search input[type="submit"] {
+  border: 0px;
+  background: none;
+  background-color: #cf5c3f;
+  color: #fff;
+  float: right;
+  padding: 10px;
+  border-radius-top-right: 5px;
+  -moz-border-radius-top-right: 5px;
+  -webkit-border-radius-top-right: 5px;
+  border-radius-bottom-right: 5px;
+  -moz-border-radius-bottom-right: 5px;
+  -webkit-border-radius-bottom-right: 5px;
+  cursor: pointer;
+}
+.row-search {
+  justify-content: space-around;
+}
+.heading {
+  justify-content: center;
+  letter-spacing: 8px;
+  margin-bottom: 30px;
+}
 
-  /* ===========================
+/* for carasiul */
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+.alice-carousel__stage-item * {
+  width: fit-content !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.ant-card-actions {
+  padding-left: 90px !important;
+  padding-right: 90px !important;
+}
+
+/* ===========================
         ====== Medua Query for Search Box ====== 
         =========================== */
 
@@ -88,4 +87,15 @@
   text-align: center;
   font-size: x-large;
   padding: 1%;
+}
+
+.example {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  /* z-index: 999; */
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  margin: 20px 0;
+  padding-bottom: 25%;
 }
