@@ -19,6 +19,7 @@ class courseinfo extends Component {
       showPanel: true,
       showField: false,
       cardData: JSON.parse(sessionStorage.getItem("cardData")),
+      selectedTime: "",
     };
     this.selectedDay = this.selectedDay.bind(this);
     this.onClicked = this.onClicked.bind(this);
@@ -140,6 +141,10 @@ class courseinfo extends Component {
   //For collapse
   callback = (e) => {
     console.log(e);
+  };
+
+  getSchedule = (data) => {
+    console.log(data);
   };
   render() {
     return (

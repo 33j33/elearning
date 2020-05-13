@@ -159,12 +159,13 @@ else{
   };
 
 
-  selectedDay(e,index) {
+  selectedDay(e) {
     
-    this.state.allDays[index]=e
+    // this.state.allDays[index]=e
     // this.i++
     this.setState({ allDays: this.state.allDays });
     console.log(this.state.allDays)
+    this.setState({days:e})
   }
 
   handleChange = (value) => {
@@ -835,7 +836,7 @@ else{
                       <Select.Option value="Sunday">Sunday</Select.Option>
                     </Select>
                   </Col>
-                  {/* <Col span={15}>
+                  <Col span={15}>
                     <Select
                       mode="multiple"
                       style={{ width: "100%" }}
@@ -845,7 +846,7 @@ else{
                     >
                       {this.children}
                     </Select>
-                  </Col> */}
+                  </Col>
                   <Col>
                     <Button onClick={() => this.removeRow(index)}>
                       <DeleteOutlined />

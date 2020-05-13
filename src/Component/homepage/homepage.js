@@ -25,7 +25,7 @@ class courses extends Component {
   items;
 
   responsive = {
-    0: { items: 2 },
+    0: { items: 1 },
     1024: { items: 5 },
   };
 
@@ -37,7 +37,6 @@ class courses extends Component {
   filteredCourses = [];
 
   componentDidMount = () => {
-    
     console.log(this.props.selectCard);
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
@@ -75,9 +74,7 @@ class courses extends Component {
                 // height="150px"
               />
             }
-            actions={[
-              <h6>Price:{i.course_price}</h6>,
-            ]}
+            actions={[<h6>Price:{i.course_price}</h6>]}
           >
             <Meta
               // style={{ fontSize: "16px" }}
@@ -107,6 +104,7 @@ class courses extends Component {
                   <SearchInput
                     onChange={this.searchUpdated}
                     placeholder="Search for a course"
+                    id="navBar"
                     style={{ width: "100%", border: "none" }}
                   />
                 </form>
@@ -122,13 +120,15 @@ class courses extends Component {
             </h3>
           </Col>
           <Col style={{ marginRight: 12 }}>
-            <Button ><Link to="allcourses">View All</Link></Button>
+            <Button>
+              <Link to="allcourses">View All</Link>
+            </Button>
           </Col>
         </Row>
         ;
         <Row>
           <AliceCarousel
-            style={{ maxWidth: 400 }}
+            //style={{ marginLeft: 0, marginRight: 0 }}
             items={arr}
             responsive={this.responsive}
             autoPlayInterval={3000}

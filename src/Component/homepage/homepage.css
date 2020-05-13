@@ -57,16 +57,35 @@
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
+
+  .alice-carousel__stage-item *{
+    width: fit-content !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .ant-card-actions{
+    padding-left: 90px !important;
+    padding-right: 90px !important;
+  }
+
+
   /* ===========================
         ====== Medua Query for Search Box ====== 
         =========================== */
-  
-  @media only screen and (min-width: 150px) and (max-width: 780px) {
-    .search {
-      margin-left: 0;
-    }
-    .row-search {
-      width: 100%;
-    }
+
+@media only screen and (min-width: 150px) and (max-width: 780px) {
+  .search {
+    margin-left: 0;
   }
-  
+  .row-search {
+    width: 100%;
+    font-size: xx-small;
+  }
+}
+
+#navBar {
+  text-align: center;
+  font-size: x-large;
+  padding: 1%;
+}
