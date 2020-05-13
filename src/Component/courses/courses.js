@@ -40,7 +40,7 @@ class courses extends Component {
     const filteredCourses = this.state.coursesArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     return (
-      <div style={{marginTop:10}}>
+    <div style={{marginTop:10, minHeight: 550}}>
         <Row>
           <Col span={7} offset={8}>
           <div className="search">
@@ -53,10 +53,10 @@ class courses extends Component {
         <br />
         <Row>
           {filteredCourses.map((i) => (
-            <Col offset={1} span={5} key={i._id}>
+            <Col offset={2} /*span={5}*/ key={i._id}>
               <Card
                 hoverable
-                style={{ width: 240, minWidth: 100, marginBottom: 40 }}
+                style={{ width: 240, height: 140, minWidth: 100, marginBottom: 40 }}
               >
                 <p>{i.course_name}</p>
                 <Meta title={i.teacher_name} description={i.course_price} />
