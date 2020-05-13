@@ -66,8 +66,8 @@ class courses extends Component {
 
     return (
       <div style={{ marginTop: 10, minHeight: 550 }}>
-        <Row>
-          <Col span={7} offset={8}>
+        <Row justify="center">
+          <Col>
             <div className="search">
               <form className="search-form">
                 <SearchInput
