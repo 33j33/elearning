@@ -20,6 +20,7 @@ class courseinfo extends Component {
       showField: false,
       cardData: JSON.parse(sessionStorage.getItem("cardData")),
       selectedTime: "",
+      coursetype: "",
     };
     this.selectedDay = this.selectedDay.bind(this);
     this.onClicked = this.onClicked.bind(this);
@@ -45,9 +46,17 @@ class courseinfo extends Component {
     console.log(e);
     this.setState({ days: e });
   }
+
+  handleChange1 = (value) => {
+    console.log(value);
+  };
+
+  halfcourseday = "";
+  showField = false;
   handleChange = (value) => {
     console.log(value);
-    console.log(this.state.cardData.course_schedule);
+    this.halfcourseday = value;
+    console.log("day", this.halfcourseday);
     for (const i in this.state.cardData.course_schedule) {
       console.log(this.state.cardData.course_schedule[i].day);
       if (this.state.cardData.course_schedule[i].day === value) {
@@ -55,6 +64,7 @@ class courseinfo extends Component {
           timeSlot: this.state.cardData.course_schedule[i].time,
           showField: true,
         });
+        this.showField = true;
       }
     }
     this.setState({ days: value });
@@ -88,28 +98,40 @@ class courseinfo extends Component {
   //For radio button group
   scheduleArray = [];
   selectedday = "";
-  getSchedule(day) {
-    console.log("days is", day);
-    this.setState({ days: day });
-  }
 
+  getSchedule = (data) => {
+    this.selectedday = data;
+
+    console.log(data);
+  };
   getday = (day) => {
     console.log("day", day);
-    this.selectedday = day;
+
+    return day;
     this.setState({ days: day });
   };
   onChange1 = (e) => {
     console.log("r", this.selectedday);
-
+    console.log(e);
+    for (const i in this.scheduleArray) {
+      if (this.scheduleArray[i].day === this.selectedday) {
+        console.log(this.scheduleArray[i]);
+        this.scheduleArray.pop(this.scheduleArray[i], 1);
+      }
+    }
     const body = {
-      day: this.state.days,
+      day: this.selectedday,
       time: e.target.value,
     };
+
+    console.log(body);
     this.scheduleArray.push(body);
     console.log(e.target);
     console.log("radio checked1", this.scheduleArray);
   };
   submitschedule() {
+    console.log(this.scheduleArray);
+    console.log(this.state.coursetype);
     this.setState({ showButton: true });
     this.setState({ showPanel: false });
 
@@ -143,9 +165,6 @@ class courseinfo extends Component {
     console.log(e);
   };
 
-  getSchedule = (data) => {
-    console.log(data);
-  };
   render() {
     return (
       <div>
@@ -178,7 +197,11 @@ class courseinfo extends Component {
           defaultActiveKey={["1"]}
           onChange={this.callback}
         >
-          <Panel header="Full Course" key="2">
+          <Panel
+            header="Full Course"
+            key="2"
+            onClick={(this.state.coursetype = "Full")}
+          >
             Teacher's avalaible slots:
             <ul>
               {this.state.cardData.course_schedule.map((i) => (
@@ -208,57 +231,52 @@ class courseinfo extends Component {
               </Button>
             ) : null}
           </Panel>
-          {this.state.showPanel ? (
-            <Panel header="Half Course" key="3" style={{ marginTop: 10 }}>
-              <Row>Choose slots here:</Row>
+          <Panel header="Half Course" key="3" style={{ marginTop: 10 }}>
+            <Row>Choose slots here:</Row>
 
-              <Row justify="space-between">
-                <Col span={9}>
-                  <Select
-                    style={{ width: 200 }}
-                    value={this.state.days}
-                    onChange={this.handleChange}
-                  >
-                    {this.state.cardData.course_schedule.map((i) => (
-                      <Option value={i.day}>{i.day}</Option>
+            <Row justify="space-between">
+              <Col span={9}>
+                <Select
+                  style={{ width: 200 }}
+                  value={this.state.days}
+                  onChange={this.handleChange}
+                >
+                  {this.state.cardData.course_schedule.map((i) => (
+                    <Option value={i.day}>{i.day}</Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col span={9}>
+                {this.showField ? (
+                  <Select style={{ width: 200 }} onChange={this.handleChange1}>
+                    {this.state.timeSlot.map((j) => (
+                      <Option value={j}>{j}</Option>
                     ))}
                   </Select>
-                </Col>
-                <Col span={9}>
-                  {this.state.showField ? (
-                    <Select
-                      style={{ width: 200 }}
-                      onChange={this.handleChange1}
-                    >
-                      {this.state.timeSlot.map((j) => (
-                        <Option value={j}>{j}</Option>
-                      ))}
-                    </Select>
-                  ) : null}
-                </Col>
-              </Row>
-              <br />
-              <Row>
-                <Button onClick={this.submitschedule}>submit</Button>
-              </Row>
+                ) : null}
+              </Col>
+            </Row>
+            <br />
+            <Row>
+              <Button onClick={this.submitschedule}>submit</Button>
+            </Row>
 
-              <Row>
-                <Col>
-                  {" "}
-                  Course Fees: Rs.{this.state.cardData.course_price}
-                  {this.state.showButton ? (
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      style={{ marginLeft: 15 }}
-                    >
-                      Pay
-                    </Button>
-                  ) : null}
-                </Col>
-              </Row>
-            </Panel>
-          ) : null}
+            <Row>
+              <Col>
+                {" "}
+                Course Fees: Rs.{this.state.cardData.course_price}
+                {this.state.showButton ? (
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    style={{ marginLeft: 15 }}
+                  >
+                    Pay
+                  </Button>
+                ) : null}
+              </Col>
+            </Row>
+          </Panel>
         </Collapse>
         ,
       </div>
