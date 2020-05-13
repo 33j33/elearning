@@ -29,6 +29,7 @@ class courseinfo extends Component {
     this.getSchedule = this.getSchedule.bind(this);
     this.submitschedule = this.submitschedule.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.submitschedulehalf = this.submitschedulehalf.bind(this);
   }
 
   // handleAdd = () => {
@@ -50,7 +51,7 @@ class courseinfo extends Component {
   halftimeslot = "";
   handleChange1 = (value) => {
     this.halftimeslot = value;
-    console.log(value);
+    console.log(value, "t", this.halftimeslot);
   };
 
   halfcourseday = "";
@@ -58,7 +59,7 @@ class courseinfo extends Component {
   handleChange = (value) => {
     console.log(value);
     this.halfcourseday = value;
-    console.log("day", this.halfcourseday);
+    console.log("day", this.halfcourseday, "t", this.halftimeslot);
     for (const i in this.state.cardData.course_schedule) {
       console.log(this.state.cardData.course_schedule[i].day);
       if (this.state.cardData.course_schedule[i].day === value) {
@@ -156,7 +157,9 @@ class courseinfo extends Component {
       });
   }
   schedulehalfarray = [];
+
   submitschedulehalf() {
+    console.log("A", this.halfcourseday, this.halftimeslot);
     const data = {
       day: this.halfcourseday,
       time: this.halftimeslot,
