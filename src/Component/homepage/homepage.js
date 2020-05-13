@@ -25,7 +25,7 @@ class courses extends Component {
   items;
 
   responsive = {
-    0: { items: 2 },
+    0: { items: 1 },
     1024: { items: 5 },
   };
 
@@ -74,7 +74,7 @@ class courses extends Component {
                 // height="150px"
               />
             }
-            actions={[<h6>Price:{i.course_price}</h6>]}
+            actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
             <Meta
               // style={{ fontSize: "16px" }}
@@ -128,7 +128,7 @@ class courses extends Component {
         ;
         <Row>
           <AliceCarousel
-            style={{ maxWidth: 400 }}
+            //style={{ marginLeft: 0, marginRight: 0 }}
             items={arr}
             responsive={this.responsive}
             autoPlayInterval={3000}

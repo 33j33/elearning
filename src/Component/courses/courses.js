@@ -77,6 +77,7 @@ class courses extends Component {
                   marginBottom: 40,
                   height: 150,
                 }}
+                onClick={() =>this.onCardClick(i)}
               >
                 <p>{i.course_name}</p>
                 <Meta title={i.teacher_name} description={i.course_price} />
