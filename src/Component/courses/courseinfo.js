@@ -25,37 +25,27 @@ class courseinfo extends Component {
       token: "",
     };
 
-    this.onChange1 = this.onChange1.bind(this);
+    this.getFullCourseTimeSlot = this.getFullCourseTimeSlot.bind(this);
     this.getSchedule = this.getSchedule.bind(this);
-    this.submitschedule = this.submitschedule.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.buyFullCourse = this.buyFullCourse.bind(this);
+    this.getHourBasedCourseDay = this.getHourBasedCourseDay.bind(this);
   }
 
-  // handleAdd = () => {
-  //   this.setState({ allDays: [...this.state.allDays, ""] });
-  // };
-
-  // removeRow = (index) => {
-  //   this.state.allDays.splice(index, 1);
-  //   this.setState({ allDays: this.state.allDays });
-  //   this.final_selectedtime.pop(index);
-  //   console.log(this.final_selectedtime);
-  // };
-
-  //SELECTED DAYS AND TIME SLOTS
-  selectedDay(e) {
-    console.log(e);
-    this.setState({ days: e });
-  }
+  halfcourseday = "";
+  showField = false;
   halftimeslot = "";
-  handleChange1 = (value) => {
+  //For radio button group
+  FullCourseTimeSlotArray = [];
+  selectedday = "";
+
+
+  getHourBasedCourseTimeSlot = (value) => {
     this.halftimeslot = value;
     console.log(value);
   };
 
-  halfcourseday = "";
-  showField = false;
-  handleChange = (value) => {
+
+  getHourBasedCourseDay = (value) => {
     console.log(value);
     this.halfcourseday = value;
     console.log("day", this.halfcourseday);
@@ -73,42 +63,21 @@ class courseinfo extends Component {
     console.log("day", this.state.days);
   };
 
-  componentDidMount() {
-    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    console.log(currentUser);
-    if (currentUser) {
-      this.setState({
-        student_name: currentUser.username,
-        student_email: currentUser.email,
-        student_mobile: currentUser.mobile,
-        student_id: currentUser.studentid,
-        token: currentUser.token,
-      });
-    }
-  }
 
-  //For radio button group
-  scheduleArray = [];
-  selectedday = "";
 
   getSchedule = (data) => {
     this.selectedday = data;
 
-    console.log(data);
   };
   getday = (day) => {
-    console.log("day", day);
-
     return day;
-    this.setState({ days: day });
   };
-  onChange1 = (e) => {
-    console.log("r", this.selectedday);
-    console.log(e);
-    for (const i in this.scheduleArray) {
-      if (this.scheduleArray[i].day === this.selectedday) {
-        console.log(this.scheduleArray[i]);
-        this.scheduleArray.pop(this.scheduleArray[i], 1);
+
+  getFullCourseTimeSlot = (e) => {
+    for (const i in this.FullCourseTimeSlotArray) {
+      if (this.FullCourseTimeSlotArray[i].day === this.selectedday) {
+        console.log(this.FullCourseTimeSlotArray[i]);
+        this.FullCourseTimeSlotArray.pop(this.FullCourseTimeSlotArray[i], 1);
       }
     }
     const body = {
@@ -116,14 +85,10 @@ class courseinfo extends Component {
       time: e.target.value,
     };
 
-    console.log(body);
-    this.scheduleArray.push(body);
-    console.log(e.target);
-    console.log("radio checked1", this.scheduleArray);
+    this.FullCourseTimeSlotArray.push(body);
   };
-  submitschedule() {
-    console.log(this.scheduleArray);
-    console.log(this.state.coursetype);
+
+  buyFullCourse() {
     this.setState({ showButton: true });
     this.setState({ showPanel: false });
     const dataBody = {
@@ -133,11 +98,12 @@ class courseinfo extends Component {
       student_email: this.state.student_email,
       course_name: this.state.cardData.course_name,
       course_type: this.state.coursetype,
-      course_price: "price",
+      course_price: this.state.cardData.full_course_price,
       teacher_name: this.state.cardData.teacher_name,
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
-      selected_course_schedule: this.scheduleArray,
+      selected_course_schedule: this.FullCourseTimeSlotArray,
+      course_id:this.state.cardData.course_id
     };
     const headers = { "x-auth-token": this.state.token };
     axios
@@ -155,26 +121,30 @@ class courseinfo extends Component {
         }
       });
   }
-  schedulehalfarray = [];
-  submitschedulehalf() {
+
+
+  hourBasedCourseDataArray = [];
+  buyHourBasedCourse=()=> {
     const data = {
       day: this.halfcourseday,
       time: this.halftimeslot,
     };
-    this.schedulehalfarray.push(data);
+    this.hourBasedCourseDataArray.push(data);
     const dataBody = {
       student_id: this.state.student_id,
       student_name: this.state.student_name,
       student_mobile: this.state.student_mobile,
       student_email: this.state.student_email,
       course_name: this.state.cardData.course_name,
-      course_type: "Half",
-      course_price: "price",
+      course_type: "Hour-Based",
+      course_price: this.state.cardData.hour_based_course_price,
       teacher_name: this.state.cardData.teacher_name,
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
-      selected_course_schedule: this.schedulehalfarray,
+      selected_course_schedule: this.hourBasedCourseDataArray,
+      course_id:this.state.cardData.course_id
     };
+
     const headers = { "x-auth-token": this.state.token };
     axios
       .post(
@@ -191,10 +161,26 @@ class courseinfo extends Component {
         }
       });
   }
-  //For collapse
-  callback = (e) => {
-    console.log(e);
-  };
+
+  componentDidMount() {
+//     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
+// if(!cardData){
+// this.props.history.push("/")
+// }
+// else{
+// this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
+// }
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    if (currentUser) {
+      this.setState({
+        student_name: currentUser.username,
+        student_email: currentUser.email,
+        student_mobile: currentUser.phone,
+        student_id: currentUser.studentid,
+        token: currentUser.token,
+      });
+    }
+  }
 
   render() {
     return (
@@ -210,12 +196,11 @@ class courseinfo extends Component {
               minHeight: 200,
               minWidth: 700,
             }}
+          extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
           >
-            <p>
               <ul>
                 <li>{this.state.cardData.course_description}</li>
               </ul>
-            </p>
           </Card>
         </Row>
         <Collapse
@@ -227,6 +212,8 @@ class courseinfo extends Component {
           }}
           defaultActiveKey={["1"]}
           onChange={this.callback}
+          key={this.state.cardData._id}
+
         >
           <Panel
             header="Full Course"
@@ -235,23 +222,23 @@ class courseinfo extends Component {
           >
             Teacher's avalaible slots:
             <ul>
-              {this.state.cardData.course_schedule.map((i) => (
-                <li onFocus={() => this.getSchedule(i.day)}>
+              {this.state.cardData.course_schedule.map((i,index) => (
+                <li onFocus={() => this.getSchedule(i.day)} key={index}
+                >
                   {i.day}
                   <Radio.Group
-                    onChange={this.onChange1}
+                    onChange={this.getFullCourseTimeSlot}
                     onClick={() => this.getday(i.day)}
                     style={{ marginLeft: 30 }}
-                    // value={j}
                     options={i.time}
                   ></Radio.Group>
                 </li>
               ))}
             </ul>
             <Row>
-              <Button onClick={this.submitschedule}>submit</Button>
+              <Button onClick={this.buyFullCourse}>submit</Button>
             </Row>
-            Course Fees: Rs.{this.state.cardData.course_price}
+            Course Fees: Rs.{this.state.cardData.full_course_price}
             {this.state.showButton ? (
               <Button
                 type="primary"
@@ -262,7 +249,7 @@ class courseinfo extends Component {
               </Button>
             ) : null}
           </Panel>
-          <Panel header="Half Course" key="3" style={{ marginTop: 10 }}>
+          <Panel header="Hour Based" key="3" style={{ marginTop: 10 }} >
             <Row>Choose slots here:</Row>
 
             <Row justify="space-between">
@@ -270,18 +257,19 @@ class courseinfo extends Component {
                 <Select
                   style={{ width: 200 }}
                   value={this.state.days}
-                  onChange={this.handleChange}
+                  onChange={this.getHourBasedCourseDay}
+                  placeholder="Select Day"
                 >
-                  {this.state.cardData.course_schedule.map((i) => (
-                    <Option value={i.day}>{i.day}</Option>
+                  {this.state.cardData.course_schedule.map((i,index) => (
+                    <Option value={i.day} key={index}>{i.day}</Option>
                   ))}
                 </Select>
               </Col>
               <Col span={9}>
                 {this.showField ? (
-                  <Select style={{ width: 200 }} onChange={this.handleChange1}>
-                    {this.state.timeSlot.map((j) => (
-                      <Option value={j}>{j}</Option>
+                  <Select style={{ width: 200 }} onChange={this.getHourBasedCourseTimeSlot} placeholder="Select timeslot">
+                    {this.state.timeSlot.map((j,index) => (
+                      <Option value={j} key={index}>{j}</Option>
                     ))}
                   </Select>
                 ) : null}
@@ -289,13 +277,13 @@ class courseinfo extends Component {
             </Row>
             <br />
             <Row>
-              <Button onClick={this.submitschedulehalf}>submit</Button>
+              <Button onClick={this.buyHourBasedCourse}>submit</Button>
             </Row>
 
             <Row>
               <Col>
                 {" "}
-                Course Fees: Rs.{this.state.cardData.course_price}
+                Course Fees: Rs.{this.state.cardData.hour_based_course_price}
                 {this.state.showButton ? (
                   <Button
                     type="primary"
