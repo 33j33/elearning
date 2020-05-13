@@ -21,7 +21,7 @@ constructor(props) {
             { headers }
           )
           .then((response) => {
-            console.log(response.data);
+            console.log(response);
             for (const i in response.data) {
               response.data[i].date = response.data[i].date.split("T")[0];
             }
