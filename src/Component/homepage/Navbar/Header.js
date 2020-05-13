@@ -151,18 +151,20 @@ else{
   handleAdd = () => {
     this.setState({ allDays: [...this.state.allDays, ""] });
   };
-  removeRow = (index) => {
-    this.state.allDays.splice(index, 1);
+
+
+  removeRow = (e) => {
+console.log(e.target.value)
+    this.state.allDays.splice(e.target.value,1);
     this.setState({ allDays: this.state.allDays });
-    this.final_selectedtime.pop(index);
+    this.final_selectedtime.splice(e.target.value,1);
     console.log(this.final_selectedtime);
   };
 
 
-  selectedDay(e) {
+  selectedDay(e,index) {
     
-    // this.state.allDays[index]=e
-    // this.i++
+    this.state.allDays[index]=e
     this.setState({ allDays: this.state.allDays });
     console.log(this.state.allDays)
     this.setState({days:e})
@@ -174,8 +176,11 @@ else{
   };
 
   final_selectedtime = [];
-  onClicked() {
+  
+  onClicked(i) {
+    console.log(i)
     var courseSchedule = {
+      index:i,
       day: this.state.days,
       time: this.state.timeSlot,
     };
@@ -818,13 +823,14 @@ else{
               Course Schdedule
               <PlusCircleOutlined onClick={this.handleAdd} />
             </Row>
-            {this.state.allDays.map((day, index) => {
+            {this.state.allDays.map((day,index) => {
               return (
                 <Row justify="space-between" key={index}>
                   <Col span={7}>
                     <Select
                       placeholder="Select Day"
-                      onChange={this.selectedDay}
+                      onChange={(e)=>this.selectedDay(e,index)}
+                      value={day}
                       style={{ width: "100%" }}
                     >
                       <Select.Option value="Monday">Monday</Select.Option>
@@ -842,13 +848,13 @@ else{
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
                       onChange={this.handleChange}
-                      onBlur={this.onClicked}
+                      onBlur={()=>this.onClicked(index)}
                     >
                       {this.children}
                     </Select>
                   </Col>
                   <Col>
-                    <Button onClick={() => this.removeRow(index)}>
+                    <Button value={index} onClick={this.removeRow}>
                       <DeleteOutlined />
                     </Button>
                   </Col>

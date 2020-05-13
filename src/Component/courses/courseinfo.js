@@ -8,8 +8,6 @@ class courseinfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
-      confirmLoading: false,
       timeSlot: [],
       days: "",
       selectedday: "",
@@ -20,10 +18,12 @@ class courseinfo extends Component {
       showField: false,
       cardData: JSON.parse(sessionStorage.getItem("cardData")),
       selectedTime: "",
-      coursetype: "",
+      student_name: "",
+      student_email: "",
+      student_mobile: "",
+      student_id: "",
     };
-    this.selectedDay = this.selectedDay.bind(this);
-    this.onClicked = this.onClicked.bind(this);
+
     this.onChange1 = this.onChange1.bind(this);
     this.getSchedule = this.getSchedule.bind(this);
     this.submitschedule = this.submitschedule.bind(this);
@@ -71,30 +71,16 @@ class courseinfo extends Component {
     console.log("day", this.state.days);
   };
 
-  final_selectedtime = [];
-  onClicked() {
-    var courseSchedule = {
-      courseDay: this.state.days,
-      courseTime: this.state.timeSlot,
-    };
-    this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    this.setState({
+      student_name: currentUser.username,
+      student_email: currentUser.email,
+      student_mobile: currentUser.mobile,
+      student_id: currentUser.studentid,
+    });
   }
 
-  children = [];
-
-  // componentDidMount() {
-  //   console.log(this.state.cardData);
-  //   console.log(this.state.cardData.course_schedule);
-
-  //   for (let i = 8; i < 22; i = i + 1) {
-  //     this.children.push(
-  //       <Option key={i + "-" + (Number(i) + 1)}>
-  //         {i + "-" + (Number(i) + 1)}
-  //       </Option>
-  //     );
-  //   }
-  // }
   //For radio button group
   scheduleArray = [];
   selectedday = "";
@@ -134,6 +120,19 @@ class courseinfo extends Component {
     console.log(this.state.coursetype);
     this.setState({ showButton: true });
     this.setState({ showPanel: false });
+    const dataBody = {
+      student_id: this.state.student_id,
+      student_name: this.state.student_name,
+      student_mobile: this.state.student_mobile,
+      student_email: this.state.student_email,
+      course_name: this.state.courseinfo.course_name,
+      course_type: "Type",
+      course_price: "price",
+      teacher_name: this.state.teacher_name,
+      teacher_mobile: this.state.teacher_mobile,
+      teacher_email: this.state.teacher_email,
+      selected_course_schedule: "DS",
+    };
 
     // axios
     // .post("https://elearningserver.herokuapp.com/teacherlogin", values)
