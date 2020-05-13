@@ -11,7 +11,7 @@ import { message } from "antd";
 import { Nav, Navbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Link } from "react-router-dom";
-import { InputNumber } from 'antd';
+import { InputNumber } from "antd";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -61,25 +61,22 @@ class header extends Component {
   onClickLogout = () => {
     window.localStorage.clear();
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-if(!currentUser){
-    this.setState({ showField: false });
-    logoutMessage();
-    this.props.history.push("/")
-}
-else{
-  console.log("log out failed")
-}
+    if (!currentUser) {
+      this.setState({ showField: false });
+      logoutMessage();
+      this.props.history.push("/");
+    } else {
+      console.log("log out failed");
+    }
   };
-  gotoProfile=()=>{
+  gotoProfile = () => {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-if(currentUser.studentid){
-  this.props.history.push("/student/dashboard")
-}
-else{
-  this.props.history.push("/teacher/dashboard")
-
-}
-  }
+    if (currentUser.studentid) {
+      this.props.history.push("/student/dashboard");
+    } else {
+      this.props.history.push("/teacher/dashboard");
+    }
+  };
 
   gotocourses = () => {
     this.props.history.push("/allcourses");
@@ -158,13 +155,11 @@ else{
     console.log(this.final_selectedtime);
   };
 
-
-  selectedDay(e,index) {
-    
-    this.state.allDays[index]=e
+  selectedDay(e, index) {
+    this.state.allDays[index] = e;
     // this.i++
     this.setState({ allDays: this.state.allDays });
-    console.log(this.state.allDays)
+    console.log(this.state.allDays);
   }
 
   handleChange = (value) => {
@@ -260,7 +255,10 @@ else{
         };
         console.log(databody);
         axios
-          .post("https://elearningserver.herokuapp.com/teacher/addCourse", databody)
+          .post(
+            "https://elearningserver.herokuapp.com/teacher/addCourse",
+            databody
+          )
           .then((response) => {
             console.log(response);
             this.formRef.current.resetFields();
@@ -303,9 +301,12 @@ else{
           "currentUser",
           JSON.stringify({ token, email, phone, username, studentid })
         );
-        this.setState({ showField: true, username: username,visibleModalForStudents:false });
+        this.setState({
+          showField: true,
+          username: username,
+          visibleModalForStudents: false,
+        });
         this.props.history.push("student/dashboard");
-
       })
       .catch((error) => {
         console.log(error.response);
@@ -340,16 +341,16 @@ else{
     console.log("Failed:", errorInfo);
   };
 
-  checkifUserloggedIn(){
+  checkifUserloggedIn() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    if(currentUser){
+    if (currentUser) {
       this.setState({ showField: true, username: currentUser.username });
-    };
+    }
   }
   children = [];
 
   componentDidMount() {
-    this.checkifUserloggedIn()
+    this.checkifUserloggedIn();
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
         <Option key={i + "-" + (Number(i) + 1)}>
@@ -388,7 +389,9 @@ else{
               </Nav.Link>
               {this.state.showField ? (
                 <Row>
-                  <Nav.Link onClick={this.gotoProfile}>{this.state.username}</Nav.Link>
+                  <Nav.Link onClick={this.gotoProfile}>
+                    {this.state.username}
+                  </Nav.Link>
                   <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
                 </Row>
               ) : (
@@ -439,7 +442,7 @@ else{
                       name="email"
                       rules={[
                         {
-                          type: 'email',
+                          type: "email",
                           required: true,
                         },
                       ]}
@@ -514,7 +517,10 @@ else{
                         },
                       ]}
                     >
-                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
+                      <InputNumber
+                        placeholder="Mobile"
+                        style={{ width: "100%" }}
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -525,7 +531,7 @@ else{
                       rules={[
                         {
                           required: true,
-                          type: 'email',
+                          type: "email",
                         },
                       ]}
                     >
@@ -597,7 +603,7 @@ else{
                       rules={[
                         {
                           required: true,
-                          type: 'email',
+                          type: "email",
                         },
                       ]}
                     >
@@ -671,7 +677,10 @@ else{
                         },
                       ]}
                     >
-                      <InputNumber placeholder="Mobile" style={{width:"100%"}}/>
+                      <InputNumber
+                        placeholder="Mobile"
+                        style={{ width: "100%" }}
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -682,7 +691,7 @@ else{
                       rules={[
                         {
                           required: true,
-                          type: 'email',
+                          type: "email",
                         },
                       ]}
                     >
@@ -770,7 +779,7 @@ else{
             </Row>
 
             <Row justify="space-between">
-            <Col span={11}>
+              <Col span={11}>
                 <Form.Item
                   name="hour_based_course_price"
                   rules={[
@@ -798,7 +807,6 @@ else{
               </Col>
             </Row>
             <Row>
-             
               <Col span={11}>
                 <Form.Item
                   name="course_description"
