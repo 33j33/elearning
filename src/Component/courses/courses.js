@@ -1,7 +1,7 @@
 // @desc THIS PAGE CONTAINS ALL COURSES
 
 import React, { Component } from "react";
-import { Card } from "antd";
+import { Card, Button } from "antd";
 import { Row, Col } from "antd";
 import "./courses.css";
 import axios from "axios";
@@ -50,7 +50,7 @@ class courses extends Component {
     );
 
     return (
-      <div style={{ marginTop: 30 }}>
+      <div style={{ marginTop: 10, minHeight: 550 }}>
         <Row>
           <Col span={7} offset={8}>
             <div className="search">
@@ -68,22 +68,24 @@ class courses extends Component {
         <br />
         <Row>
           {filteredCourses.map((i) => (
-            <Col offset={1} span={5} key={i._id}>
+            <Col offset={2} /*span={5}*/ key={i._id}>
               <Card
                 hoverable
                 style={{
                   width: 240,
+                  height: 140,
                   minWidth: 100,
                   marginBottom: 40,
-                  height: 150,
                 }}
-                onClick={() =>this.onCardClick(i)}
               >
                 <p>{i.course_name}</p>
                 <Meta title={i.teacher_name} description={i.course_price} />
               </Card>
             </Col>
           ))}
+        </Row>
+        <Row justify="center">
+          <Button onClick={this.loadMore}>Load More</Button>
         </Row>
       </div>
     );
