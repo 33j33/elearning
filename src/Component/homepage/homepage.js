@@ -103,7 +103,7 @@ class courses extends Component {
                 <form className="search-form">
                   <SearchInput
                     onChange={this.searchUpdated}
-                    placeholder="Search for a course"
+                    placeholder="Search"
                     id="navBar"
                     style={{ width: "100%", border: "none" }}
                   />

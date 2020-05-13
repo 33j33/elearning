@@ -83,3 +83,9 @@ form.example button:hover {
   padding: 1%;
   text-align: center;
 }
+
+.heading {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

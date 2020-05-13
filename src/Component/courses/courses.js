@@ -57,7 +57,7 @@ class courses extends Component {
               <form className="search-form">
                 <SearchInput
                   onChange={this.searchUpdated}
-                  placeholder="Search for a course"
+                  placeholder="Search"
                   id="navBarSpecial"
                   style={{ width: "100%", border: "none" }}
                 />
@@ -77,7 +77,7 @@ class courses extends Component {
                   marginBottom: 40,
                   height: 150,
                 }}
-                onClick={() =>this.onCardClick(i)}
+                onClick={() => this.onCardClick(i)}
               >
                 <p>{i.course_name}</p>
                 <Meta title={i.teacher_name} description={i.course_price} />
