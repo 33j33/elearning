@@ -41,14 +41,14 @@ class courseinfo extends Component {
 
   getHourBasedCourseTimeSlot = (value) => {
     this.halftimeslot = value;
-    console.log(value);
+    console.log(value, "t", this.halftimeslot);
   };
 
 
   getHourBasedCourseDay = (value) => {
     console.log(value);
     this.halfcourseday = value;
-    console.log("day", this.halfcourseday);
+    console.log("day", this.halfcourseday, "t", this.halftimeslot);
     for (const i in this.state.cardData.course_schedule) {
       console.log(this.state.cardData.course_schedule[i].day);
       if (this.state.cardData.course_schedule[i].day === value) {
