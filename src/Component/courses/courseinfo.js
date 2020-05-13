@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Select, Row, Col, Button, Radio, Card, Collapse } from "antd";
-
+import axios from "axios";
 const { Option } = Select;
 const { Panel } = Collapse;
 
@@ -22,6 +22,7 @@ class courseinfo extends Component {
       student_email: "",
       student_mobile: "",
       student_id: "",
+      token: "",
     };
 
     this.onChange1 = this.onChange1.bind(this);
@@ -46,8 +47,9 @@ class courseinfo extends Component {
     console.log(e);
     this.setState({ days: e });
   }
-
+  halftimeslot = "";
   handleChange1 = (value) => {
+    this.halftimeslot = value;
     console.log(value);
   };
 
@@ -73,12 +75,16 @@ class courseinfo extends Component {
 
   componentDidMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-    this.setState({
-      student_name: currentUser.username,
-      student_email: currentUser.email,
-      student_mobile: currentUser.mobile,
-      student_id: currentUser.studentid,
-    });
+    console.log(currentUser);
+    if (currentUser) {
+      this.setState({
+        student_name: currentUser.username,
+        student_email: currentUser.email,
+        student_mobile: currentUser.mobile,
+        student_id: currentUser.studentid,
+        token: currentUser.token,
+      });
+    }
   }
 
   //For radio button group
@@ -125,40 +131,66 @@ class courseinfo extends Component {
       student_name: this.state.student_name,
       student_mobile: this.state.student_mobile,
       student_email: this.state.student_email,
-      course_name: this.state.courseinfo.course_name,
-      course_type: "Type",
+      course_name: this.state.cardData.course_name,
+      course_type: this.state.coursetype,
       course_price: "price",
-      teacher_name: this.state.teacher_name,
-      teacher_mobile: this.state.teacher_mobile,
-      teacher_email: this.state.teacher_email,
-      selected_course_schedule: "DS",
+      teacher_name: this.state.cardData.teacher_name,
+      teacher_mobile: this.state.cardData.teacher_mobile,
+      teacher_email: this.state.cardData.teacher_email,
+      selected_course_schedule: this.scheduleArray,
     };
-
-    // axios
-    // .post("https://elearningserver.herokuapp.com/teacherlogin", values)
-    // .then((response) => {
-    //   console.log(response);
-    //   this.formRef.current.resetFields();
-    //   successForlogin();
-    //   this.setState({
-    //     showButton: true,
-    //   });
-
-    //   window.localStorage.setItem(
-    //     "currentUser",
-    //     JSON.stringify({ token, email, phone, username, teacherid })
-    //   );
-    //   this.setState({ showField: true, username: username });
-    //   this.props.history.push("teacher/dashboard");
-    // })
-    // .catch((error) => {
-    //   if (error.response !== undefined) {
-    //     console.log(error.response);
-    //     errorForlogin();
-    //   }
-    // });
+    const headers = { "x-auth-token": this.state.token };
+    axios
+      .post(
+        "https://elearningserver.herokuapp.com/student/selectedcourse",
+        dataBody,
+        { headers }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        if (error.response !== undefined) {
+          console.log(error.response);
+        }
+      });
   }
-
+  schedulehalfarray = [];
+  submitschedulehalf() {
+    const data = {
+      day: this.halfcourseday,
+      time: this.halftimeslot,
+    };
+    this.schedulehalfarray.push(data);
+    const dataBody = {
+      student_id: this.state.student_id,
+      student_name: this.state.student_name,
+      student_mobile: this.state.student_mobile,
+      student_email: this.state.student_email,
+      course_name: this.state.cardData.course_name,
+      course_type: "Half",
+      course_price: "price",
+      teacher_name: this.state.cardData.teacher_name,
+      teacher_mobile: this.state.cardData.teacher_mobile,
+      teacher_email: this.state.cardData.teacher_email,
+      selected_course_schedule: this.schedulehalfarray,
+    };
+    const headers = { "x-auth-token": this.state.token };
+    axios
+      .post(
+        "https://elearningserver.herokuapp.com/student/selectedcourse",
+        dataBody,
+        { headers }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        if (error.response !== undefined) {
+          console.log(error.response);
+        }
+      });
+  }
   //For collapse
   callback = (e) => {
     console.log(e);
@@ -257,7 +289,7 @@ class courseinfo extends Component {
             </Row>
             <br />
             <Row>
-              <Button onClick={this.submitschedule}>submit</Button>
+              <Button onClick={this.submitschedulehalf}>submit</Button>
             </Row>
 
             <Row>
