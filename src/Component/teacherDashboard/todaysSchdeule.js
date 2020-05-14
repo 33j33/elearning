@@ -9,8 +9,8 @@ class TodaysSchdeule extends Component {
 
     this.state = {
       courseArray: [],
-      loading:true
-
+      loading: true,
+      selected: true,
     };
   }
 
@@ -26,46 +26,53 @@ class TodaysSchdeule extends Component {
         for (const i in response.data) {
           response.data[i].date = response.data[i].date.split("T")[0];
         }
-        this.setState({ courseArray: response.data,loading:false });
+        this.setState({
+          courseArray: response.data,
+          loading: false,
+          selected: false,
+        });
       })
       .catch((error) => {
         console.log(error.response);
+        this.setState({ loading: false });
       });
   }
   render() {
     return (
       <Spin spinning={this.state.loading}>
-      <div>
-        {this.state.courseArray.map((i,index) => (
-                            <Descriptions title=              {i.course_name} key={i._id}
-                            >
+        <div>
+          {this.state.selected ? (
+            <div>No Course selected</div>
+          ) : (
+            <div>
+              {this.state.courseArray.map((i, index) => (
+                <Descriptions title={i.course_name} key={i._id}>
+                  <Descriptions.Item label="Student Name  ">
+                    {i.student_name}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Student Mobile">
+                    {i.student_mobile}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Course Type">
+                    {i.course_type}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Schedule">
+                    {i.selected_course_schedule.map((i, index) => (
+                      <p key={index}>
+                        Day:{i.day}
+                        Time:{i.time}
+                      </p>
+                    ))}
+                  </Descriptions.Item>
 
-            <Descriptions.Item label="Student Name  ">
-              {i.student_name}
-            </Descriptions.Item>
-            <Descriptions.Item label="Student Mobile">
-              {i.student_mobile}
-            </Descriptions.Item>
-            <Descriptions.Item label="Course Type">
-              {i.course_type}
-            </Descriptions.Item>
-            <Descriptions.Item label="Schedule">
-              {i.selected_course_schedule.map((i,index) => (
-                <p key={index}>
-                  Day:{i.day}
-                  Time:{i.time}
-                </p>
+                  <Descriptions.Item label="Status" span={3}>
+                    <Badge status="processing" text="Running" />
+                  </Descriptions.Item>
+                </Descriptions>
               ))}
-            </Descriptions.Item>
-
-            <Descriptions.Item label="Status" span={3}>
-              <Badge status="processing" text="Running" />
-            </Descriptions.Item>
-                              </Descriptions>
-
-        ))}
-    
-      </div>
+            </div>
+          )}
+        </div>
       </Spin>
     );
   }
