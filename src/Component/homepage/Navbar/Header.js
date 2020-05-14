@@ -56,6 +56,7 @@ class header extends Component {
       showSubmitButton: false,
       hour_based_course_price: "",
       full_course_price: "",
+      showCourseSubmitButton: false,
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
@@ -118,7 +119,6 @@ class header extends Component {
   };
 
   handleCancelStud = () => {
-    console.log("Clicked cancel button");
     this.setState({
       visibleModalForStudents: false,
     });
@@ -143,7 +143,6 @@ class header extends Component {
   };
 
   handleCancel = () => {
-    console.log("Clicked cancel button");
     this.setState({
       visible: false,
     });
@@ -163,35 +162,27 @@ class header extends Component {
   currentDay = "";
   getselectedday = (day) => {
     this.currentDay = day;
-    console.log(day);
   };
   selectedDay(e, index) {
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
-    console.log(this.state.allDays);
     this.setState({ days: e });
   }
 
   handleChange = (value, day) => {
-    console.log(value, day);
     this.getselectedday(day);
-    this.setState({ timeSlot: value });
+    this.setState({ timeSlot: value, showCourseSubmitButton: true });
     var courseSchedule = {
       day: this.currentDay,
       time: value,
     };
-    console.log(this.courseSchedule);
     for (const i in this.final_selectedtime) {
       if (this.final_selectedtime[i].day === this.currentDay) {
-        console.log(i);
         this.final_selectedtime.splice(i, 1, courseSchedule);
-        console.log(this.final_selectedtime);
         return;
       }
     }
-
     this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
   };
 
   final_selectedtime = [];
@@ -238,11 +229,10 @@ class header extends Component {
 
   // @desc  Course Add teacher operations
   onFinishFailedTeacher = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed");
   };
 
   onFinishCourseSelection = (values) => {
-    console.log(values);
     this.setState({ showSubmitButton: true });
     this.setState({
       course_name: values.course_name,
@@ -256,7 +246,7 @@ class header extends Component {
   };
 
   onFinishFailedCourseSelection = (errorInfo) => {
-    console.log(errorInfo);
+    console.log("errorInfo");
   };
   // @desc  Registering teacher operations
   onFinishRegisTeacher = (values) => {
@@ -302,7 +292,7 @@ class header extends Component {
   };
 
   onFinishFailedRegisTeacher = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
 
   //Login for students
@@ -343,12 +333,11 @@ class header extends Component {
   };
 
   onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
 
   //for Registering Student
   onFinishRegisStudent = (values) => {
-    console.log(values);
     this.setState({ loading: true });
     axios
       .post("https://elearningserver.herokuapp.com/registerstudent", values)
@@ -370,7 +359,7 @@ class header extends Component {
   };
 
   onFinishFailedRegisStudent = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
 
   checkifUserloggedIn() {
@@ -911,15 +900,18 @@ class header extends Component {
                 </Row>
               );
             })}
-            <Row justify="center">
-              <Col>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    <StepBackwardOutlined />
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
+            <br />
+            {this.state.showCourseSubmitButton ? (
+              <Row justify="center">
+                <Col>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Row>
+            ) : null}
           </Form>
         </Modal>
       </div>

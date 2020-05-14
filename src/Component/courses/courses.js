@@ -32,7 +32,6 @@ class courses extends Component {
   }
 
   onCardClick = (i) => {
-    console.log(i);
     sessionStorage.setItem("cardData", JSON.stringify(i));
     const path = `courseinfo`;
     this.props.history.push(path);
@@ -48,7 +47,7 @@ class courses extends Component {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         this.slicedCoursesArray = response.data;
 
         this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
@@ -97,6 +96,7 @@ class courses extends Component {
                     background:
                       " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
                   }}
+                  hoverable
                   onClick={() => this.onCardClick(i)}
                 >
                   <p id="courseName">{i.course_name}</p>

@@ -47,21 +47,18 @@ class courseinfo extends Component {
   halfcourseday = "";
   showField = false;
   halftimeslot = "";
+
   //For radio button group
   FullCourseTimeSlotArray = [];
   selectedday = "";
 
   getHourBasedCourseTimeSlot = (value) => {
     this.halftimeslot = value;
-    console.log(value, "t", this.halftimeslot);
   };
 
   getHourBasedCourseDay = (value) => {
-    console.log(value);
     this.halfcourseday = value;
-    console.log("day", this.halfcourseday, "t", this.halftimeslot);
     for (const i in this.state.cardData.course_schedule) {
-      console.log(this.state.cardData.course_schedule[i].day);
       if (this.state.cardData.course_schedule[i].day === value) {
         this.setState({
           timeSlot: this.state.cardData.course_schedule[i].time,
@@ -71,7 +68,6 @@ class courseinfo extends Component {
       }
     }
     this.setState({ days: value });
-    console.log("day", this.state.days);
   };
 
   getSchedule = (data) => {
@@ -86,8 +82,6 @@ class courseinfo extends Component {
       day: this.selectedday,
       time: e.target.value,
     };
-    console.log(body);
-    console.log("A", this.FullCourseTimeSlotArray, this.selectedday);
     for (const i in this.FullCourseTimeSlotArray) {
       if (this.FullCourseTimeSlotArray[i].day === this.selectedday) {
         this.FullCourseTimeSlotArray.splice(i, 1, body);
@@ -97,7 +91,6 @@ class courseinfo extends Component {
 
     this.FullCourseTimeSlotArray.push(body);
 
-    console.log(this.FullCourseTimeSlotArray);
   };
 
   buyFullCourse() {

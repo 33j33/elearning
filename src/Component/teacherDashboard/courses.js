@@ -35,6 +35,9 @@ class Courses extends Component {
     };
   }
   formRef = React.createRef();
+  currentDay = "";
+  final_selectedtime = [];
+  children = [];
 
   setModal1Visible = () => {
     this.setState({ coursesModal: true });
@@ -67,6 +70,7 @@ class Courses extends Component {
         });
         this.final_selectedtime = [];
         successForCourses();
+        this.getCoursesData();
       })
       .catch((error) => {
         console.log(error);
@@ -76,61 +80,49 @@ class Courses extends Component {
   };
 
   onFinishFailedCourseSelection = (errorInfo) => {
-    console.log(errorInfo);
+    console.log("errorInfo");
   };
 
   // @DESC SELECTED COURSE DAYS AND TIME SLOTS
   handleAdd = () => {
     this.setState({
       allDays: [...this.state.allDays, ""],
-      // showSubmitButton: true,
     });
   };
 
   removeRow = (e) => {
-    console.log(e.target.value);
     this.state.allDays.splice(e.target.value, 1);
     this.setState({ allDays: this.state.allDays });
     this.final_selectedtime.splice(e.target.value, 1);
-    console.log(this.final_selectedtime);
   };
-  currentDay = "";
   getselectedday = (day) => {
     this.currentDay = day;
-    console.log(day);
   };
   selectedDay(e, index) {
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
-    console.log(this.state.allDays);
     this.setState({ days: e });
   }
-  final_selectedtime = [];
 
   handleChange = (value, day) => {
-    console.log(value, day);
     this.getselectedday(day);
-    this.setState({ timeSlot: value, showSubmitButton: true });
+    this.setState({ timeSlot: value });
+    this.setState({ showSubmitButton: true });
     var courseSchedule = {
       day: this.currentDay,
       time: value,
     };
-    console.log(this.courseSchedule);
     for (const i in this.final_selectedtime) {
       if (this.final_selectedtime[i].day === this.currentDay) {
-        console.log(i);
         this.final_selectedtime.splice(i, 1, courseSchedule);
-        console.log(this.final_selectedtime);
         return;
       }
     }
 
     this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
   };
 
-  children = [];
-  componentDidMount() {
+  getCoursesData = () => {
     let teacherEmail;
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
@@ -154,6 +146,9 @@ class Courses extends Component {
         console.log(error.response);
         this.setState({ loading: false });
       });
+  };
+  componentDidMount() {
+    this.getCoursesData();
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
         <Option key={i + "-" + (Number(i) + 1)}>
@@ -351,8 +346,9 @@ class Courses extends Component {
                     </Row>
                   );
                 })}
+                <br />
                 {this.state.showSubmitButton ? (
-                  <Row>
+                  <Row justify="center">
                     <Col>
                       <Form.Item>
                         <Button type="primary" htmlType="submit">
