@@ -14,8 +14,7 @@ class payment extends Component {
       visible: false,
       confirmLoading: false,
       coursesArray: [],
-      loading:true
-
+      loading: true,
     };
   }
 
@@ -28,17 +27,16 @@ class payment extends Component {
         { headers }
       )
       .then((response) => {
-        console.log(response.data);
-        console.log(response.data[0].date.split("T"));
+        console.log(response);
         for (const i in response.data) {
           response.data[i].date = response.data[i].date.split("T")[0];
         }
 
-        this.setState({ coursesArray: response.data,      loading:false        });
-        console.log(this.state.coursesArray);
+        this.setState({ coursesArray: response.data, loading: false });
       })
       .catch((error) => {
         console.log(error.response);
+        this.setState({ loading: false });
       });
   }
   render() {
@@ -47,25 +45,21 @@ class payment extends Component {
         title: "Name",
         dataIndex: "student_name",
         key: "student_name",
-        responsive: ["sm"],
       },
       {
         title: "Course",
         dataIndex: "course_name",
         key: "course_name",
-        responsive: ["sm"],
       },
       {
         title: "Course Type",
         dataIndex: "course_type",
         key: "course_type",
-        responsive: ["sm"],
       },
       {
         title: "Date",
         dataIndex: "date",
         key: "date",
-        responsive: ["sm"],
       },
       {
         title: "Payment",
@@ -75,13 +69,12 @@ class payment extends Component {
     ];
     return (
       <Spin spinning={this.state.loading}>
-      <div>
         <Table
+          key={this.state.coursesArray.course_id}
           columns={columns}
           dataSource={this.state.coursesArray}
           size="small"
         />
-      </div>
       </Spin>
     );
   }
