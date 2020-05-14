@@ -54,12 +54,12 @@ class header extends Component {
       username: "",
       loading: false,
       showSubmitButton: false,
-      hour_based_course_price:"",
-      full_course_price:""
+      hour_based_course_price: "",
+      full_course_price: "",
+      showCourseSubmitButton: false,
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
-    this.onClicked = this.onClicked.bind(this);
   }
   formRef = React.createRef();
 
@@ -119,7 +119,6 @@ class header extends Component {
   };
 
   handleCancelStud = () => {
-    console.log("Clicked cancel button");
     this.setState({
       visibleModalForStudents: false,
     });
@@ -144,7 +143,6 @@ class header extends Component {
   };
 
   handleCancel = () => {
-    console.log("Clicked cancel button");
     this.setState({
       visible: false,
     });
@@ -156,66 +154,38 @@ class header extends Component {
   };
 
   removeRow = (e) => {
-    console.log(e.target.value);
     this.state.allDays.splice(e.target.value, 1);
     this.setState({ allDays: this.state.allDays });
     this.final_selectedtime.splice(e.target.value, 1);
-    console.log(this.final_selectedtime);
   };
+
   currentDay = "";
   getselectedday = (day) => {
     this.currentDay = day;
-    console.log(day);
   };
   selectedDay(e, index) {
-    // this.currentDay = e;
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
-    console.log(this.state.allDays);
     this.setState({ days: e });
   }
 
-  handleChange = (value) => {
-    console.log(value);
-    this.setState({ timeSlot: value });
+  handleChange = (value, day) => {
+    this.getselectedday(day);
+    this.setState({ timeSlot: value, showCourseSubmitButton: true });
     var courseSchedule = {
       day: this.currentDay,
       time: value,
     };
-    console.log(this.courseSchedule);
     for (const i in this.final_selectedtime) {
       if (this.final_selectedtime[i].day === this.currentDay) {
-        console.log(i);
         this.final_selectedtime.splice(i, 1, courseSchedule);
-        console.log(this.final_selectedtime);
         return;
       }
     }
-
     this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
   };
 
   final_selectedtime = [];
-
-  onClicked(i) {
-    console.log(i, this.state.days);
-    // var courseSchedule = {
-    //   day: this.state.days,
-    //   time: this.state.timeSlot,
-    // };
-    // console.log(this.courseSchedule);
-    // for (const i in this.final_selectedtime) {
-    //   if (this.final_selectedtime[i].day === this.state.days) {
-    //     this.final_selectedtime.splice(i, 1, courseSchedule);
-    //     console.log(this.final_selectedtime);
-    //     return;
-    //   }
-    // }
-
-    // this.final_selectedtime.push(courseSchedule);
-    // console.log(this.final_selectedtime);
-  }
 
   setModal1Visible = () => {
     this.setState({ coursesModal: true });
@@ -259,17 +229,16 @@ class header extends Component {
 
   // @desc  Course Add teacher operations
   onFinishFailedTeacher = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed");
   };
 
   onFinishCourseSelection = (values) => {
-    console.log(values);
     this.setState({ showSubmitButton: true });
     this.setState({
       course_name: values.course_name,
       course_duration: values.course_duration,
       full_course_price: values.full_course_price,
-      hour_based_course_price:values.hour_based_course_price,
+      hour_based_course_price: values.hour_based_course_price,
       course_description: values.course_description,
     });
     this.setState({ coursesModal: false });
@@ -277,7 +246,7 @@ class header extends Component {
   };
 
   onFinishFailedCourseSelection = (errorInfo) => {
-    console.log(errorInfo);
+    console.log("errorInfo");
   };
   // @desc  Registering teacher operations
   onFinishRegisTeacher = (values) => {
@@ -289,7 +258,7 @@ class header extends Component {
         const databody = {
           course_schedule: this.final_selectedtime,
           full_course_price: this.state.full_course_price,
-          hour_based_course_price:this.state.hour_based_course_price,
+          hour_based_course_price: this.state.hour_based_course_price,
           course_name: this.state.course_name,
           course_duration: this.state.course_duration,
           course_description: this.state.course_description,
@@ -323,7 +292,7 @@ class header extends Component {
   };
 
   onFinishFailedRegisTeacher = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
 
   //Login for students
@@ -364,12 +333,11 @@ class header extends Component {
   };
 
   onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
 
   //for Registering Student
   onFinishRegisStudent = (values) => {
-    console.log(values);
     this.setState({ loading: true });
     axios
       .post("https://elearningserver.herokuapp.com/registerstudent", values)
@@ -391,7 +359,7 @@ class header extends Component {
   };
 
   onFinishFailedRegisStudent = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
 
   checkifUserloggedIn() {
@@ -422,12 +390,22 @@ class header extends Component {
       },
     };
     return (
-        <div style={{ position: "fixed", top: "0%", width: "100%", zIndex: "100" }}>
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Link to="/">
-              {" "}
-              <Navbar.Brand onClick={this.gotoHome} style={{ cursor: "pointer", color: "#00f9ff", border: "2px solid white", padding: "2px 4px", fontWeight: "bolder" }}>
-                TURNSKILL 1 to 1
+      <div
+        style={{ position: "fixed", top: "0%", width: "100%", zIndex: "100" }}
+      >
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Link to="/">
+            {" "}
+            <Navbar.Brand
+              onClick={this.gotoHome}
+              style={{
+                cursor: "pointer",
+                color: "White",
+                padding: "2px 4px",
+                fontWeight: "bolder",
+              }}
+            >
+              TURNSKILL 1 to 1
             </Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -908,7 +886,7 @@ class header extends Component {
                       mode="multiple"
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
-                      onChange={this.handleChange}
+                      onChange={(e) => this.handleChange(e, day)}
                       onFocus={() => this.getselectedday(day)}
                     >
                       {this.children}
@@ -922,15 +900,18 @@ class header extends Component {
                 </Row>
               );
             })}
-            <Row justify="center">
-              <Col>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    <StepBackwardOutlined />
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
+            <br />
+            {this.state.showCourseSubmitButton ? (
+              <Row justify="center">
+                <Col>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Row>
+            ) : null}
           </Form>
         </Modal>
       </div>

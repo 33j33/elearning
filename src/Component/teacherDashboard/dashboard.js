@@ -19,7 +19,6 @@ class dashboard extends Component {
   }
 
   onTabChange = (key, type) => {
-    console.log(key, type);
     this.setState({ [type]: key });
   };
   componentDidMount() {
@@ -57,7 +56,7 @@ class dashboard extends Component {
     };
 
     return (
-      <div style={{ margin: "5% 7% 5%" }}>
+      <div style={{ margin: "8% 7% 5%"}}>
         <Row gutter={16}>
           <Col
             xs={{ span: 24 }}
@@ -93,21 +92,41 @@ class dashboard extends Component {
                 title="Email Address"
                 description={this.state.email}
               />
-            </Card>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 14 }} >
-            <Card
-              style={{ width: "100%" }}
-              tabList={tabList}
-              activeTabKey={this.state.titleKey}
-              onTabChange={(key) => {
-                this.onTabChange(key, "titleKey");
+            }
+          >
+            <h6 style={{ textAlign: "center" }}>Teacher</h6>
+            <p style={{ fontSize: "200%", textAlign: "Center" }}>
+              {this.state.username}
+            </p>
+            <hr
+              style={{
+                height: "2px",
+                width: "100%",
+                color: "black",
+                backgroundColor: "gray",
               }}
-            >
-              {contentList[this.state.titleKey]}
-            </Card>
-          </Col>
-        </Row>
+            />
+
+            <Meta
+              style={{ textAlign: "center" }}
+              title="Email Address"
+              description={this.state.email}
+            />
+          </Card>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+          <Card
+            style={{ width: "100%" }}
+            tabList={tabList}
+            activeTabKey={this.state.titleKey}
+            onTabChange={(key) => {
+              this.onTabChange(key, "titleKey");
+            }}
+          >
+            {contentList[this.state.titleKey]}
+          </Card>
+        </Col>
+      </Row>
       </div>
     );
   }

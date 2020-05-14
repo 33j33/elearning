@@ -54,7 +54,7 @@ class StudentDashboard extends Component {
     };
 
     return (
-      <div style={{ margin: "5% 7% 5%" }}>
+      <div style={{ margin: "8% 7% 5%"}}>
         <Row gutter={16}>
           <Col
             xs={{ span: 24 }}

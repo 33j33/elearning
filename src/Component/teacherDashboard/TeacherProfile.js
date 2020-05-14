@@ -12,11 +12,11 @@ class TeacherProfile extends Component {
   }
 
   onFinish = (values) => {
-    console.log("Success:", values);
+    console.log("Success:");
   };
 
    onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
   componentDidMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
