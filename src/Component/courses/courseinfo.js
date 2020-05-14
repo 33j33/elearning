@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Select, Row, Col, Button, Radio, Card, Collapse } from "antd";
+import { Select, Row, Col, Button, Radio, Card, Collapse,message } from "antd";
 import axios from "axios";
-import { message } from "antd";
 import { Spin } from "antd";
 
 const { Option } = Select;
@@ -42,8 +41,6 @@ class courseinfo extends Component {
     this.getFullCourseTimeSlot = this.getFullCourseTimeSlot.bind(this);
     this.getSchedule = this.getSchedule.bind(this);
     this.buyFullCourse = this.buyFullCourse.bind(this);
-    this.payfullCourse = this.payfullCourse.bind(this);
-    this.payhalfcourse = this.payhalfcourse.bind(this);
     this.getHourBasedCourseDay = this.getHourBasedCourseDay.bind(this);
   }
 
@@ -54,10 +51,12 @@ class courseinfo extends Component {
   FullCourseTimeSlotArray = [];
   selectedday = "";
 
+
   getHourBasedCourseTimeSlot = (value) => {
     this.halftimeslot = value;
     console.log(value, "t", this.halftimeslot);
   };
+
 
   getHourBasedCourseDay = (value) => {
     console.log(value);
@@ -77,8 +76,11 @@ class courseinfo extends Component {
     console.log("day", this.state.days);
   };
 
+
+
   getSchedule = (data) => {
     this.selectedday = data;
+
   };
   getday = (day) => {
     return day;
@@ -122,7 +124,7 @@ class courseinfo extends Component {
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
       selected_course_schedule: this.FullCourseTimeSlotArray,
-      course_id: this.state.cardData.course_id,
+      course_id:this.state.cardData.course_id
     };
     const headers = { "x-auth-token": this.state.token };
     axios
@@ -149,9 +151,10 @@ class courseinfo extends Component {
         } else {
           errorMessage = "Course already bought";
         }
-        errormessage(errorMessage);
+        errormessage(errorMessage)
       });
   }
+
 
   hourBasedCourseDataArray = [];
   buyHourBasedCourse = () => {
@@ -176,7 +179,7 @@ class courseinfo extends Component {
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
       selected_course_schedule: this.hourBasedCourseDataArray,
-      course_id: this.state.cardData.course_id,
+      course_id:this.state.cardData.course_id
     };
 
     const headers = { "x-auth-token": this.state.token };
@@ -204,18 +207,19 @@ class courseinfo extends Component {
         } else {
           errorMessage = "Course already bought";
         }
-        errormessage(errorMessage);
+        errormessage(errorMessage)
+
       });
-  };
+  }
 
   componentDidMount() {
-    //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
-    // if(!cardData){
-    // this.props.history.push("/")
-    // }
-    // else{
-    // this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
-    // }
+//     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
+// if(!cardData){
+// this.props.history.push("/")
+// }
+// else{
+// this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
+// }
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser) {
       this.setState({
@@ -230,30 +234,33 @@ class courseinfo extends Component {
 
   render() {
     return (
-      <div style={{ minHeight: 570, marginTop: "80px" }}>
+      <div style={{ minHeight: 570, marginTop: 80 }}>
         <h1 style={{ textAlign: "center", marginTop: 15 }}>
           {this.state.cardData.course_name}
         </h1>
         <Spin spinning={this.state.loading}>
           <Row justify="center">
-            <Card
-              title="Course Description"
+          <Card
+              title={<p>By Mr.{this.state.cardData.teacher_name}</p>}
               style={{
+                marginTop: 10,
+                width: "55%",
                 fontSize: 15,
                 minHeight: 200,
-                minWidth: 700,
               }}
-              extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
+              // /extra={<p>By Mr.{this.state.cardData.teacher_name}</p>}/
             >
+              <p>Course Description:</p>
               <ul>
                 <li>{this.state.cardData.course_description}</li>
               </ul>
             </Card>
           </Row>
+          <Row justify="center">
+
           <Collapse
-            style={{
-              marginLeft: 300,
-              marginRight: 300,
+             style={{
+              width: "70%",
               marginTop: 20,
               fontSize: 15,
             }}
@@ -368,6 +375,7 @@ class courseinfo extends Component {
               </Row>
             </Panel>
           </Collapse>
+          </Row>
         </Spin>
       </div>
     );
