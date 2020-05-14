@@ -94,7 +94,7 @@ class dashboard extends Component {
               />
             </Card>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 14 }} style={{ minWidth: 750 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }} >
             <Card
               style={{ width: "100%" }}
               tabList={tabList}

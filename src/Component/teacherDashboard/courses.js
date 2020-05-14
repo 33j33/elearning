@@ -96,7 +96,6 @@ this.setState({loading:true})
   }
 
   handleChange = (value) => {
-    console.log(value);
     this.setState({ timeSlot: value });
   };
 
@@ -108,16 +107,14 @@ this.setState({loading:true})
     };
 
     this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
   }
 
   children = []
   componentDidMount() {
     let teacherEmail;
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+  
     this.setState({ teacher_name: currentUser.username, teacher_mobile: currentUser.phone, teacher_email: currentUser.email })
-
-
     teacherEmail = currentUser.email;
     const headers = { "x-auth-token": currentUser.token };
     axios
@@ -126,7 +123,7 @@ this.setState({loading:true})
         { headers }
       )
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         this.setState({ coursesArray: response.data, loading: false });
       })
       .catch((error) => {
@@ -170,15 +167,15 @@ this.setState({loading:true})
         </Row>
         <br />
         {this.state.coursesArray.map((i) => (
-          <Row justify="center" style={{ marginBottom: 10 }}>
+          <Row justify="center" style={{ marginBottom: 10 }} key={i.course_id}>
             <Col span={20}>
-              <Collapse>
+              <Collapse >
                 <Panel key={i._id} header={i.course_name}>
                   <p>{i.course_description}</p>
                   <p>Course Price: {i.course_price}</p>
                   <p>Course Duration: {i.course_duration}</p>
-                  {i.course_schedule.map((j) => (
-                    <p>
+                  {i.course_schedule.map((j,index) => (
+                    <p key={index}>
                       {j.day} -- {j.time + ","}
                     </p>
                   ))}
