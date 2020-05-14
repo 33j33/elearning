@@ -96,7 +96,6 @@ class Courses extends Component {
     console.log(day);
   };
   selectedDay(e, index) {
-    // this.currentDay = e;
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
     console.log(this.state.allDays);
@@ -104,8 +103,9 @@ class Courses extends Component {
   }
   final_selectedtime = [];
 
-  handleChange = (value) => {
-    console.log(value);
+  handleChange = (value,day) => {
+    console.log(value,day);
+    this.getselectedday(day)
     this.setState({ timeSlot: value });
     var courseSchedule = {
       day: this.currentDay,
@@ -333,7 +333,7 @@ class Courses extends Component {
                           mode="multiple"
                           style={{ width: "100%" }}
                           placeholder="Select Timeslots"
-                          onChange={this.handleChange}
+                          onChange={(e)=>this.handleChange(e,day)}
                           onFocus={() => this.getselectedday(day)}
                         >
                           {this.children}

@@ -155,11 +155,9 @@ class header extends Component {
   };
 
   removeRow = (e) => {
-    console.log(e.target.value);
     this.state.allDays.splice(e.target.value, 1);
     this.setState({ allDays: this.state.allDays });
     this.final_selectedtime.splice(e.target.value, 1);
-    console.log(this.final_selectedtime);
   };
 
   currentDay = "";
@@ -168,15 +166,15 @@ class header extends Component {
     console.log(day);
   };
   selectedDay(e, index) {
-    // this.currentDay = e;
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
     console.log(this.state.allDays);
     this.setState({ days: e });
   }
 
-  handleChange = (value) => {
-    console.log(value);
+  handleChange = (value,day) => {
+    console.log(value,day);
+    this.getselectedday(day)
     this.setState({ timeSlot: value });
     var courseSchedule = {
       day: this.currentDay,
@@ -890,9 +888,8 @@ class header extends Component {
                       mode="multiple"
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
-                      onChange={this.handleChange}
+                      onChange={(e)=>this.handleChange(e,day)}
                       onFocus={() => this.getselectedday(day)}
-                      // onMouseOver={()=>this.getselectedday(day)}
                     >
                       {this.children}
                     </Select>
