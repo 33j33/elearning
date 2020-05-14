@@ -70,15 +70,14 @@ class courses extends Component {
         <Col span={20} key={i._id}>
           <Card
             hoverable
+            
             onClick={() => this.onCardClick(i)}
-            cover={
-              <img
-                width="50%"
-                alt="example"
-                src={courseImage}
+           style={{
+            background:" linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
+            minHeight: "100%"
+          }}
 
-              />
-            }
+          
             actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
             <Meta
