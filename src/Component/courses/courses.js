@@ -87,6 +87,7 @@ class courses extends Component {
               <Col offset={2} /*span={5}*/ key={i._id}>
                 <Card
                   hoverable
+                  id="card1"
                   style={{
                     width: 240,
                     height: 150,
@@ -95,8 +96,9 @@ class courses extends Component {
                   }}
                   onClick={() => this.onCardClick(i)}
                 >
-                  <p>{i.course_name}</p>
+                  <p id="courseName">{i.course_name}</p>
                   <Meta
+                    id="courseDetails"
                     title={i.teacher_name}
                     description={i.full_course_price}
                   />
@@ -105,7 +107,9 @@ class courses extends Component {
             ))}
           </Row>
           <Row justify="center">
-            <Button onClick={this.loadMoreCourses} danger>Load More</Button>
+            <Button onClick={this.loadMoreCourses} danger>
+              Load More
+            </Button>
           </Row>
         </Spin>
       </div>
