@@ -1,9 +1,9 @@
-.footer { 
+.footer {
   right: 0;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: black;
+  background-color: #c64752;
   color: white;
   text-align: center;
 }

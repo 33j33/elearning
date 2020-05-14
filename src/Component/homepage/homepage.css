@@ -44,7 +44,7 @@
   position: absolute;
   /* background:
     url("./homepageImg.jpg"); */
-  background: "#C64752";
+  background: "c";
   /* background-position: center;
   background-repeat: no-repeat; */
   /* background-size: cover; Resize the background image to cover the entire container, */
@@ -60,7 +60,7 @@
   margin-top: 10px;
 }
 .heading h2 {
-  color: wheat;
+  color: white;
   font-weight: bold;
   padding-top: 40px;
 }

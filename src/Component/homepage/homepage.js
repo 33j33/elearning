@@ -65,7 +65,7 @@ class courses extends Component {
     );
 
     const arr = this.filteredCourses.map((i) => (
-      <Row style={{ marginLeft: 12 }}>
+      <Row>
         <Col span={20} key={i._id}>
           <Card
             hoverable
@@ -73,6 +73,9 @@ class courses extends Component {
             style={{
               backgroundColor: "#D3D3D3",
               minHeight: "100%",
+              color: "white",
+              width: 300,
+              // maxWidth: 200,
             }}
             actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
@@ -82,6 +85,7 @@ class courses extends Component {
                 height: 100,
                 fontWeight: 900,
                 color: "White",
+                width: 50,
               }}
               description={i.course_name}
             />
@@ -133,7 +137,7 @@ class courses extends Component {
                 <Col>
                   <h3
                     style={{
-                      color: "#030056",
+                      color: "rgb(0,0,0.45)",
                       fontSize: "40px",
                       marginLeft: "20px",
                     }}
@@ -148,9 +152,8 @@ class courses extends Component {
                 </Col>
               </Row>
 
-              <Row>
+              <Row style={{ marginBottom: 30 }}>
                 <AliceCarousel
-                  style={{ width: 70 }}
                   items={arr}
                   responsive={this.responsive}
                   autoPlayInterval={3000}
