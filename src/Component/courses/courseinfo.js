@@ -4,6 +4,7 @@ import axios from "axios";
 const { Option } = Select;
 const { Panel } = Collapse;
 
+
 class courseinfo extends Component {
   constructor(props) {
     super(props);
@@ -102,7 +103,7 @@ class courseinfo extends Component {
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
       selected_course_schedule: this.FullCourseTimeSlotArray,
-      course_id:this.state.cardData.course_id
+      course_id: this.state.cardData.course_id
     };
     const headers = { "x-auth-token": this.state.token };
     axios
@@ -123,7 +124,7 @@ class courseinfo extends Component {
 
 
   hourBasedCourseDataArray = [];
-  buyHourBasedCourse=()=> {
+  buyHourBasedCourse = () => {
     const data = {
       day: this.halfcourseday,
       time: this.halftimeslot,
@@ -141,7 +142,7 @@ class courseinfo extends Component {
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
       selected_course_schedule: this.hourBasedCourseDataArray,
-      course_id:this.state.cardData.course_id
+      course_id: this.state.cardData.course_id
     };
 
     const headers = { "x-auth-token": this.state.token };
@@ -162,13 +163,13 @@ class courseinfo extends Component {
   }
 
   componentDidMount() {
-//     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
-// if(!cardData){
-// this.props.history.push("/")
-// }
-// else{
-// this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
-// }
+    //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
+    // if(!cardData){
+    // this.props.history.push("/")
+    // }
+    // else{
+    // this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
+    // }
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser) {
       this.setState({
@@ -183,7 +184,7 @@ class courseinfo extends Component {
 
   render() {
     return (
-      <div style={{minHeight: 570}}>
+      <div style={{ minHeight: 570, marginTop: "80px" }}>
         <h1 style={{ textAlign: "center", marginTop: 15 }}>
           {this.state.cardData.course_name}
         </h1>
@@ -195,11 +196,12 @@ class courseinfo extends Component {
               minHeight: 200,
               minWidth: 700,
             }}
-          extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
+            headStyle={{ backgroundColor: "#bae1ff", border: "2px black solid" }}
+            extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
           >
-              <ul>
-                <li>{this.state.cardData.course_description}</li>
-              </ul>
+            <ul>
+              <li>{this.state.cardData.course_description}</li>
+            </ul>
           </Card>
         </Row>
         <Collapse
@@ -218,10 +220,11 @@ class courseinfo extends Component {
             header="Full Course"
             key="2"
             onClick={(this.state.coursetype = "Full")}
+            style={{ border: "2px black solid", backgroundColor: "#bae1ff" }}
           >
             Teacher's avalaible slots:
             <ul>
-              {this.state.cardData.course_schedule.map((i,index) => (
+              {this.state.cardData.course_schedule.map((i, index) => (
                 <li onFocus={() => this.getSchedule(i.day)} key={index}
                 >
                   {i.day}
@@ -248,7 +251,7 @@ class courseinfo extends Component {
               </Button>
             ) : null}
           </Panel>
-          <Panel header="Hour Based" key="3" style={{ marginTop: 10 }} >
+          <Panel header="Hour Based" key="3" style={{ marginTop: 10, border: "2px black solid", backgroundColor: "#bae1ff" }} >
             <Row>Choose slots here:</Row>
 
             <Row justify="space-between">
@@ -259,7 +262,7 @@ class courseinfo extends Component {
                   onChange={this.getHourBasedCourseDay}
                   placeholder="Select Day"
                 >
-                  {this.state.cardData.course_schedule.map((i,index) => (
+                  {this.state.cardData.course_schedule.map((i, index) => (
                     <Option value={i.day} key={index}>{i.day}</Option>
                   ))}
                 </Select>
@@ -267,7 +270,7 @@ class courseinfo extends Component {
               <Col span={9}>
                 {this.showField ? (
                   <Select style={{ width: 200 }} onChange={this.getHourBasedCourseTimeSlot} placeholder="Select timeslot">
-                    {this.state.timeSlot.map((j,index) => (
+                    {this.state.timeSlot.map((j, index) => (
                       <Option value={j} key={index}>{j}</Option>
                     ))}
                   </Select>
