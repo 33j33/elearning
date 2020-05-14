@@ -75,7 +75,7 @@ class Courses extends Component {
   };
 
   onFinishFailedCourseSelection = (errorInfo) => {
-    console.log(errorInfo);
+    console.log("errorInfo");
   };
 
   // @DESC SELECTED COURSE DAYS AND TIME SLOTS
@@ -84,45 +84,36 @@ class Courses extends Component {
   };
 
   removeRow = (e) => {
-    console.log(e.target.value);
     this.state.allDays.splice(e.target.value, 1);
     this.setState({ allDays: this.state.allDays });
     this.final_selectedtime.splice(e.target.value, 1);
-    console.log(this.final_selectedtime);
   };
   currentDay = "";
   getselectedday = (day) => {
     this.currentDay = day;
-    console.log(day);
   };
   selectedDay(e, index) {
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
-    console.log(this.state.allDays);
     this.setState({ days: e });
   }
   final_selectedtime = [];
 
   handleChange = (value,day) => {
-    console.log(value,day);
     this.getselectedday(day)
     this.setState({ timeSlot: value });
     var courseSchedule = {
       day: this.currentDay,
       time: value,
     };
-    console.log(this.courseSchedule);
     for (const i in this.final_selectedtime) {
       if (this.final_selectedtime[i].day === this.currentDay) {
-        console.log(i);
         this.final_selectedtime.splice(i, 1, courseSchedule);
-        console.log(this.final_selectedtime);
         return;
       }
     }
 
     this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
   };
 
   children = [];
