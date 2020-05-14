@@ -75,6 +75,7 @@ class dashboard extends Component {
                 />
               }
             >
+                            <h6 style={{textAlign:"center"}}>Teacher</h6>
               <p style={{ fontSize: "200%", textAlign: "Center" }}>
                 {this.state.username}
               </p>
