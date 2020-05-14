@@ -230,7 +230,7 @@ class courseinfo extends Component {
 
   render() {
     return (
-      <div style={{ minHeight: 570 }}>
+      <div style={{ minHeight: 570, marginTop: "80px" }}>
         <h1 style={{ textAlign: "center", marginTop: 15 }}>
           {this.state.cardData.course_name}
         </h1>

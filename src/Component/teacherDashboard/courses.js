@@ -32,7 +32,8 @@ class Courses extends Component {
       teacher_name: "",
       teacher_mobile: "",
       teacher_email: "",
-      loading: true
+      loading: true,
+      addCoursesloading:false
 
     };
   }
@@ -43,12 +44,13 @@ class Courses extends Component {
   };
 
   onFinishCourseSelection = (values) => {
-this.setState({loading:true})
+this.setState({addCoursesloading:true})
     const databody = {
       course_schedule: this.final_selectedtime,
-      course_price: values.course_price,
       course_name: values.course_name,
       course_duration: values.course_duration,
+      full_course_price: values.full_course_price,
+      hour_based_course_price:values.hour_based_course_price,
       course_description: values.course_description,
       teacher_name: this.state.teacher_name,
       teacher_email: this.state.teacher_email,
@@ -64,7 +66,7 @@ this.setState({loading:true})
           timeSlot: [],
           days: "",
           allDays: [],
-          loading:false
+          addCoursesloading:false
         });
         this.final_selectedtime = []
         successForCourses();
@@ -72,7 +74,7 @@ this.setState({loading:true})
       })
       .catch((error) => {
         console.log(error);
-        this.setState({loading:false})
+        this.setState({addCoursesloading:false})
         errorForCourseAddtion(error.message);
       });
   };
@@ -81,33 +83,52 @@ this.setState({loading:true})
     console.log(errorInfo);
   };
 
-  // @DESC SELECTED COURSE DAYS AND TIME SLOTS
-  handleAdd = () => {
+   // @DESC SELECTED COURSE DAYS AND TIME SLOTS
+   handleAdd = () => {
     this.setState({ allDays: [...this.state.allDays, ""] });
   };
-  removeRow = (index) => {
-    this.state.allDays.splice(index, 1);
-    this.setState({ allDays: this.state.allDays });
-    this.final_selectedtime.pop(index);
-  };
 
-  selectedDay = (e) => {
+  removeRow = (e) => {
+    console.log(e.target.value);
+    this.state.allDays.splice(e.target.value, 1);
+    this.setState({ allDays: this.state.allDays });
+    this.final_selectedtime.splice(e.target.value, 1);
+    console.log(this.final_selectedtime);
+  };
+  currentDay = "";
+  getselectedday = (day) => {
+    this.currentDay = day;
+    console.log(day);
+  };
+  selectedDay(e, index) {
+    // this.currentDay = e;
+    this.state.allDays[index] = e;
+    this.setState({ allDays: this.state.allDays });
+    console.log(this.state.allDays);
     this.setState({ days: e });
   }
+  final_selectedtime = [];
 
   handleChange = (value) => {
+    console.log(value);
     this.setState({ timeSlot: value });
-  };
-
-  final_selectedtime = [];
-  onClicked = () => {
     var courseSchedule = {
-      day: this.state.days,
-      time: this.state.timeSlot,
+      day: this.currentDay,
+      time: value,
     };
+    console.log(this.courseSchedule);
+    for (const i in this.final_selectedtime) {
+      if (this.final_selectedtime[i].day === this.currentDay) {
+        console.log(i);
+        this.final_selectedtime.splice(i, 1, courseSchedule);
+        console.log(this.final_selectedtime);
+        return;
+      }
+    }
 
     this.final_selectedtime.push(courseSchedule);
-  }
+    console.log(this.final_selectedtime);
+  };
 
   children = []
   componentDidMount() {
@@ -128,6 +149,7 @@ this.setState({loading:true})
       })
       .catch((error) => {
         console.log(error.response);
+        this.setState({ loading: false })
       });
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
@@ -171,8 +193,9 @@ this.setState({loading:true})
             <Col span={20}>
               <Collapse >
                 <Panel key={i._id} header={i.course_name}>
-                  <p>{i.course_description}</p>
-                  <p>Course Price: {i.course_price}</p>
+                  {/* <p>{i.course_description}</p> */}
+                  <p>Full Course Price: {i.full_course_price}</p>
+                  <p>Half Course Price: {i.hour_based_course_price}</p>
                   <p>Course Duration: {i.course_duration}</p>
                   {i.course_schedule.map((j,index) => (
                     <p key={index}>
@@ -193,6 +216,7 @@ this.setState({loading:true})
           footer={[]}
           onCancel={() => this.setState({ coursesModal: false })}
         >
+                <Spin spinning={this.state.addCoursesloading}>
           <Form
             ref={this.formRef}
 
@@ -218,19 +242,33 @@ this.setState({loading:true})
               </Col>
               <Col span={11}>
                 <Form.Item
-                  name="course_price"
+                  name="full_course_price"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your Course Price!",
+                      message: "Please input your Full Course Price!",
                     },
                   ]}
                 >
-                  <Input placeholder="Course Price" />
+                  <Input placeholder="Full Course Price" />
                 </Form.Item>
               </Col>
             </Row>
+
             <Row justify="space-between">
+              <Col span={11}>
+                <Form.Item
+                  name="hour_based_course_price"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Hour Based Course Price!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Hour Based Course Price" />
+                </Form.Item>
+              </Col>
               <Col span={11}>
                 <Form.Item
                   name="course_duration"
@@ -244,6 +282,8 @@ this.setState({loading:true})
                   <Input placeholder="Course Duration" />
                 </Form.Item>
               </Col>
+            </Row>
+            <Row>
               <Col span={11}>
                 <Form.Item
                   name="course_description"
@@ -254,7 +294,7 @@ this.setState({loading:true})
                     },
                   ]}
                 >
-                  <Input placeholder="Description of Course" />
+                  <Input.TextArea placeholder="Description of Course" />
                 </Form.Item>
               </Col>
             </Row>
@@ -262,13 +302,14 @@ this.setState({loading:true})
               Course Schdedule
               <PlusCircleOutlined onClick={this.handleAdd} />
             </Row>
-            {this.state.allDays.map((index) => {
+            {this.state.allDays.map((day, index) => {
               return (
                 <Row justify="space-between" key={index}>
                   <Col span={7}>
                     <Select
                       placeholder="Select Day"
-                      onChange={this.selectedDay}
+                      onChange={(e) => this.selectedDay(e, index)}
+                      value={day}
                       style={{ width: "100%" }}
                     >
                       <Select.Option value="Monday">Monday</Select.Option>
@@ -286,13 +327,13 @@ this.setState({loading:true})
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
                       onChange={this.handleChange}
-                      onBlur={this.onClicked}
+                      onFocus={() => this.getselectedday(day)}
                     >
                       {this.children}
                     </Select>
                   </Col>
                   <Col>
-                    <Button onClick={() => this.removeRow(index)}>
+                    <Button value={index} onClick={this.removeRow}>
                       <DeleteOutlined />
                     </Button>
                   </Col>
@@ -309,6 +350,8 @@ this.setState({loading:true})
               </Col>
             </Row>
           </Form>
+          </Spin>
+
         </Modal>
       </div>
 </Spin>

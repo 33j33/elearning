@@ -423,44 +423,45 @@ class header extends Component {
     };
     return (
       <div>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Link to="/">
-            {" "}
-            <Navbar.Brand onClick={this.gotoHome} style={{ cursor: "pointer" }}>
-              TURNSKILL 1 to 1
+        <div style={{ position: "fixed", top: "0%", width: "100%", zIndex: "100" }}>
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Link to="/">
+              {" "}
+              <Navbar.Brand onClick={this.gotoHome} style={{ cursor: "pointer", color: "#00f9ff", border: "2px solid white", padding: "2px 4px", fontWeight: "bolder" }}>
+                TURNSKILL 1 to 1
             </Navbar.Brand>
-          </Link>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse
-            id="responsive-navbar-nav"
-            className="justify-content-end"
-          >
-            <Nav>
-              <Nav.Link>About Us</Nav.Link>
-              <Nav.Link onClick={this.gotocourses}>
-                <Link to="/">All Courses</Link>{" "}
-              </Nav.Link>
-              {this.state.showField ? (
-                <Nav.Link onClick={this.gotoProfile}>
-                  {this.state.username}
+            </Link>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse
+              id="responsive-navbar-nav"
+              className="justify-content-end"
+            >
+              <Nav >
+                <Nav.Link>About Us</Nav.Link>
+                <Nav.Link onClick={this.gotocourses}>
+                  <Link to="/">All Courses</Link>{" "}
                 </Nav.Link>
-              ) : (
-                <Nav.Link onClick={this.showModalForTeachers}>
-                  For Teachers
-                </Nav.Link>
-              )}
-
-              {this.state.showField ? (
-                <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
-              ) : (
-                <Nav.Link onClick={this.showModalForStudents}>
-                  For Students
-                </Nav.Link>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-
+                {this.state.showField ? (
+                  <Row>
+                    <Nav.Link onClick={this.gotoProfile}>
+                      {this.state.username}
+                    </Nav.Link>
+                    <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
+                  </Row>
+                ) : (
+                    <Row>
+                      <Nav.Link onClick={this.showModalForTeachers}>
+                        For Teachers
+                  </Nav.Link>
+                      <Nav.Link onClick={this.showModalForStudents}>
+                        For Students
+                  </Nav.Link>
+                    </Row>
+                  )}
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </div>
         {/* @ Desc STUDENTS MODALS */}
         <Modal
           width={600}

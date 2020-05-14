@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table,Tag } from "antd";
+import { Table } from "antd";
 import axios from "axios";
 import { Spin } from "antd";
 
