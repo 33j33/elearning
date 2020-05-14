@@ -6,11 +6,11 @@ import { Spin } from "antd";
 const { Option } = Select;
 const { Panel } = Collapse;
 
-const successPaymentMessage = (message) => {
-  message.success(message);
+const successPaymentMessage = () => {
+  message.success(" Course Payment Success");
 };
-const errormessage = (mssg) => {
-  message.error(mssg);
+const errormessage = (errorMessage) => {
+  message.error(errorMessage);
 };
 
 class courseinfo extends Component {
@@ -98,7 +98,7 @@ class courseinfo extends Component {
     this.setState({ showPanel: false });
   }
   //Pay full course
-  payfullCourse() {
+  payfullCourse=()=> {
     this.setState({ loading: true });
     const dataBody = {
       student_id: this.state.student_id,
@@ -128,17 +128,19 @@ class courseinfo extends Component {
           loading: false,
           paymentdone: false,
         });
-        var successMessage = "Full Course Payment Success";
-        successPaymentMessage(successMessage);
+        successPaymentMessage();
       })
       .catch((error) => {
+        console.log(error.message)
         var errorMessage;
         this.setState({ loading: false });
+if(error.message!=undefined){
         if (error.message === "Request failed with status code 401") {
           errorMessage = "Login to buy the course";
         } else {
           errorMessage = "Course already bought";
         }
+      }
         errormessage(errorMessage);
       });
   }
@@ -178,8 +180,7 @@ class courseinfo extends Component {
       )
       .then((response) => {
         console.log(response);
-        var successMessage = "Half Course Payment Success";
-        successPaymentMessage(successMessage);
+        successPaymentMessage();
         this.setState({
           showButtonhalf: false,
           paymentdonehalf: true,
