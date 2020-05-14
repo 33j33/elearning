@@ -35,6 +35,9 @@ class Courses extends Component {
     };
   }
   formRef = React.createRef();
+  currentDay = "";
+  final_selectedtime = [];
+  children = [];
 
   setModal1Visible = () => {
     this.setState({ coursesModal: true });
@@ -67,6 +70,7 @@ class Courses extends Component {
         });
         this.final_selectedtime = [];
         successForCourses();
+        this.getCoursesData()
       })
       .catch((error) => {
         console.log(error);
@@ -83,7 +87,6 @@ class Courses extends Component {
   handleAdd = () => {
     this.setState({
       allDays: [...this.state.allDays, ""],
-      // showSubmitButton: true,
     });
   };
 
@@ -92,7 +95,6 @@ class Courses extends Component {
     this.setState({ allDays: this.state.allDays });
     this.final_selectedtime.splice(e.target.value, 1);
   };
-  currentDay = "";
   getselectedday = (day) => {
     this.currentDay = day;
   };
@@ -101,7 +103,6 @@ class Courses extends Component {
     this.setState({ allDays: this.state.allDays });
     this.setState({ days: e });
   }
-  final_selectedtime = [];
 
   handleChange = (value,day) => {
     this.getselectedday(day)
@@ -120,31 +121,34 @@ class Courses extends Component {
     this.final_selectedtime.push(courseSchedule);
   };
 
-  children = [];
-  componentDidMount() {
-    let teacherEmail;
-    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
-    this.setState({
-      teacher_name: currentUser.username,
-      teacher_mobile: currentUser.phone,
-      teacher_email: currentUser.email,
+getCoursesData=()=>{
+  let teacherEmail;
+  const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+
+  this.setState({
+    teacher_name: currentUser.username,
+    teacher_mobile: currentUser.phone,
+    teacher_email: currentUser.email,
+  });
+  teacherEmail = currentUser.email;
+  const headers = { "x-auth-token": currentUser.token };
+  axios
+    .get(
+      `https://elearningserver.herokuapp.com/teacher/addedCourseDetails/${teacherEmail}`,
+      { headers }
+    )
+    .then((response) => {
+      console.log(response);
+      this.setState({ coursesArray: response.data, loading: false });
+    })
+    .catch((error) => {
+      console.log(error.response);
+      this.setState({ loading: false });
     });
-    teacherEmail = currentUser.email;
-    const headers = { "x-auth-token": currentUser.token };
-    axios
-      .get(
-        `https://elearningserver.herokuapp.com/teacher/addedCourseDetails/${teacherEmail}`,
-        { headers }
-      )
-      .then((response) => {
-        console.log(response);
-        this.setState({ coursesArray: response.data, loading: false });
-      })
-      .catch((error) => {
-        console.log(error.response);
-        this.setState({ loading: false });
-      });
+}
+  componentDidMount() {
+   this.getCoursesData()
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
         <Option key={i + "-" + (Number(i) + 1)}>
