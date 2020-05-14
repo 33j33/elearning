@@ -14,28 +14,21 @@ class Teacher extends Component {
       >
         <Row style={{ marginTop: 40 }}>
           <Col span={6} offset={2} className="col-step-1">
-            <h3>STEP 1</h3>
+            <h3>REGISTER</h3>
             <br />
-            Teacher should register and login where they can enter their details
-            Teacher should register and login where they can enter their details
-            Teacher should register and login where they can enter their details
+            Want to teach something? Just register with some details and add atleast one course you specialise in and we'll find the students for you!
           </Col>
 
           <Col span={6} offset={1} className="col-step-2">
-            <h3>STEP 2</h3>
+            <h3>LOGIN AND UPDATE</h3>
             <br />
-            Teacher can enter the details they want and schedule their classes
-            Teacher can enter the details they want and schedule their classes
-            Teacher can enter the details they want and schedule their classes
+            Keep adding courses you'd love to teach. Choose the time slots that you are comfortable with to teach
           </Col>
 
           <Col span={6} offset={1} className="col-step-3">
-            <h3>STEP 3</h3>
+            <h3>HAPPY TEACHING</h3>
             <br />
-            Teacher and students can connect on the platform described by the
-            teacher Teacher and students can connect on the platform described
-            by the teacher Teacher and students can connect on the platform
-            described by the teacher
+            Based on the courses you've added, you can check your schedule depending upon the time slot chosen by the student and voila!
           </Col>
         </Row>
       </div>
