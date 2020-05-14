@@ -106,7 +106,8 @@ class Courses extends Component {
 
   handleChange = (value,day) => {
     this.getselectedday(day)
-    this.setState({ timeSlot: value });
+    this.setState({ timeSlot: value});
+    this.setState({showSubmitButton:true })
     var courseSchedule = {
       day: this.currentDay,
       time: value,
@@ -345,9 +346,9 @@ getCoursesData=()=>{
                       </Col>
                     </Row>
                   );
-                })}
+                })}<br/>
                 {this.state.showSubmitButton ? (
-                  <Row>
+                  <Row justify="center"> 
                     <Col>
                       <Form.Item>
                         <Button type="primary" htmlType="submit">

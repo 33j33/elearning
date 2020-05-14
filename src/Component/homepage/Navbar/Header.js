@@ -889,7 +889,7 @@ class header extends Component {
                   </Col>
                 </Row>
               );
-            })}
+            })}<br />
             <Row justify="center">
               <Col>
                 <Form.Item>
