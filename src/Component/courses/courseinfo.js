@@ -209,13 +209,6 @@ class courseinfo extends Component {
   };
 
   componentDidMount() {
-    //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
-    // if(!cardData){
-    // this.props.history.push("/")
-    // }
-    // else{
-    // this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
-    // }
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser) {
       this.setState({
@@ -230,135 +223,139 @@ class courseinfo extends Component {
 
   render() {
     return (
-      <div style={{ minHeight: 570, marginTop: "80px" }}>
+      <div style={{ minHeight: 570, marginTop: 80 }}>
         <h1 style={{ textAlign: "center", marginTop: 15 }}>
           {this.state.cardData.course_name}
         </h1>
         <Spin spinning={this.state.loading}>
           <Row justify="center">
             <Card
-              title="Course Description"
+              title={<p>By Mr.{this.state.cardData.teacher_name}</p>}
               style={{
+                marginTop: 10,
+                width: "55%",
                 fontSize: 15,
                 minHeight: 200,
-                minWidth: 700,
               }}
-              extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
+              // /extra={<p>By Mr.{this.state.cardData.teacher_name}</p>}/
             >
+              <p>Course Description:</p>
               <ul>
                 <li>{this.state.cardData.course_description}</li>
               </ul>
             </Card>
           </Row>
-          <Collapse
-            style={{
-              marginLeft: 300,
-              marginRight: 300,
-              marginTop: 20,
-              fontSize: 15,
-            }}
-            defaultActiveKey={["1"]}
-            onChange={this.callback}
-            key={this.state.cardData._id}
-          >
-            <Panel
-              header="Full Course"
-              key="2"
-              onClick={(this.state.coursetype = "Full")}
+          <Row justify="center">
+            <Collapse
+              style={{
+                width: "70%",
+                marginTop: 20,
+                fontSize: 15,
+              }}
+              defaultActiveKey={["1"]}
+              onChange={this.callback}
+              key={this.state.cardData._id}
             >
-              Teacher's avalaible slots:
-              <ul>
-                {this.state.cardData.course_schedule.map((i, index) => (
-                  <li onFocus={() => this.getSchedule(i.day)} key={index}>
-                    {i.day}
-                    <Radio.Group
-                      onChange={this.getFullCourseTimeSlot}
-                      onClick={() => this.getday(i.day)}
-                      style={{ marginLeft: 30 }}
-                      options={i.time}
-                    ></Radio.Group>
-                  </li>
-                ))}
-              </ul>
-              <Row>
-                <Button onClick={this.buyFullCourse}>submit</Button>
-              </Row>
-              Course Fees: Rs.{this.state.cardData.full_course_price}
-              {this.state.showButton ? (
-                <Button
-                  type="primary"
-                  onClick={this.payfullCourse}
-                  htmlType="submit"
-                  style={{ marginLeft: 15 }}
-                >
-                  Pay
-                </Button>
-              ) : null}
-              {this.state.paymentdone ? (
-                <p style={{ color: "Red" }}>Paid Succesfully</p>
-              ) : null}
-            </Panel>
-
-            <Panel header="Hour Based" key="3" style={{ marginTop: 10 }}>
-              <Row>Choose slots here:</Row>
-
-              <Row justify="space-between">
-                <Col span={9}>
-                  <Select
-                    style={{ width: 200 }}
-                    value={this.state.days}
-                    onChange={this.getHourBasedCourseDay}
-                    placeholder="Select Day"
+              <Panel
+                header="Full Course"
+                key="2"
+                onClick={(this.state.coursetype = "Full")}
+              >
+                Teacher's avalaible slots:
+                <ul>
+                  {this.state.cardData.course_schedule.map((i, index) => (
+                    <li onFocus={() => this.getSchedule(i.day)} key={index}>
+                      {i.day}
+                      <Radio.Group
+                        onChange={this.getFullCourseTimeSlot}
+                        onClick={() => this.getday(i.day)}
+                        style={{ marginLeft: 30 }}
+                        options={i.time}
+                      ></Radio.Group>
+                    </li>
+                  ))}
+                </ul>
+                <Row>
+                  <Button onClick={this.buyFullCourse}>submit</Button>
+                </Row>
+                Course Fees: Rs.{this.state.cardData.full_course_price}
+                {this.state.showButton ? (
+                  <Button
+                    type="primary"
+                    onClick={this.payfullCourse}
+                    htmlType="submit"
+                    style={{ marginLeft: 15 }}
                   >
-                    {this.state.cardData.course_schedule.map((i, index) => (
-                      <Option value={i.day} key={index}>
-                        {i.day}
-                      </Option>
-                    ))}
-                  </Select>
-                </Col>
-                <Col span={9}>
-                  {this.showField ? (
+                    Pay
+                  </Button>
+                ) : null}
+                {this.state.paymentdone ? (
+                  <p style={{ color: "Red" }}>Paid Succesfully</p>
+                ) : null}
+              </Panel>
+
+              <Panel header="Hour Based" key="3" style={{ marginTop: 10 }}>
+                <Row>Choose slots here:</Row>
+
+                <Row justify="space-between">
+                  <Col span={9}>
                     <Select
                       style={{ width: 200 }}
-                      onChange={this.getHourBasedCourseTimeSlot}
-                      placeholder="Select timeslot"
+                      value={this.state.days}
+                      onChange={this.getHourBasedCourseDay}
+                      placeholder="Select Day"
                     >
-                      {this.state.timeSlot.map((j, index) => (
-                        <Option value={j} key={index}>
-                          {j}
+                      {this.state.cardData.course_schedule.map((i, index) => (
+                        <Option value={i.day} key={index}>
+                          {i.day}
                         </Option>
                       ))}
                     </Select>
-                  ) : null}
-                </Col>
-              </Row>
-              <br />
-              <Row>
-                <Button onClick={this.buyHourBasedCourse}>submit</Button>
-              </Row>
+                  </Col>
+                  <Col span={9}>
+                    {this.showField ? (
+                      <Select
+                        style={{ width: 200 }}
+                        onChange={this.getHourBasedCourseTimeSlot}
+                        placeholder="Select timeslot"
+                      >
+                        {this.state.timeSlot.map((j, index) => (
+                          <Option value={j} key={index}>
+                            {j}
+                          </Option>
+                        ))}
+                      </Select>
+                    ) : null}
+                  </Col>
+                </Row>
+                <br />
+                <Row>
+                  <Button onClick={this.buyHourBasedCourse}>submit</Button>
+                </Row>
 
-              <Row>
-                <Col>
-                  {" "}
-                  Course Fees: Rs.{this.state.cardData.hour_based_course_price}
-                  {this.state.showButtonhalf ? (
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      style={{ marginLeft: 15 }}
-                      onClick={this.payhalfcourse}
-                    >
-                      Pay
-                    </Button>
-                  ) : null}
-                  {this.state.paymentdonehalf ? (
-                    <p style={{ color: "Red" }}>Paid Succesfully</p>
-                  ) : null}
-                </Col>
-              </Row>
-            </Panel>
-          </Collapse>
+                <Row>
+                  <Col>
+                    {" "}
+                    Course Fees: Rs.
+                    {this.state.cardData.hour_based_course_price}
+                    {this.state.showButtonhalf ? (
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        style={{ marginLeft: 15 }}
+                        onClick={this.payhalfcourse}
+                      >
+                        Pay
+                      </Button>
+                    ) : null}
+                    {this.state.paymentdonehalf ? (
+                      <p style={{ color: "Red" }}>Paid Succesfully</p>
+                    ) : null}
+                  </Col>
+                </Row>
+              </Panel>
+            </Collapse>
+          </Row>
         </Spin>
       </div>
     );

@@ -7,7 +7,7 @@ import { Spin } from "antd";
 import "./courses.css";
 import axios from "axios";
 import SearchInput, { createFilter } from "react-search-input";
-import { blue } from '@ant-design/colors';
+import { blue } from "@ant-design/colors";
 const KEYS_TO_FILTERS = ["course_name", "teacher_name"];
 
 const { Meta } = Card;
@@ -87,14 +87,12 @@ class courses extends Component {
             {filteredCourses.map((i) => (
               <Col offset={2} /*span={5}*/ key={i._id}>
                 <Card
-                  hoverable
                   id="card1"
                   style={{
                     width: 240,
                     height: 150,
                     minWidth: 100,
                     marginBottom: 40,
-                    backgroundColor: "blue"
                   }}
                   onClick={() => this.onCardClick(i)}
                 >
