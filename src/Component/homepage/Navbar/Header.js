@@ -437,21 +437,21 @@ class header extends Component {
                 <Link to="/">All Courses</Link>{" "}
               </Nav.Link>
               {this.state.showField ? (
-                <Row>
-                  <Nav.Link onClick={this.gotoProfile}>
-                    {this.state.username}
-                  </Nav.Link>
-                  <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
-                </Row>
+                <Nav.Link onClick={this.gotoProfile}>
+                  {this.state.username}
+                </Nav.Link>
               ) : (
-                <Row>
-                  <Nav.Link onClick={this.showModalForTeachers}>
-                    For Teachers
-                  </Nav.Link>
-                  <Nav.Link onClick={this.showModalForStudents}>
-                    For Students
-                  </Nav.Link>
-                </Row>
+                <Nav.Link onClick={this.showModalForTeachers}>
+                  For Teachers
+                </Nav.Link>
+              )}
+
+              {this.state.showField ? (
+                <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
+              ) : (
+                <Nav.Link onClick={this.showModalForStudents}>
+                  For Students
+                </Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>

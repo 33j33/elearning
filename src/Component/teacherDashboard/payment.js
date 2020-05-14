@@ -14,8 +14,7 @@ class payment extends Component {
       visible: false,
       confirmLoading: false,
       coursesArray: [],
-      loading:true
-
+      loading: true,
     };
   }
 
@@ -33,10 +32,11 @@ class payment extends Component {
           response.data[i].date = response.data[i].date.split("T")[0];
         }
 
-        this.setState({ coursesArray: response.data,      loading:false        });
+        this.setState({ coursesArray: response.data, loading: false });
       })
       .catch((error) => {
         console.log(error.response);
+        this.setState({ loading: false });
       });
   }
   render() {
@@ -70,7 +70,7 @@ class payment extends Component {
     return (
       <Spin spinning={this.state.loading}>
         <Table
-        key={this.state.coursesArray.course_id}
+          key={this.state.coursesArray.course_id}
           columns={columns}
           dataSource={this.state.coursesArray}
           size="small"
