@@ -10,8 +10,6 @@ import SearchInput, { createFilter } from "react-search-input";
 import Teacher from "./teacher/teacher";
 import { Link } from "react-router-dom";
 
-
-
 const KEYS_TO_FILTERS = ["course_name"];
 
 const { Meta } = Card;
@@ -30,6 +28,7 @@ class courses extends Component {
 
   responsive = {
     0: { items: 1 },
+    700: { items: 2 },
     1024: { items: 5 },
   };
 
@@ -69,14 +68,11 @@ class courses extends Component {
         <Col span={20} key={i._id}>
           <Card
             hoverable
-            
             onClick={() => this.onCardClick(i)}
-           style={{
-            background:" linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
-            minHeight: "100%"
-          }}
-
-          
+            style={{
+              background: " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
+              minHeight: "100%",
+            }}
             actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
             <Meta
@@ -95,66 +91,71 @@ class courses extends Component {
             <Spin />
           </div>
         ) : (
-            <div>
-
-              <div
-                style={{
-                  paddingTop: 40,
-                  paddingBottom: 80,
-                }}
-              >
-                <div className="bg-image"></div>
-                <Row className="heading">
-                  <h2>WHAT ARE YOU LOOKING FOR ...</h2>
-                </Row>
-                <br />
-                <Row className="row-search">
-                  <Col span={10}>
-                    <div className="search">
-                      <form className="search-form">
-                        <SearchInput
-                          onChange={this.searchUpdated}
-                          placeholder="Search for a course"
-                          id="navBar"
-                          style={{ width: "100%", border: "none" }}
-                        />
-                      </form>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
+          <div>
+            <div
+              style={{
+                paddingTop: 40,
+                paddingBottom: 80,
+              }}
+            >
+              <div className="bg-image"></div>
+              <Row className="heading">
+                <h2>WHAT ARE YOU LOOKING FOR ...</h2>
+              </Row>
               <br />
-              <div>
-                <Row justify="space-between">
-                  <Col >
-                    <h3 style={{ color: "#030056", fontSize: "40px", marginLeft: "20px" }}>
-                      Courses
-                    </h3>
-                  </Col>
-                  <Col style={{ marginRight: "20px" }}>
-                    <Button>
-                      <Link to="allcourses">View All</Link>
-                    </Button>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <AliceCarousel
-                    //style={{ marginLeft: 0, marginRight: 0 }}
-                    items={arr}
-                    responsive={this.responsive}
-                    autoPlayInterval={3000}
-                    autoPlayDirection="ltr"
-                    autoPlay={true}
-                    fadeOutAnimation={true}
-                    mouseTrackingEnabled={true}
-                    buttonsDisabled={true}
-                  />
-                </Row>
-                <Teacher />
-              </div>
+              <Row className="row-search">
+                <Col span={10}>
+                  <div className="search">
+                    <form className="search-form">
+                      <SearchInput
+                        onChange={this.searchUpdated}
+                        placeholder="Search for a course"
+                        id="navBar"
+                        style={{ width: "100%", border: "none" }}
+                      />
+                    </form>
+                  </div>
+                </Col>
+              </Row>
             </div>
-          )}
+            <br />
+            <div>
+              <Row justify="space-between">
+                <Col>
+                  <h3
+                    style={{
+                      color: "#030056",
+                      fontSize: "40px",
+                      marginLeft: "20px",
+                    }}
+                  >
+                    Courses
+                  </h3>
+                </Col>
+                <Col style={{ marginRight: "20px" }}>
+                  <Button>
+                    <Link to="allcourses">View All</Link>
+                  </Button>
+                </Col>
+              </Row>
+
+              <Row>
+                <AliceCarousel
+                  //style={{ marginLeft: 0, marginRight: 0 }}
+                  items={arr}
+                  responsive={this.responsive}
+                  autoPlayInterval={3000}
+                  autoPlayDirection="ltr"
+                  autoPlay={true}
+                  fadeOutAnimation={true}
+                  mouseTrackingEnabled={true}
+                  buttonsDisabled={true}
+                />
+              </Row>
+              <Teacher />
+            </div>
+          </div>
+        )}
       </div>
     );
   }

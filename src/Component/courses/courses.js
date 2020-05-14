@@ -7,7 +7,7 @@ import { Spin } from "antd";
 import "./courses.css";
 import axios from "axios";
 import SearchInput, { createFilter } from "react-search-input";
-import { blue } from '@ant-design/colors';
+import { blue } from "@ant-design/colors";
 const KEYS_TO_FILTERS = ["course_name", "teacher_name"];
 
 const { Meta } = Card;
@@ -73,7 +73,7 @@ class courses extends Component {
               <form className="search-form">
                 <SearchInput
                   onChange={this.searchUpdated}
-                  placeholder="Search for a course"
+                  placeholder="Search"
                   id="navBarSpecial"
                   style={{ width: "100%", border: "none" }}
                 />
@@ -87,19 +87,21 @@ class courses extends Component {
             {filteredCourses.map((i) => (
               <Col offset={2} /*span={5}*/ key={i._id}>
                 <Card
-                  hoverable
+                  id="card1"
                   style={{
                     width: 240,
                     height: 150,
                     minWidth: 100,
                     marginBottom: 40,
                     backgroundColor: "snow",
-                    background:" linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)"
+                    background:
+                      " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
                   }}
                   onClick={() => this.onCardClick(i)}
                 >
-                  <p>{i.course_name}</p>
+                  <p id="courseName">{i.course_name}</p>
                   <Meta
+                    id="courseDetails"
                     title={i.teacher_name}
                     description={i.full_course_price}
                   />
@@ -108,7 +110,9 @@ class courses extends Component {
             ))}
           </Row>
           <Row justify="center">
-            <Button onClick={this.loadMoreCourses} danger>Load More</Button>
+            <Button onClick={this.loadMoreCourses} danger>
+              Load More
+            </Button>
           </Row>
         </Spin>
       </div>
