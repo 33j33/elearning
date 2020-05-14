@@ -29,7 +29,8 @@ class courses extends Component {
   responsive = {
     0: { items: 1 },
     700: { items: 2 },
-    1024: { items: 5 },
+    1024: { items: 3 },
+    1200: { items: 5 },
   };
 
   searchUpdated(term) {
@@ -70,13 +71,18 @@ class courses extends Component {
             hoverable
             onClick={() => this.onCardClick(i)}
             style={{
-              background: " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
+              backgroundColor: "#D3D3D3",
               minHeight: "100%",
             }}
             actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
             <Meta
-              // style={{ fontSize: "16px" }}
+              style={{
+                fontSize: "16px",
+                height: 100,
+                fontWeight: 900,
+                color: "White",
+              }}
               description={i.course_name}
             />
           </Card>
@@ -98,7 +104,10 @@ class courses extends Component {
                 paddingBottom: 80,
               }}
             >
-              <div className="bg-image"></div>
+              <div
+                className="bg-image"
+                style={{ backgroundColor: "#C64752" }}
+              ></div>
               <Row className="heading">
                 <h2>WHAT ARE YOU LOOKING FOR ...</h2>
               </Row>
@@ -120,7 +129,7 @@ class courses extends Component {
             </div>
             <br />
             <div>
-              <Row justify="space-between">
+              <Row justify="space-between" style={{ marginTop: 70 }}>
                 <Col>
                   <h3
                     style={{
@@ -141,7 +150,7 @@ class courses extends Component {
 
               <Row>
                 <AliceCarousel
-                  //style={{ marginLeft: 0, marginRight: 0 }}
+                  style={{ width: 70 }}
                   items={arr}
                   responsive={this.responsive}
                   autoPlayInterval={3000}

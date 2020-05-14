@@ -70,7 +70,7 @@ class Courses extends Component {
         });
         this.final_selectedtime = [];
         successForCourses();
-        this.getCoursesData()
+        this.getCoursesData();
       })
       .catch((error) => {
         console.log(error);
@@ -104,10 +104,10 @@ class Courses extends Component {
     this.setState({ days: e });
   }
 
-  handleChange = (value,day) => {
-    this.getselectedday(day)
-    this.setState({ timeSlot: value});
-    this.setState({showSubmitButton:true })
+  handleChange = (value, day) => {
+    this.getselectedday(day);
+    this.setState({ timeSlot: value });
+    this.setState({ showSubmitButton: true });
     var courseSchedule = {
       day: this.currentDay,
       time: value,
@@ -122,34 +122,33 @@ class Courses extends Component {
     this.final_selectedtime.push(courseSchedule);
   };
 
+  getCoursesData = () => {
+    let teacherEmail;
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
-getCoursesData=()=>{
-  let teacherEmail;
-  const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
-
-  this.setState({
-    teacher_name: currentUser.username,
-    teacher_mobile: currentUser.phone,
-    teacher_email: currentUser.email,
-  });
-  teacherEmail = currentUser.email;
-  const headers = { "x-auth-token": currentUser.token };
-  axios
-    .get(
-      `https://elearningserver.herokuapp.com/teacher/addedCourseDetails/${teacherEmail}`,
-      { headers }
-    )
-    .then((response) => {
-      console.log(response);
-      this.setState({ coursesArray: response.data, loading: false });
-    })
-    .catch((error) => {
-      console.log(error.response);
-      this.setState({ loading: false });
+    this.setState({
+      teacher_name: currentUser.username,
+      teacher_mobile: currentUser.phone,
+      teacher_email: currentUser.email,
     });
-}
+    teacherEmail = currentUser.email;
+    const headers = { "x-auth-token": currentUser.token };
+    axios
+      .get(
+        `https://elearningserver.herokuapp.com/teacher/addedCourseDetails/${teacherEmail}`,
+        { headers }
+      )
+      .then((response) => {
+        console.log(response);
+        this.setState({ coursesArray: response.data, loading: false });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        this.setState({ loading: false });
+      });
+  };
   componentDidMount() {
-   this.getCoursesData()
+    this.getCoursesData();
     for (let i = 8; i < 22; i = i + 1) {
       this.children.push(
         <Option key={i + "-" + (Number(i) + 1)}>
@@ -346,9 +345,10 @@ getCoursesData=()=>{
                       </Col>
                     </Row>
                   );
-                })}<br/>
+                })}
+                <br />
                 {this.state.showSubmitButton ? (
-                  <Row justify="center"> 
+                  <Row justify="center">
                     <Col>
                       <Form.Item>
                         <Button type="primary" htmlType="submit">
