@@ -54,8 +54,8 @@ class header extends Component {
       username: "",
       loading: false,
       showSubmitButton: false,
-      hour_based_course_price:"",
-      full_course_price:""
+      hour_based_course_price: "",
+      full_course_price: "",
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
@@ -172,9 +172,9 @@ class header extends Component {
     this.setState({ days: e });
   }
 
-  handleChange = (value,day) => {
-    console.log(value,day);
-    this.getselectedday(day)
+  handleChange = (value, day) => {
+    console.log(value, day);
+    this.getselectedday(day);
     this.setState({ timeSlot: value });
     var courseSchedule = {
       day: this.currentDay,
@@ -196,7 +196,6 @@ class header extends Component {
 
   final_selectedtime = [];
 
- 
   setModal1Visible = () => {
     this.setState({ coursesModal: true });
   };
@@ -249,7 +248,7 @@ class header extends Component {
       course_name: values.course_name,
       course_duration: values.course_duration,
       full_course_price: values.full_course_price,
-      hour_based_course_price:values.hour_based_course_price,
+      hour_based_course_price: values.hour_based_course_price,
       course_description: values.course_description,
     });
     this.setState({ coursesModal: false });
@@ -269,7 +268,7 @@ class header extends Component {
         const databody = {
           course_schedule: this.final_selectedtime,
           full_course_price: this.state.full_course_price,
-          hour_based_course_price:this.state.hour_based_course_price,
+          hour_based_course_price: this.state.hour_based_course_price,
           course_name: this.state.course_name,
           course_duration: this.state.course_duration,
           course_description: this.state.course_description,
@@ -402,12 +401,22 @@ class header extends Component {
       },
     };
     return (
-        <div style={{ position: "fixed", top: "0%", width: "100%", zIndex: "100" }}>
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Link to="/">
-              {" "}
-              <Navbar.Brand onClick={this.gotoHome} style={{ cursor: "pointer", color: "#00f9ff", border: "2px solid white", padding: "2px 4px", fontWeight: "bolder" }}>
-                TURNSKILL 1 to 1
+      <div
+        style={{ position: "fixed", top: "0%", width: "100%", zIndex: "100" }}
+      >
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Link to="/">
+            {" "}
+            <Navbar.Brand
+              onClick={this.gotoHome}
+              style={{
+                cursor: "pointer",
+                color: "White",
+                padding: "2px 4px",
+                fontWeight: "bolder",
+              }}
+            >
+              TURNSKILL 1 to 1
             </Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -888,7 +897,7 @@ class header extends Component {
                       mode="multiple"
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
-                      onChange={(e)=>this.handleChange(e,day)}
+                      onChange={(e) => this.handleChange(e, day)}
                       onFocus={() => this.getselectedday(day)}
                     >
                       {this.children}

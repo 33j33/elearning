@@ -93,7 +93,7 @@ class courses extends Component {
                     height: 150,
                     minWidth: 100,
                     marginBottom: 40,
-                    backgroundColor: "snow",
+                    backgroundColor: "red",
                     background:
                       " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
                   }}
@@ -101,6 +101,7 @@ class courses extends Component {
                 >
                   <p id="courseName">{i.course_name}</p>
                   <Meta
+                    style={{ color: "red !important" }}
                     id="courseDetails"
                     title={i.teacher_name}
                     description={i.full_course_price}

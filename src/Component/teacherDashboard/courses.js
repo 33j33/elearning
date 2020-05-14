@@ -110,7 +110,7 @@ class Courses extends Component {
   handleChange = (value, day) => {
     console.log(value, day);
     this.getselectedday(day);
-    this.setState({ timeSlot: value });
+    this.setState({ timeSlot: value, showSubmitButton: true });
     var courseSchedule = {
       day: this.currentDay,
       time: value,

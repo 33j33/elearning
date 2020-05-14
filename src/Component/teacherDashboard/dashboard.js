@@ -57,58 +57,56 @@ class dashboard extends Component {
     };
 
     return (
-      <div style={{ margin: "5% 7% 5%" }}>
-        <Row gutter={16}>
-          <Col
-            xs={{ span: 24 }}
-            lg={{ span: 6 }}
-            sm={{ span: 10 }}
-            md={{ span: 10 }}
+      <Row gutter={16} style={{ marginTop: 100 }}>
+        <Col
+          xs={{ span: 24 }}
+          lg={{ span: 6 }}
+          sm={{ span: 10 }}
+          md={{ span: 10 }}
+        >
+          <Card
+            style={{ width: "100%" }}
+            cover={
+              <Avatar
+                size={150}
+                style={{ margin: "5% auto 2%" }}
+                icon={<UserOutlined style={{ margin: "auto" }} />}
+              />
+            }
           >
-            <Card
-              style={{ width: "100%" }}
-              cover={
-                <Avatar
-                  size={150}
-                  style={{ margin: "5% auto 2%" }}
-                  icon={<UserOutlined style={{ margin: "auto" }} />}
-                />
-              }
-            >
-                            <h6 style={{textAlign:"center"}}>Teacher</h6>
-              <p style={{ fontSize: "200%", textAlign: "Center" }}>
-                {this.state.username}
-              </p>
-              <hr
-                style={{
-                  height: "2px",
-                  width: "100%",
-                  color: "black",
-                  backgroundColor: "gray",
-                }}
-              />
-
-              <Meta
-                style={{ textAlign: "center" }}
-                title="Email Address"
-                description={this.state.email}
-              />
-            </Card>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 14 }} >
-            <Card
-              style={{ width: "100%" }}
-              tabList={tabList}
-              activeTabKey={this.state.titleKey}
-              onTabChange={(key) => {
-                this.onTabChange(key, "titleKey");
+            <h6 style={{ textAlign: "center" }}>Teacher</h6>
+            <p style={{ fontSize: "200%", textAlign: "Center" }}>
+              {this.state.username}
+            </p>
+            <hr
+              style={{
+                height: "2px",
+                width: "100%",
+                color: "black",
+                backgroundColor: "gray",
               }}
-            >
-              {contentList[this.state.titleKey]}
-            </Card>
-          </Col>
-        </Row>
-      </div>
+            />
+
+            <Meta
+              style={{ textAlign: "center" }}
+              title="Email Address"
+              description={this.state.email}
+            />
+          </Card>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+          <Card
+            style={{ width: "100%" }}
+            tabList={tabList}
+            activeTabKey={this.state.titleKey}
+            onTabChange={(key) => {
+              this.onTabChange(key, "titleKey");
+            }}
+          >
+            {contentList[this.state.titleKey]}
+          </Card>
+        </Col>
+      </Row>
     );
   }
 }
