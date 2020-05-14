@@ -59,7 +59,6 @@ class header extends Component {
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
-    this.onClicked = this.onClicked.bind(this);
   }
   formRef = React.createRef();
 
@@ -162,6 +161,7 @@ class header extends Component {
     this.final_selectedtime.splice(e.target.value, 1);
     console.log(this.final_selectedtime);
   };
+
   currentDay = "";
   getselectedday = (day) => {
     this.currentDay = day;
@@ -198,25 +198,7 @@ class header extends Component {
 
   final_selectedtime = [];
 
-  onClicked(i) {
-    console.log(i, this.state.days);
-    // var courseSchedule = {
-    //   day: this.state.days,
-    //   time: this.state.timeSlot,
-    // };
-    // console.log(this.courseSchedule);
-    // for (const i in this.final_selectedtime) {
-    //   if (this.final_selectedtime[i].day === this.state.days) {
-    //     this.final_selectedtime.splice(i, 1, courseSchedule);
-    //     console.log(this.final_selectedtime);
-    //     return;
-    //   }
-    // }
-
-    // this.final_selectedtime.push(courseSchedule);
-    // console.log(this.final_selectedtime);
-  }
-
+ 
   setModal1Visible = () => {
     this.setState({ coursesModal: true });
   };
@@ -910,6 +892,7 @@ class header extends Component {
                       placeholder="Select Timeslots"
                       onChange={this.handleChange}
                       onFocus={() => this.getselectedday(day)}
+                      // onMouseOver={()=>this.getselectedday(day)}
                     >
                       {this.children}
                     </Select>

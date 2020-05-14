@@ -6,7 +6,6 @@ import AliceCarousel from "react-alice-carousel";
 import axios from "axios";
 import { Spin } from "antd";
 import "./homepage.css";
-import courseImage from "./course.png";
 import SearchInput, { createFilter } from "react-search-input";
 import Teacher from "./teacher/teacher";
 import { Link } from "react-router-dom";
