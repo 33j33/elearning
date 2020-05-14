@@ -36,8 +36,8 @@ class TodaysSchdeule extends Component {
     return (
       <Spin spinning={this.state.loading}>
       <div>
-        {this.state.courseArray.map((i) => (
-                            <Descriptions title=              {i.course_name}
+        {this.state.courseArray.map((i,index) => (
+                            <Descriptions title=              {i.course_name} key={i._id}
                             >
 
             <Descriptions.Item label="Student Name  ">
@@ -50,8 +50,8 @@ class TodaysSchdeule extends Component {
               {i.course_type}
             </Descriptions.Item>
             <Descriptions.Item label="Schedule">
-              {i.selected_course_schedule.map((i) => (
-                <p>
+              {i.selected_course_schedule.map((i,index) => (
+                <p key={index}>
                   Day:{i.day}
                   Time:{i.time}
                 </p>
