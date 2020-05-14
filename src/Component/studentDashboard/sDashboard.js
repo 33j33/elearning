@@ -72,6 +72,7 @@ class StudentDashboard extends Component {
                 />
               }
             >
+              <h6 style={{textAlign:"center"}}>Student</h6>
               <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
               <hr
                 style={{

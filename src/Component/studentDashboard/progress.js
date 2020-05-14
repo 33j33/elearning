@@ -1,40 +1,70 @@
-import React, { Component } from 'react';
-import { Card } from 'antd';
+import React, { Component } from "react";
+import { Card } from "antd";
+import axios from "axios"
+import { Spin } from "antd";
 
 class progress extends Component {
-    render() {
-        return (
-            <div>
-                <h5 style= {{ marginBottom: 20}}>Current Courses: </h5>
-                    <Card
-      style={{ marginTop: 16 }}
-      type="inner"
-      title="HTML and CSS Fundamentals"
-    >
-      <p style={{marginBottom: 0}}>Teacher: Mr. Aman Gupta</p>
-      <p style={{marginBottom: 0}}>Slots: Monday: 9:00-10:0, 12:00-1:00</p>
-    </Card>
-    <Card
-      style={{ marginTop: 16 }}
-      type="inner"
-      title="Fundamentals of Machine Learning"
-    >
-      <p style={{marginBottom: 0}}>Teacher: Ms. Sweta Sharma</p>
-      <p style={{marginBottom: 0}}>Slots: Wednesday: 13:00-14:00</p>
-      <p style={{marginLeft: 40, marginBottom: 0}}>Friday: 8:00-9:00, 14:00-15:00</p>
-    </Card>
-    <h5 style={{marginTop: 20, marginBottom: 20}}>Completed Courses: </h5>
-    <Card
-      style={{ marginTop: 16 }}
-      type="inner"
-      title="Data Structures using C"
-    >
-      <p style={{marginBottom: 0}}>Teacher: Mr. Amit Gupta</p>
-    </Card>
+constructor(props){
+  super(props)
+  this.state={
+    enrolledCoursesArray:[],
+    loading:true
+  }
+}
+  componentDidMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    const headers = { "x-auth-token": currentUser.token };
+    axios
+      .get(
+        `https://elearningserver.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
+        { headers }
+      )
+      .then((response) => {
+      console.log(response)
+      this.setState({loading:false})
+      for (const i in response.data) {
+        response.data[i].date = response.data[i].date.split("T")[0];
+      }
+        this.setState({ enrolledCoursesArray: response.data });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+  render() {
+    return (
+      <Spin spinning={this.state.loading}>
 
-            </div>
-        );
-    }
+      <div>
+        <h5 style={{ marginBottom: 20 }}>Current Bought Courses: </h5>
+        {this.state.enrolledCoursesArray.map(course=>
+             <Card
+             style={{ marginTop: 16 }}
+             type="inner"
+             title={course.course_name}
+             key={course._id}
+             extra={<h5>By:{course.teacher_name} </h5>}
+           >
+              <p style={{ marginBottom: 0 }}>Teacher Mobile: {course.teacher_mobile}</p>
+             <p style={{ marginBottom: 0 }}>Course Type: {course.course_type}</p>
+             <p style={{ marginBottom: 0 }}>Course Bought date: {course.date}</p>
+
+             <p>Course Duration: {course.course_duration}</p>
+                  {course.selected_course_schedule.map((j,index) => (
+                    <p key={index}>
+                      {j.day} -- {j.time + ","}
+                    </p>
+                  ))}
+           
+           </Card>
+          )}
+     
+       
+        
+      </div>
+      </Spin>
+    );
+  }
 }
 
 export default progress;
