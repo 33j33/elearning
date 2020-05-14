@@ -160,8 +160,13 @@ class header extends Component {
     this.final_selectedtime.splice(e.target.value, 1);
     console.log(this.final_selectedtime);
   };
-
+  currentDay = "";
+  getselectedday = (day) => {
+    this.currentDay = day;
+    console.log(day);
+  };
   selectedDay(e, index) {
+    // this.currentDay = e;
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
     console.log(this.state.allDays);
@@ -171,20 +176,43 @@ class header extends Component {
   handleChange = (value) => {
     console.log(value);
     this.setState({ timeSlot: value });
+    var courseSchedule = {
+      day: this.currentDay,
+      time: value,
+    };
+    console.log(this.courseSchedule);
+    for (const i in this.final_selectedtime) {
+      if (this.final_selectedtime[i].day === this.currentDay) {
+        console.log(i);
+        this.final_selectedtime.splice(i, 1, courseSchedule);
+        console.log(this.final_selectedtime);
+        return;
+      }
+    }
+
+    this.final_selectedtime.push(courseSchedule);
+    console.log(this.final_selectedtime);
   };
 
   final_selectedtime = [];
 
   onClicked(i) {
-    console.log(i);
-    var courseSchedule = {
-      index: i,
-      day: this.state.days,
-      time: this.state.timeSlot,
-    };
+    console.log(i, this.state.days);
+    // var courseSchedule = {
+    //   day: this.state.days,
+    //   time: this.state.timeSlot,
+    // };
+    // console.log(this.courseSchedule);
+    // for (const i in this.final_selectedtime) {
+    //   if (this.final_selectedtime[i].day === this.state.days) {
+    //     this.final_selectedtime.splice(i, 1, courseSchedule);
+    //     console.log(this.final_selectedtime);
+    //     return;
+    //   }
+    // }
 
-    this.final_selectedtime.push(courseSchedule);
-    console.log(this.final_selectedtime);
+    // this.final_selectedtime.push(courseSchedule);
+    // console.log(this.final_selectedtime);
   }
 
   setModal1Visible = () => {
@@ -219,7 +247,7 @@ class header extends Component {
         this.props.history.push("teacher/dashboard");
       })
       .catch((error) => {
-        this.setState({       loading: false        })
+        this.setState({ loading: false });
         if (error.response !== undefined) {
           console.log(error.response);
           errorForlogin();
@@ -275,12 +303,12 @@ class header extends Component {
             this.formRef.current.resetFields();
             this.setState({
               visible: false,
-              loading: false 
+              loading: false,
             });
             successForregistration();
           })
           .catch((error) => {
-            this.setState({       loading: false        })
+            this.setState({ loading: false });
             console.log(error);
             errorForRegistration();
           });
@@ -352,6 +380,7 @@ class header extends Component {
       })
       .catch((error) => {
         this.setState({ loading: false });
+
         console.log(error.response);
         errorForRegistration();
       });
@@ -408,21 +437,21 @@ class header extends Component {
                 <Link to="/">All Courses</Link>{" "}
               </Nav.Link>
               {this.state.showField ? (
-                <Row>
-                  <Nav.Link onClick={this.gotoProfile}>
-                    {this.state.username}
-                  </Nav.Link>
-                  <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
-                </Row>
+                <Nav.Link onClick={this.gotoProfile}>
+                  {this.state.username}
+                </Nav.Link>
               ) : (
-                <Row>
-                  <Nav.Link onClick={this.showModalForTeachers}>
-                    For Teachers
-                  </Nav.Link>
-                  <Nav.Link onClick={this.showModalForStudents}>
-                    For Students
-                  </Nav.Link>
-                </Row>
+                <Nav.Link onClick={this.showModalForTeachers}>
+                  For Teachers
+                </Nav.Link>
+              )}
+
+              {this.state.showField ? (
+                <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
+              ) : (
+                <Nav.Link onClick={this.showModalForStudents}>
+                  For Students
+                </Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>
@@ -876,7 +905,7 @@ class header extends Component {
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
                       onChange={this.handleChange}
-                      onBlur={() => this.onClicked(index)}
+                      onFocus={() => this.getselectedday(day)}
                     >
                       {this.children}
                     </Select>

@@ -20,7 +20,7 @@ constructor(props){
         { headers }
       )
       .then((response) => {
-      console.log(response.data)
+      console.log(response)
       this.setState({loading:false})
       for (const i in response.data) {
         response.data[i].date = response.data[i].date.split("T")[0];
@@ -50,8 +50,8 @@ constructor(props){
              <p style={{ marginBottom: 0 }}>Course Bought date: {course.date}</p>
 
              <p>Course Duration: {course.course_duration}</p>
-                  {course.selected_course_schedule.map((j) => (
-                    <p>
+                  {course.selected_course_schedule.map((j,index) => (
+                    <p key={index}>
                       {j.day} -- {j.time + ","}
                     </p>
                   ))}
