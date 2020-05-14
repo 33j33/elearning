@@ -56,20 +56,41 @@ class dashboard extends Component {
     };
 
     return (
-      <Row gutter={16} style={{ marginTop: 100 }}>
-        <Col
-          xs={{ span: 24 }}
-          lg={{ span: 6 }}
-          sm={{ span: 10 }}
-          md={{ span: 10 }}
-        >
-          <Card
-            style={{ width: "100%" }}
-            cover={
-              <Avatar
-                size={150}
-                style={{ margin: "5% auto 2%" }}
-                icon={<UserOutlined style={{ margin: "auto" }} />}
+      <div style={{ margin: "8% 7% 5%"}}>
+        <Row gutter={16}>
+          <Col
+            xs={{ span: 24 }}
+            lg={{ span: 6 }}
+            sm={{ span: 10 }}
+            md={{ span: 10 }}
+          >
+            <Card
+              style={{ width: "100%" }}
+              cover={
+                <Avatar
+                  size={150}
+                  style={{ margin: "5% auto 2%" }}
+                  icon={<UserOutlined style={{ margin: "auto" }} />}
+                />
+              }
+            >
+                            <h6 style={{textAlign:"center"}}>Teacher</h6>
+              <p style={{ fontSize: "200%", textAlign: "Center" }}>
+                {this.state.username}
+              </p>
+              <hr
+                style={{
+                  height: "2px",
+                  width: "100%",
+                  color: "black",
+                  backgroundColor: "gray",
+                }}
+              />
+
+              <Meta
+                style={{ textAlign: "center" }}
+                title="Email Address"
+                description={this.state.email}
               />
             }
           >
@@ -106,6 +127,7 @@ class dashboard extends Component {
           </Card>
         </Col>
       </Row>
+      </div>
     );
   }
 }
