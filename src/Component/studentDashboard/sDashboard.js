@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Profile from "./StudentProfile";
-import Progress from "./Progress";
+import Progress from "./progress";
 import Payment from './payment'
 const { Meta } = Card;
 
