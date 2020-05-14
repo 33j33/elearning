@@ -6,24 +6,18 @@ import Progress from "./Progress";
 import Payment from './payment'
 const { Meta } = Card;
 
-/*
-    Coded : By yash Khanna
-    Problem : The Page has 2 procards then in cards there is a table .To check if we can make it more responsive
-    To access : http://localhost:3000/studentDashboard
-*/
 
 class StudentDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleKey: "profile",
+      titleKey: "Progress",
       username:"",
-      email:""
+      email:"",
     };
   }
 
   onTabChange = (key, type) => {
-    console.log(key, type);
     this.setState({ [type]: key });
   };
 
@@ -37,16 +31,16 @@ class StudentDashboard extends Component {
   render() {
     const tabList = [
       {
-        key: "profile",
-        tab: "profile",
+        key: "Profile",
+        tab: "Profile",
       },
       {
-        key: "progress",
-        tab: "progress",
+        key: "Progress",
+        tab: "Progress",
       },
       {
-        key: "payment",
-        tab: "payment",
+        key: "Payment",
+        tab: "Payments History",
       },
     ];
 
@@ -54,9 +48,9 @@ class StudentDashboard extends Component {
 
    
     const contentList = {
-      profile: <Profile />,
-      progress: <Progress />,
-      payment: <Payment/>,
+      Profile: <Profile />,
+      Progress: <Progress />,
+      Payment: <Payment/>,
     };
 
     return (

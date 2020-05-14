@@ -8,9 +8,13 @@ import {
   PlusCircleOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
+import { Spin } from "antd";
 
 const successForCourses = () => {
   message.success("Succesfully Added a course");
+};
+const errorForCourseAddtion = (mssg) => {
+  message.error(mssg);
 };
 const { Option } = Select;
 
@@ -25,9 +29,11 @@ class Courses extends Component {
       timeSlot: [],
       days: "",
       allDays: [],
-      teacher_name:"",
-      teacher_mobile:"",
-      teacher_email:""
+      teacher_name: "",
+      teacher_mobile: "",
+      teacher_email: "",
+      loading: true
+
     };
   }
   formRef = React.createRef();
@@ -37,8 +43,7 @@ class Courses extends Component {
   };
 
   onFinishCourseSelection = (values) => {
-    console.log(values);
- 
+this.setState({loading:true})
     const databody = {
       course_schedule: this.final_selectedtime,
       course_price: values.course_price,
@@ -54,18 +59,21 @@ class Courses extends Component {
       .then((response) => {
         console.log(response);
         this.formRef.current.resetFields();
-        this.setState({ 
+        this.setState({
           coursesModal: false,
-          timeSlot:[],
-          days:"",
-          allDays:[] });
-        this.final_selectedtime=[]
+          timeSlot: [],
+          days: "",
+          allDays: [],
+          loading:false
+        });
+        this.final_selectedtime = []
         successForCourses();
 
       })
       .catch((error) => {
         console.log(error);
-        // errorForRegistration();
+        this.setState({loading:false})
+        errorForCourseAddtion(error.message);
       });
   };
 
@@ -84,7 +92,6 @@ class Courses extends Component {
   };
 
   selectedDay = (e) => {
-    console.log(e);
     this.setState({ days: e });
   }
 
@@ -120,7 +127,7 @@ class Courses extends Component {
       )
       .then((response) => {
         console.log(response.data);
-        this.setState({ coursesArray: response.data });
+        this.setState({ coursesArray: response.data, loading: false });
       })
       .catch((error) => {
         console.log(error.response);
@@ -138,11 +145,8 @@ class Courses extends Component {
   };
   render() {
     return (
-
-      <div
-
-      >
-        
+      <Spin spinning={this.state.loading}>
+      <div >
         <Row justify="space-around">
           <Col>
             <Button
@@ -158,7 +162,7 @@ class Courses extends Component {
               onClick={this.setModal1Visible}
             >
               <Text strong style={{ paddingLeft: "8%" }}>
-                Add Course
+                Add New Course
                       </Text>
             </Button>
           </Col>
@@ -193,7 +197,7 @@ class Courses extends Component {
           onCancel={() => this.setState({ coursesModal: false })}
         >
           <Form
-                          ref={this.formRef}
+            ref={this.formRef}
 
             name="basic"
             initialValues={{ remember: true }}
@@ -310,7 +314,7 @@ class Courses extends Component {
           </Form>
         </Modal>
       </div>
-
+</Spin>
     );
   }
 }

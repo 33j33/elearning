@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import { Select, Row, Col, Button, Radio, Card, Collapse } from "antd";
 import axios from "axios";
+import { message } from "antd";
+import { Spin } from "antd";
+
 const { Option } = Select;
 const { Panel } = Collapse;
+
+const successPaymentMessage = (message) => {
+  message.success(message);
+};const errormessage = (mssg) => {
+  message.error(mssg);
+};
 
 class courseinfo extends Component {
   constructor(props) {
@@ -23,11 +32,17 @@ class courseinfo extends Component {
       student_mobile: "",
       student_id: "",
       token: "",
+      paymentdone: false,
+      showButtonhalf: false,
+      paymentdonehalf: false,
+      loading:false
     };
 
     this.getFullCourseTimeSlot = this.getFullCourseTimeSlot.bind(this);
     this.getSchedule = this.getSchedule.bind(this);
     this.buyFullCourse = this.buyFullCourse.bind(this);
+    this.payfullCourse = this.payfullCourse.bind(this);
+    this.payhalfcourse = this.payhalfcourse.bind(this);
     this.getHourBasedCourseDay = this.getHourBasedCourseDay.bind(this);
   }
 
@@ -38,12 +53,10 @@ class courseinfo extends Component {
   FullCourseTimeSlotArray = [];
   selectedday = "";
 
-
   getHourBasedCourseTimeSlot = (value) => {
     this.halftimeslot = value;
     console.log(value, "t", this.halftimeslot);
   };
-
 
   getHourBasedCourseDay = (value) => {
     console.log(value);
@@ -63,11 +76,8 @@ class courseinfo extends Component {
     console.log("day", this.state.days);
   };
 
-
-
   getSchedule = (data) => {
     this.selectedday = data;
-
   };
   getday = (day) => {
     return day;
@@ -76,7 +86,6 @@ class courseinfo extends Component {
   getFullCourseTimeSlot = (e) => {
     for (const i in this.FullCourseTimeSlotArray) {
       if (this.FullCourseTimeSlotArray[i].day === this.selectedday) {
-        console.log(this.FullCourseTimeSlotArray[i]);
         this.FullCourseTimeSlotArray.pop(this.FullCourseTimeSlotArray[i], 1);
       }
     }
@@ -91,6 +100,10 @@ class courseinfo extends Component {
   buyFullCourse() {
     this.setState({ showButton: true });
     this.setState({ showPanel: false });
+  }
+  //Pay full course
+  payfullCourse() {
+    this.setState({loading:true})
     const dataBody = {
       student_id: this.state.student_id,
       student_name: this.state.student_name,
@@ -103,7 +116,7 @@ class courseinfo extends Component {
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
       selected_course_schedule: this.FullCourseTimeSlotArray,
-      course_id:this.state.cardData.course_id
+      course_id: this.state.cardData.course_id,
     };
     const headers = { "x-auth-token": this.state.token };
     axios
@@ -114,17 +127,29 @@ class courseinfo extends Component {
       )
       .then((response) => {
         console.log(response);
+        this.setState({ showButton: false,loading:false,paymentdone: false });
+        var successMessage="Full Course Payment Success"
+        successPaymentMessage(successMessage)
       })
       .catch((error) => {
-        if (error.response !== undefined) {
-          console.log(error.response);
+        var errorMessage;
+        this.setState({loading:false})
+        if(error.message==="Request failed with status code 401"){
+          errorMessage="Login to buy the course"
         }
+        else{
+          errorMessage="Course already bought"
+        }
+        errormessage(errorMessage);
       });
   }
 
-
   hourBasedCourseDataArray = [];
-  buyHourBasedCourse=()=> {
+  buyHourBasedCourse = () => {
+    this.setState({ showButtonhalf: true });
+  };
+  payhalfcourse = () => {
+    this.setState({loading:true})
     const data = {
       day: this.halfcourseday,
       time: this.halftimeslot,
@@ -142,7 +167,7 @@ class courseinfo extends Component {
       teacher_mobile: this.state.cardData.teacher_mobile,
       teacher_email: this.state.cardData.teacher_email,
       selected_course_schedule: this.hourBasedCourseDataArray,
-      course_id:this.state.cardData.course_id
+      course_id: this.state.cardData.course_id,
     };
 
     const headers = { "x-auth-token": this.state.token };
@@ -154,22 +179,31 @@ class courseinfo extends Component {
       )
       .then((response) => {
         console.log(response);
+        var successMessage="Half Course Payment Success"
+        successPaymentMessage(successMessage)
+        this.setState({ showButtonhalf: false,paymentdonehalf: true,loading:false });
       })
       .catch((error) => {
-        if (error.response !== undefined) {
-          console.log(error.response);
+        this.setState({loading:false})
+        var errorMessage;
+        if(error.message==="Request failed with status code 401"){
+          errorMessage="Login to buy the course"
         }
+        else{
+          errorMessage="Course already bought"
+        }
+        errormessage(errorMessage);
       });
-  }
+  };
 
   componentDidMount() {
-//     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
-// if(!cardData){
-// this.props.history.push("/")
-// }
-// else{
-// this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
-// }
+    //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
+    // if(!cardData){
+    // this.props.history.push("/")
+    // }
+    // else{
+    // this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
+    // }
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser) {
       this.setState({
@@ -184,10 +218,11 @@ class courseinfo extends Component {
 
   render() {
     return (
-      <div style={{minHeight: 570}}>
+      <div style={{ minHeight: 570 }}>
         <h1 style={{ textAlign: "center", marginTop: 15 }}>
           {this.state.cardData.course_name}
         </h1>
+        <Spin spinning={this.state.loading}>
         <Row justify="center">
           <Card
             title="Course Description"
@@ -196,11 +231,11 @@ class courseinfo extends Component {
               minHeight: 200,
               minWidth: 700,
             }}
-          extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
+            extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
           >
-              <ul>
-                <li>{this.state.cardData.course_description}</li>
-              </ul>
+            <ul>
+              <li>{this.state.cardData.course_description}</li>
+            </ul>
           </Card>
         </Row>
         <Collapse
@@ -213,7 +248,6 @@ class courseinfo extends Component {
           defaultActiveKey={["1"]}
           onChange={this.callback}
           key={this.state.cardData._id}
-
         >
           <Panel
             header="Full Course"
@@ -222,9 +256,8 @@ class courseinfo extends Component {
           >
             Teacher's avalaible slots:
             <ul>
-              {this.state.cardData.course_schedule.map((i,index) => (
-                <li onFocus={() => this.getSchedule(i.day)} key={index}
-                >
+              {this.state.cardData.course_schedule.map((i, index) => (
+                <li onFocus={() => this.getSchedule(i.day)} key={index}>
                   {i.day}
                   <Radio.Group
                     onChange={this.getFullCourseTimeSlot}
@@ -242,14 +275,19 @@ class courseinfo extends Component {
             {this.state.showButton ? (
               <Button
                 type="primary"
+                onClick={this.payfullCourse}
                 htmlType="submit"
                 style={{ marginLeft: 15 }}
               >
                 Pay
               </Button>
             ) : null}
+            {this.state.paymentdone ? (
+              <p style={{ color: "Red" }}>Paid Succesfully</p>
+            ) : null}
           </Panel>
-          <Panel header="Hour Based" key="3" style={{ marginTop: 10 }} >
+
+          <Panel header="Hour Based" key="3" style={{ marginTop: 10 }}>
             <Row>Choose slots here:</Row>
 
             <Row justify="space-between">
@@ -260,16 +298,24 @@ class courseinfo extends Component {
                   onChange={this.getHourBasedCourseDay}
                   placeholder="Select Day"
                 >
-                  {this.state.cardData.course_schedule.map((i,index) => (
-                    <Option value={i.day} key={index}>{i.day}</Option>
+                  {this.state.cardData.course_schedule.map((i, index) => (
+                    <Option value={i.day} key={index}>
+                      {i.day}
+                    </Option>
                   ))}
                 </Select>
               </Col>
               <Col span={9}>
                 {this.showField ? (
-                  <Select style={{ width: 200 }} onChange={this.getHourBasedCourseTimeSlot} placeholder="Select timeslot">
-                    {this.state.timeSlot.map((j,index) => (
-                      <Option value={j} key={index}>{j}</Option>
+                  <Select
+                    style={{ width: 200 }}
+                    onChange={this.getHourBasedCourseTimeSlot}
+                    placeholder="Select timeslot"
+                  >
+                    {this.state.timeSlot.map((j, index) => (
+                      <Option value={j} key={index}>
+                        {j}
+                      </Option>
                     ))}
                   </Select>
                 ) : null}
@@ -284,20 +330,25 @@ class courseinfo extends Component {
               <Col>
                 {" "}
                 Course Fees: Rs.{this.state.cardData.hour_based_course_price}
-                {this.state.showButton ? (
+                {this.state.showButtonhalf ? (
                   <Button
                     type="primary"
                     htmlType="submit"
                     style={{ marginLeft: 15 }}
+                    onClick={this.payhalfcourse}
+
                   >
                     Pay
                   </Button>
+                ) : null}
+                {this.state.paymentdonehalf ? (
+                  <p style={{ color: "Red" }}>Paid Succesfully</p>
                 ) : null}
               </Col>
             </Row>
           </Panel>
         </Collapse>
-        ,
+        </Spin>
       </div>
     );
   }

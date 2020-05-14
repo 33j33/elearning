@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Table } from "antd";
 import "./payment.css";
 import axios from "axios";
+import { Spin } from "antd";
 
 //Payment section of the Teacher Dashboard
 
@@ -13,6 +14,8 @@ class payment extends Component {
       visible: false,
       confirmLoading: false,
       coursesArray: [],
+      loading:true
+
     };
   }
 
@@ -31,7 +34,7 @@ class payment extends Component {
           response.data[i].date = response.data[i].date.split("T")[0];
         }
 
-        this.setState({ coursesArray: response.data });
+        this.setState({ coursesArray: response.data,      loading:false        });
         console.log(this.state.coursesArray);
       })
       .catch((error) => {
@@ -71,6 +74,7 @@ class payment extends Component {
       },
     ];
     return (
+      <Spin spinning={this.state.loading}>
       <div>
         <Table
           columns={columns}
@@ -78,6 +82,7 @@ class payment extends Component {
           size="small"
         />
       </div>
+      </Spin>
     );
   }
 }
