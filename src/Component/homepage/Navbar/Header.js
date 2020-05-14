@@ -59,7 +59,6 @@ class header extends Component {
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
-    this.onClicked = this.onClicked.bind(this);
   }
   formRef = React.createRef();
 
@@ -156,27 +155,26 @@ class header extends Component {
   };
 
   removeRow = (e) => {
-    console.log(e.target.value);
     this.state.allDays.splice(e.target.value, 1);
     this.setState({ allDays: this.state.allDays });
     this.final_selectedtime.splice(e.target.value, 1);
-    console.log(this.final_selectedtime);
   };
+
   currentDay = "";
   getselectedday = (day) => {
     this.currentDay = day;
     console.log(day);
   };
   selectedDay(e, index) {
-    // this.currentDay = e;
     this.state.allDays[index] = e;
     this.setState({ allDays: this.state.allDays });
     console.log(this.state.allDays);
     this.setState({ days: e });
   }
 
-  handleChange = (value) => {
-    console.log(value);
+  handleChange = (value,day) => {
+    console.log(value,day);
+    this.getselectedday(day)
     this.setState({ timeSlot: value });
     var courseSchedule = {
       day: this.currentDay,
@@ -198,25 +196,7 @@ class header extends Component {
 
   final_selectedtime = [];
 
-  onClicked(i) {
-    console.log(i, this.state.days);
-    // var courseSchedule = {
-    //   day: this.state.days,
-    //   time: this.state.timeSlot,
-    // };
-    // console.log(this.courseSchedule);
-    // for (const i in this.final_selectedtime) {
-    //   if (this.final_selectedtime[i].day === this.state.days) {
-    //     this.final_selectedtime.splice(i, 1, courseSchedule);
-    //     console.log(this.final_selectedtime);
-    //     return;
-    //   }
-    // }
-
-    // this.final_selectedtime.push(courseSchedule);
-    // console.log(this.final_selectedtime);
-  }
-
+ 
   setModal1Visible = () => {
     this.setState({ coursesModal: true });
   };
@@ -908,7 +888,7 @@ class header extends Component {
                       mode="multiple"
                       style={{ width: "100%" }}
                       placeholder="Select Timeslots"
-                      onChange={this.handleChange}
+                      onChange={(e)=>this.handleChange(e,day)}
                       onFocus={() => this.getselectedday(day)}
                     >
                       {this.children}
