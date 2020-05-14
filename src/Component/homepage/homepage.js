@@ -105,7 +105,7 @@ class courses extends Component {
                   paddingBottom: 80,
                 }}
               >
-                <div class="bg-image"></div>
+                <div className="bg-image"></div>
                 <Row className="heading">
                   <h2>WHAT ARE YOU LOOKING FOR ...</h2>
                 </Row>

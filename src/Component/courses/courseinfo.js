@@ -151,6 +151,7 @@ class courseinfo extends Component {
         } else {
           errorMessage = "Course already bought";
         }
+        errormessage(errorMessage)
       });
   }
 
@@ -206,6 +207,8 @@ class courseinfo extends Component {
         } else {
           errorMessage = "Course already bought";
         }
+        errormessage(errorMessage)
+
       });
   }
 
