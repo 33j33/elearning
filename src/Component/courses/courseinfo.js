@@ -128,6 +128,7 @@ class courseinfo extends Component {
           loading: false,
           paymentdone: false,
         });
+        this.props.history.push("/student/dashboard")
         successPaymentMessage();
       })
       .catch((error) => {
@@ -180,6 +181,8 @@ if(error.message!=undefined){
       )
       .then((response) => {
         console.log(response);
+        this.props.history.push("/student/dashboard")
+
         successPaymentMessage();
         this.setState({
           showButtonhalf: false,
