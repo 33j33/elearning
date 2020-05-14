@@ -231,30 +231,33 @@ class courseinfo extends Component {
 
   render() {
     return (
-      <div style={{ minHeight: 570, marginTop: "80px" }}>
+      <div style={{ minHeight: 570, marginTop: 80 }}>
         <h1 style={{ textAlign: "center", marginTop: 15 }}>
           {this.state.cardData.course_name}
         </h1>
         <Spin spinning={this.state.loading}>
           <Row justify="center">
-            <Card
-              title="Course Description"
+          <Card
+              title={<p>By Mr.{this.state.cardData.teacher_name}</p>}
               style={{
+                marginTop: 10,
+                width: "55%",
                 fontSize: 15,
                 minHeight: 200,
-                minWidth: 700,
               }}
-              extra={<h6>By Mr.{this.state.cardData.teacher_name}</h6>}
+              // /extra={<p>By Mr.{this.state.cardData.teacher_name}</p>}/
             >
+              <p>Course Description:</p>
               <ul>
                 <li>{this.state.cardData.course_description}</li>
               </ul>
             </Card>
           </Row>
+          <Row justify="center">
+
           <Collapse
-            style={{
-              marginLeft: 300,
-              marginRight: 300,
+             style={{
+              width: "70%",
               marginTop: 20,
               fontSize: 15,
             }}
@@ -360,6 +363,7 @@ class courseinfo extends Component {
               </Row>
             </Panel>
           </Collapse>
+          </Row>
         </Spin>
       </div>
     );
