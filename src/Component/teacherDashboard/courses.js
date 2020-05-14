@@ -31,6 +31,7 @@ class Courses extends Component {
       teacher_email: "",
       loading: true,
       addCoursesloading: false,
+      showSubmitButton: false,
     };
   }
   formRef = React.createRef();
@@ -80,7 +81,10 @@ class Courses extends Component {
 
   // @DESC SELECTED COURSE DAYS AND TIME SLOTS
   handleAdd = () => {
-    this.setState({ allDays: [...this.state.allDays, ""] });
+    this.setState({
+      allDays: [...this.state.allDays, ""],
+      // showSubmitButton: true,
+    });
   };
 
   removeRow = (e) => {
@@ -106,7 +110,7 @@ class Courses extends Component {
 
   handleChange = (value) => {
     console.log(value);
-    this.setState({ timeSlot: value });
+    this.setState({ timeSlot: value, showSubmitButton: true });
     var courseSchedule = {
       day: this.currentDay,
       time: value,
@@ -347,15 +351,17 @@ class Courses extends Component {
                     </Row>
                   );
                 })}
-                <Row justify="center">
-                  <Col>
-                    <Form.Item>
-                      <Button type="primary" htmlType="submit">
-                        Submit
-                      </Button>
-                    </Form.Item>
-                  </Col>
-                </Row>
+                {this.state.showSubmitButton ? (
+                  <Row>
+                    <Col>
+                      <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                          Submit
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                ) : null}
               </Form>
             </Spin>
           </Modal>
