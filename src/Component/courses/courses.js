@@ -96,6 +96,7 @@ class courses extends Component {
                     background:
                       " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
                   }}
+                  hoverable
                   onClick={() => this.onCardClick(i)}
                 >
                   <p id="courseName">{i.course_name}</p>
