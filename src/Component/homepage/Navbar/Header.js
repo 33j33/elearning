@@ -13,10 +13,7 @@ import { Nav, Navbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Link } from "react-router-dom";
 import { InputNumber } from "antd";
-<<<<<<< HEAD
-=======
 import { Spin } from "antd";
->>>>>>> 95afd93905d9e209579a94c796e092ce969c2c0b
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -222,7 +219,7 @@ class header extends Component {
         this.props.history.push("teacher/dashboard");
       })
       .catch((error) => {
-        this.setState({       loading: false        })
+        this.setState({ loading: false });
         if (error.response !== undefined) {
           console.log(error.response);
           errorForlogin();
@@ -278,12 +275,12 @@ class header extends Component {
             this.formRef.current.resetFields();
             this.setState({
               visible: false,
-              loading: false 
+              loading: false,
             });
             successForregistration();
           })
           .catch((error) => {
-            this.setState({       loading: false        })
+            this.setState({ loading: false });
             console.log(error);
             errorForRegistration();
           });
