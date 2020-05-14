@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Select, Row, Col, Button, Radio, Card, Collapse } from "antd";
 import axios from "axios";
 import { message } from "antd";
-import { Redirect } from "react-router-dom";
+import { Spin } from "antd";
 
 const { Option } = Select;
 const { Panel } = Collapse;
 
-const errormessage = (mssg) => {
+const successPaymentMessage = (message) => {
+  message.success(message);
+};const errormessage = (mssg) => {
   message.error(mssg);
 };
 
@@ -33,6 +35,7 @@ class courseinfo extends Component {
       paymentdone: false,
       showButtonhalf: false,
       paymentdonehalf: false,
+      loading:false
     };
 
     this.getFullCourseTimeSlot = this.getFullCourseTimeSlot.bind(this);
@@ -100,6 +103,7 @@ class courseinfo extends Component {
   }
   //Pay full course
   payfullCourse() {
+    this.setState({loading:true})
     const dataBody = {
       student_id: this.state.student_id,
       student_name: this.state.student_name,
@@ -123,11 +127,20 @@ class courseinfo extends Component {
       )
       .then((response) => {
         console.log(response);
-        this.setState({ showButton: false });
-        this.setState({ paymentdone: true });
+        this.setState({ showButton: false,loading:false,paymentdone: false });
+        var successMessage="Full Course Payment Success"
+        successPaymentMessage(successMessage)
       })
       .catch((error) => {
-        errormessage(error.message);
+        var errorMessage;
+        this.setState({loading:false})
+        if(error.message==="Request failed with status code 401"){
+          errorMessage="Login to buy the course"
+        }
+        else{
+          errorMessage="Course already bought"
+        }
+        errormessage(errorMessage);
       });
   }
 
@@ -136,6 +149,7 @@ class courseinfo extends Component {
     this.setState({ showButtonhalf: true });
   };
   payhalfcourse = () => {
+    this.setState({loading:true})
     const data = {
       day: this.halfcourseday,
       time: this.halftimeslot,
@@ -165,15 +179,22 @@ class courseinfo extends Component {
       )
       .then((response) => {
         console.log(response);
-
-        this.setState({ showButtonhalf: false });
-        this.setState({ paymentdonehalf: true });
+        var successMessage="Half Course Payment Success"
+        successPaymentMessage(successMessage)
+        this.setState({ showButtonhalf: false,paymentdonehalf: true,loading:false });
       })
       .catch((error) => {
-        errormessage(error.message);
+        this.setState({loading:false})
+        var errorMessage;
+        if(error.message==="Request failed with status code 401"){
+          errorMessage="Login to buy the course"
+        }
+        else{
+          errorMessage="Course already bought"
+        }
+        errormessage(errorMessage);
       });
   };
-  payhalfcourse() {}
 
   componentDidMount() {
     //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
@@ -201,6 +222,7 @@ class courseinfo extends Component {
         <h1 style={{ textAlign: "center", marginTop: 15 }}>
           {this.state.cardData.course_name}
         </h1>
+        <Spin spinning={this.state.loading}>
         <Row justify="center">
           <Card
             title="Course Description"
@@ -264,6 +286,7 @@ class courseinfo extends Component {
               <p style={{ color: "Red" }}>Paid Succesfully</p>
             ) : null}
           </Panel>
+
           <Panel header="Hour Based" key="3" style={{ marginTop: 10 }}>
             <Row>Choose slots here:</Row>
 
@@ -312,6 +335,8 @@ class courseinfo extends Component {
                     type="primary"
                     htmlType="submit"
                     style={{ marginLeft: 15 }}
+                    onClick={this.payhalfcourse}
+
                   >
                     Pay
                   </Button>
@@ -323,7 +348,7 @@ class courseinfo extends Component {
             </Row>
           </Panel>
         </Collapse>
-        ,
+        </Spin>
       </div>
     );
   }

@@ -105,7 +105,7 @@ class courses extends Component {
             ))}
           </Row>
           <Row justify="center">
-            <Button onClick={this.loadMoreCourses}>Load More</Button>
+            <Button onClick={this.loadMoreCourses} danger>Load More</Button>
           </Row>
         </Spin>
       </div>

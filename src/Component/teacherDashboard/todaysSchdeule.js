@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Descriptions, Badge } from "antd";
 import axios from "axios";
+import { Spin } from "antd";
 
 class TodaysSchdeule extends Component {
   constructor(props) {
@@ -8,6 +9,8 @@ class TodaysSchdeule extends Component {
 
     this.state = {
       courseArray: [],
+      loading:true
+
     };
   }
 
@@ -23,8 +26,7 @@ class TodaysSchdeule extends Component {
         for (const i in response.data) {
           response.data[i].date = response.data[i].date.split("T")[0];
         }
-        this.setState({ courseArray: response.data });
-        console.log(this.state.courseArray);
+        this.setState({ courseArray: response.data,loading:false });
       })
       .catch((error) => {
         console.log(error.response);
@@ -32,6 +34,7 @@ class TodaysSchdeule extends Component {
   }
   render() {
     return (
+      <Spin spinning={this.state.loading}>
       <div>
         {this.state.courseArray.map((i) => (
                             <Descriptions title=              {i.course_name}
@@ -63,6 +66,7 @@ class TodaysSchdeule extends Component {
         ))}
     
       </div>
+      </Spin>
     );
   }
 }

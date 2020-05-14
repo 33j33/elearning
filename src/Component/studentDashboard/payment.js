@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Table } from "antd";
 import axios from "axios";
+import { Spin } from "antd";
 
 class payment extends Component {
 constructor(props) {
     super(props);
     this.state={
         coursesArray: [],
-
+loading:true
     }
     
 }
@@ -21,6 +22,7 @@ constructor(props) {
             { headers }
           )
           .then((response) => {
+            this.setState({loading:false})
             console.log(response);
             for (const i in response.data) {
               response.data[i].date = response.data[i].date.split("T")[0];
@@ -88,6 +90,7 @@ constructor(props) {
               },
           ];
         return (
+          <Spin spinning={this.state.loading}>
             <div>
                 <Table
           columns={columns}
@@ -95,6 +98,7 @@ constructor(props) {
           size="small"
         /> 
             </div>
+            </Spin>
         );
     }
 }

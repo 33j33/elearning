@@ -13,7 +13,7 @@ class StudentDashboard extends Component {
     this.state = {
       titleKey: "Progress",
       username:"",
-      email:""
+      email:"",
     };
   }
 

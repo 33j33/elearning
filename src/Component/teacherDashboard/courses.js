@@ -8,9 +8,13 @@ import {
   PlusCircleOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
+import { Spin } from "antd";
 
 const successForCourses = () => {
   message.success("Succesfully Added a course");
+};
+const errorForCourseAddtion = (mssg) => {
+  message.error(mssg);
 };
 const { Option } = Select;
 
@@ -27,7 +31,9 @@ class Courses extends Component {
       allDays: [],
       teacher_name: "",
       teacher_mobile: "",
-      teacher_email: ""
+      teacher_email: "",
+      loading: true
+
     };
   }
   formRef = React.createRef();
@@ -37,7 +43,7 @@ class Courses extends Component {
   };
 
   onFinishCourseSelection = (values) => {
-
+this.setState({loading:true})
     const databody = {
       course_schedule: this.final_selectedtime,
       course_price: values.course_price,
@@ -57,7 +63,8 @@ class Courses extends Component {
           coursesModal: false,
           timeSlot: [],
           days: "",
-          allDays: []
+          allDays: [],
+          loading:false
         });
         this.final_selectedtime = []
         successForCourses();
@@ -65,7 +72,8 @@ class Courses extends Component {
       })
       .catch((error) => {
         console.log(error);
-        // errorForRegistration();
+        this.setState({loading:false})
+        errorForCourseAddtion(error.message);
       });
   };
 
@@ -119,7 +127,7 @@ class Courses extends Component {
       )
       .then((response) => {
         console.log(response.data);
-        this.setState({ coursesArray: response.data });
+        this.setState({ coursesArray: response.data, loading: false });
       })
       .catch((error) => {
         console.log(error.response);
@@ -137,11 +145,8 @@ class Courses extends Component {
   };
   render() {
     return (
-
-      <div
-
-      >
-
+      <Spin spinning={this.state.loading}>
+      <div >
         <Row justify="space-around">
           <Col>
             <Button
@@ -157,7 +162,7 @@ class Courses extends Component {
               onClick={this.setModal1Visible}
             >
               <Text strong style={{ paddingLeft: "8%" }}>
-                Add Course
+                Add New Course
                       </Text>
             </Button>
           </Col>
@@ -309,7 +314,7 @@ class Courses extends Component {
           </Form>
         </Modal>
       </div>
-
+</Spin>
     );
   }
 }

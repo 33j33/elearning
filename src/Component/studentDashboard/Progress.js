@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Card } from "antd";
 import axios from "axios"
+import { Spin } from "antd";
 
 class progress extends Component {
 constructor(props){
   super(props)
   this.state={
-    enrolledCoursesArray:[]
+    enrolledCoursesArray:[],
+    loading:true
   }
 }
   componentDidMount() {
@@ -19,6 +21,7 @@ constructor(props){
       )
       .then((response) => {
       console.log(response.data)
+      this.setState({loading:false})
       for (const i in response.data) {
         response.data[i].date = response.data[i].date.split("T")[0];
       }
@@ -30,8 +33,10 @@ constructor(props){
   }
   render() {
     return (
+      <Spin spinning={this.state.loading}>
+
       <div>
-        <h5 style={{ marginBottom: 20 }}>Current Courses: </h5>
+        <h5 style={{ marginBottom: 20 }}>Current Bought Courses: </h5>
         {this.state.enrolledCoursesArray.map(course=>
              <Card
              style={{ marginTop: 16 }}
@@ -57,6 +62,7 @@ constructor(props){
        
         
       </div>
+      </Spin>
     );
   }
 }
