@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Profile from "./StudentProfile";
-import Progress from "./Progress";
+import Progress from "./progress";
 import Payment from './payment'
 const { Meta } = Card;
 
@@ -72,6 +72,7 @@ class StudentDashboard extends Component {
                 />
               }
             >
+              <h6 style={{textAlign:"center"}}>Student</h6>
               <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
               <hr
                 style={{

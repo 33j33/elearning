@@ -54,6 +54,8 @@ class header extends Component {
       username: "",
       loading: false,
       showSubmitButton: false,
+      hour_based_course_price:"",
+      full_course_price:""
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
@@ -266,7 +268,8 @@ class header extends Component {
     this.setState({
       course_name: values.course_name,
       course_duration: values.course_duration,
-      course_price: values.course_price,
+      full_course_price: values.full_course_price,
+      hour_based_course_price:values.hour_based_course_price,
       course_description: values.course_description,
     });
     this.setState({ coursesModal: false });
@@ -285,7 +288,8 @@ class header extends Component {
         console.log(response);
         const databody = {
           course_schedule: this.final_selectedtime,
-          course_price: this.state.course_price,
+          full_course_price: this.state.full_course_price,
+          hour_based_course_price:this.state.hour_based_course_price,
           course_name: this.state.course_name,
           course_duration: this.state.course_duration,
           course_description: this.state.course_description,
