@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Select, Row, Col, Button, Radio, Card, Collapse } from "antd";
+import { Select, Row, Col, Button, Radio, Card, Collapse, message } from "antd";
 import axios from "axios";
-import { message } from "antd";
 import { Spin } from "antd";
 
 const { Option } = Select;
@@ -42,8 +41,6 @@ class courseinfo extends Component {
     this.getFullCourseTimeSlot = this.getFullCourseTimeSlot.bind(this);
     this.getSchedule = this.getSchedule.bind(this);
     this.buyFullCourse = this.buyFullCourse.bind(this);
-    this.payfullCourse = this.payfullCourse.bind(this);
-    this.payhalfcourse = this.payhalfcourse.bind(this);
     this.getHourBasedCourseDay = this.getHourBasedCourseDay.bind(this);
   }
 
@@ -209,6 +206,13 @@ class courseinfo extends Component {
   };
 
   componentDidMount() {
+    //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
+    // if(!cardData){
+    // this.props.history.push("/")
+    // }
+    // else{
+    // this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
+    // }
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser) {
       this.setState({

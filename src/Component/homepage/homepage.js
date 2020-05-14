@@ -6,7 +6,6 @@ import AliceCarousel from "react-alice-carousel";
 import axios from "axios";
 import { Spin } from "antd";
 import "./homepage.css";
-import courseImage from "./course.png";
 import SearchInput, { createFilter } from "react-search-input";
 import Teacher from "./teacher/teacher";
 import { Link } from "react-router-dom";
@@ -29,6 +28,7 @@ class courses extends Component {
 
   responsive = {
     0: { items: 1 },
+    700: { items: 2 },
     1024: { items: 5 },
   };
 
@@ -69,7 +69,10 @@ class courses extends Component {
           <Card
             hoverable
             onClick={() => this.onCardClick(i)}
-            cover={<img width="50%" alt="example" src={courseImage} />}
+            style={{
+              background: " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
+              minHeight: "100%",
+            }}
             actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
             <Meta
@@ -91,7 +94,7 @@ class courses extends Component {
           <div>
             <div
               style={{
-                marginTop: 40,
+                paddingTop: 40,
                 paddingBottom: 80,
               }}
             >
