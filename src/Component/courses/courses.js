@@ -94,6 +94,9 @@ class courses extends Component {
                     height: 150,
                     minWidth: 100,
                     marginBottom: 40,
+                    backgroundColor: "snow",
+                    background:
+                      " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
                   }}
                   onClick={() => this.onCardClick(i)}
                 >
