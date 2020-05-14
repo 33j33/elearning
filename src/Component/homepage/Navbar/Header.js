@@ -55,7 +55,8 @@ class header extends Component {
       loading: false,
       showSubmitButton: false,
       hour_based_course_price:"",
-      full_course_price:""
+      full_course_price:"",
+      showCourseSubmitButton:false
     };
     this.showModal = this.showModal.bind(this);
     this.selectedDay = this.selectedDay.bind(this);
@@ -170,7 +171,7 @@ class header extends Component {
 
   handleChange = (value,day) => {
     this.getselectedday(day)
-    this.setState({ timeSlot: value });
+    this.setState({ timeSlot: value,showCourseSubmitButton:true });
     var courseSchedule = {
       day: this.currentDay,
       time: value,
@@ -890,15 +891,17 @@ class header extends Component {
                 </Row>
               );
             })}<br />
-            <Row justify="center">
-              <Col>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    <StepBackwardOutlined />
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
+             {this.state.showCourseSubmitButton ? (
+                  <Row justify="center"> 
+                    <Col>
+                      <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                          Submit
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                ) : null}
           </Form>
         </Modal>
       </div>
