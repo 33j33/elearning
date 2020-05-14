@@ -92,16 +92,14 @@ class courses extends Component {
                     height: 150,
                     minWidth: 100,
                     marginBottom: 40,
-                    backgroundColor: "red",
-                    background:
-                      " linear-gradient(0deg, #08AEEA 0%, #2AF598 100%)",
+                    backgroundColor: " #D3D3D3",
+                    textAlign: "center",
                   }}
                   hoverable
                   onClick={() => this.onCardClick(i)}
                 >
                   <p id="courseName">{i.course_name}</p>
                   <Meta
-                    style={{ color: "red !important" }}
                     id="courseDetails"
                     title={i.teacher_name}
                     description={i.full_course_price}
@@ -110,8 +108,12 @@ class courses extends Component {
               </Col>
             ))}
           </Row>
-          <Row justify="center">
-            <Button onClick={this.loadMoreCourses} danger>
+          <Row justify="center" id="last">
+            <Button
+              onClick={this.loadMoreCourses}
+              danger
+              style={{ marginBottom: 40 }}
+            >
               Load More
             </Button>
           </Row>
