@@ -266,6 +266,11 @@ class courseinfo extends Component {
               key="2"
               onClick={(this.state.coursetype = "Full")}
             >
+              <Row style={{ color: "blue", fontWeight: "400" }}>
+                This is a complete master edition of the course. In order to
+                book the course classes you will have to pick an avalaible slot
+                of teacher.
+              </Row>
               Teacher's avalaible slots:
               <ul>
                 {this.state.cardData.course_schedule.map((i, index) => (
@@ -300,6 +305,10 @@ class courseinfo extends Component {
             </Panel>
 
             <Panel header="Hour Based" key="3" style={{ marginTop: 10 }}>
+              <Row style={{ color: "blue", fontWeight: "400" }}>
+                This is a smaller edition of the course. In order to book the
+                course you will have to pick an avalaible slot of teacher.
+              </Row>
               <Row>Choose slots here:</Row>
 
               <Row justify="space-between">
