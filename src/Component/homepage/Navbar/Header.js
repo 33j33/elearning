@@ -74,6 +74,12 @@ class header extends Component {
       console.log("log out failed");
     }
   };
+  gotoaboutus = () => {
+    this.props.history.push("/about-us");
+  };
+  gotHome = () => {
+    this.props.history.push("/");
+  };
   gotoProfile = () => {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser.studentid) {
@@ -416,7 +422,9 @@ class header extends Component {
             className="justify-content-end"
           >
             <Nav>
-              <Nav.Link>About Us</Nav.Link>
+              <Nav.Link onClick={this.gotoHome}>Home</Nav.Link>
+
+              <Nav.Link onClick={this.gotoaboutus}>About Us</Nav.Link>
               <Nav.Link onClick={this.gotocourses}>
                 <Link to="/">All Courses</Link>{" "}
               </Nav.Link>
