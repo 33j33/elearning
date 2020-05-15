@@ -28,6 +28,8 @@ constructor(props){
         this.setState({ enrolledCoursesArray: response.data });
       })
       .catch((error) => {
+              this.setState({loading:false})
+
         console.log(error.response);
       });
   }
