@@ -38,13 +38,44 @@ class courses extends Component {
   }
 
   filteredCourses = [];
-
+  allCoursesArray=[]
   componentDidMount = () => {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
+        this.allCoursesArray = response.data;
+
+        axios
+        .get("https://elearningserver.herokuapp.com/student/AllSelectedCoursesList")
+        .then((res) => {
+          console.log(res.data);
+         var SelectedCoursesArr=[];
+         SelectedCoursesArr=res.data
+
+          for(var i in this.allCoursesArray){
+          for(var j in SelectedCoursesArr){
+          if(this.allCoursesArray[i].course_name===SelectedCoursesArr[j].course_name){
+          for(var k in this.allCoursesArray[i].course_schedule){
+           if(this.allCoursesArray[i].course_schedule[k].day === 
+            SelectedCoursesArr[j].selected_course_schedule[k].day){
+              for(var l in this.allCoursesArray[i].course_schedule[k].time)
+              if(SelectedCoursesArr[j].selected_course_schedule[k].time === 
+                this.allCoursesArray[i].course_schedule[k].time[l]){
+                  this.allCoursesArray[i].course_schedule[k].time.splice(l,1)
+                }
+          }
+            }
+          }
+          }
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
         this.setState({
-          galleryItems: response.data,
+          galleryItems: this.allCoursesArray,
           loader: false,
         });
       })

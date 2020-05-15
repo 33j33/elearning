@@ -43,6 +43,7 @@ class courses extends Component {
     this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
     this.setState({ coursesArray: this.newslicedCoursesArray });
   };
+
   AllSelctedCoursesArr=[]
   componentDidMount = () => {
 
@@ -50,25 +51,37 @@ class courses extends Component {
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         this.slicedCoursesArray = response.data;
-         for(var i in response.data){
-          //  for(var j in response.data.course_schedule){
-          //  if(response.data[i].course_schedule[i].day)
-        //   console.log(response.data[i].course_schedule[j].day)
-        //  }
-        console.log(response.data[i].course_schedule)
-        }
+      
         axios
         .get("https://elearningserver.herokuapp.com/student/AllSelectedCoursesList")
-        .then((response) => {
-          console.log(response.data);
-          // this.AllSelctedCoursesArr=response.data
-          // this.setState({AllSelctedCoursesArr:response.data})
+        .then((res) => {
+          console.log(res.data);
+         var SelectedCoursesArr=[];
+         SelectedCoursesArr=res.data
+
+          for(var i in this.slicedCoursesArray){
+          for(var j in SelectedCoursesArr){
+          if(this.slicedCoursesArray[i].course_name===SelectedCoursesArr[j].course_name){
+          for(var k in this.slicedCoursesArray[i].course_schedule){
+           if(this.slicedCoursesArray[i].course_schedule[k].day === 
+            SelectedCoursesArr[j].selected_course_schedule[k].day){
+              for(var l in this.slicedCoursesArray[i].course_schedule[k].time)
+              if(SelectedCoursesArr[j].selected_course_schedule[k].time === 
+                this.slicedCoursesArray[i].course_schedule[k].time[l]){
+                  this.slicedCoursesArray[i].course_schedule[k].time.splice(l,1)
+                }
+          }
+            }
+          }
+          }
+          }
+
         
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log(error);
         });
 
         this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
@@ -76,7 +89,7 @@ class courses extends Component {
         this.setState({ loading: false });
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
       });
   };
 
