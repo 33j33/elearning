@@ -549,6 +549,7 @@ class header extends Component {
                             required: true,
                             message: "Please input your Mobile Number!",
                           },
+                          { max: 10, message: "Please Input Only 10 digits" },
                         ]}
                       >
                         <InputNumber
@@ -710,6 +711,10 @@ class header extends Component {
                           {
                             required: true,
                             message: "Please input your Mobile Number!",
+                          },
+                          {
+                            max: 10,
+                            message: "Please input only 10 digits",
                           },
                         ]}
                       >
