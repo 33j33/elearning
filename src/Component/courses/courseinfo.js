@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Select, Row, Col, Button, Radio, Card, Collapse, message } from "antd";
 import axios from "axios";
 import { Spin } from "antd";
+import "./courseinfo.css";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -225,17 +226,17 @@ if(error.message!=undefined){
   render() {
     return (
       <div style={{ minHeight: 570, marginTop: 80 }}>
-        <h1 style={{ textAlign: "center", marginTop: 15 }}>
+        <h1 style={{ textAlign: "center", marginTop: 15, color: "#c64752" }}>
           {this.state.cardData.course_name}
         </h1>
         <Spin spinning={this.state.loading}>
           <Row justify="center">
             <Card
-              title={<p>By Mr.{this.state.cardData.teacher_name}</p>}
+              title={<p style={{fontSize: 17, fontWeight: "bold", marginBottom: 0}}>By Mr.{this.state.cardData.teacher_name}</p>}
               style={{
                 marginTop: 10,
                 width: "55%",
-                fontSize: 15,
+                fontSize: 17,
                 minHeight: 200,
               }}
               // /extra={<p>By Mr.{this.state.cardData.teacher_name}</p>}/
@@ -246,7 +247,7 @@ if(error.message!=undefined){
               </ul>
             </Card>
           </Row>
-          <Row justify="center">
+          <Row justify="center" style={{paddingBottom: 50}}>
             <Collapse
               style={{
                 width: "70%",
@@ -262,22 +263,24 @@ if(error.message!=undefined){
                 key="2"
                 onClick={(this.state.coursetype = "Full")}
               >
-                Teacher's avalaible slots:
+                Teacher's available slots:
                 <ul>
                   {this.state.cardData.course_schedule.map((i, index) => (
                     <li onFocus={() => this.getSchedule(i.day)} key={index}>
+                      <Row>
                       {i.day}
+                       <Col className="radio">
                       <Radio.Group
                         onChange={this.getFullCourseTimeSlot}
                         onClick={() => this.getday(i.day)}
                         style={{ marginLeft: 30 }}
                         options={i.time}
-                      ></Radio.Group>
+                      ></Radio.Group></Col></Row>
                     </li>
                   ))}
                 </ul>
-                <Row>
-                  <Button onClick={this.buyFullCourse}>submit</Button>
+                <Row className="submit1">
+                  <Button onClick={this.buyFullCourse} style={{color:"#c64752", borderColor: "#c64752"}}>Submit</Button>
                 </Row>
                 Course Fees: Rs.{this.state.cardData.full_course_price}
                 {this.state.showButton ? (
@@ -295,8 +298,8 @@ if(error.message!=undefined){
                 ) : null}
               </Panel>
 
-              <Panel header="Hour Based" key="3" style={{ marginTop: 10 }}>
-                <Row>Choose slots here:</Row>
+              <Panel header="Hour Based" key="3">
+                <Row style={{marginBottom: 10}}>Choose slots here:</Row>
 
                 <Row justify="space-between">
                   <Col span={9}>
@@ -330,8 +333,8 @@ if(error.message!=undefined){
                   </Col>
                 </Row>
                 <br />
-                <Row>
-                  <Button onClick={this.buyHourBasedCourse}>submit</Button>
+                <Row className="submit2">
+                  <Button onClick={this.buyHourBasedCourse} style={{color:"#c64752", borderColor: "#c64752"}}>Submit</Button>
                 </Row>
 
                 <Row>
