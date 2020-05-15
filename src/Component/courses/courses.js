@@ -18,7 +18,8 @@ class courses extends Component {
       coursesArray: [],
       searchTerm: "",
       loading: true,
-      AllSelctedCoursesArr:[]
+      AllSelctedCoursesArr: [],
+      loadmorebutton: false,
     };
     this.searchUpdated = this.searchUpdated.bind(this);
   }
@@ -43,47 +44,60 @@ class courses extends Component {
     this.setState({ coursesArray: this.newslicedCoursesArray });
   };
 
-  AllSelctedCoursesArr=[]
+  AllSelctedCoursesArr = [];
   componentDidMount = () => {
-
-
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
         console.log(response.data);
         this.slicedCoursesArray = response.data;
-      
+
         axios
-        .get("https://elearningserver.herokuapp.com/student/AllSelectedCoursesList")
-        .then((res) => {
-          console.log(res.data);
-         var SelectedCoursesArr=[];
-         SelectedCoursesArr=res.data
+          .get(
+            "https://elearningserver.herokuapp.com/student/AllSelectedCoursesList"
+          )
+          .then((res) => {
+            console.log(res.data);
+            var SelectedCoursesArr = [];
+            SelectedCoursesArr = res.data;
 
-          for(var i in this.slicedCoursesArray){
-          for(var j in SelectedCoursesArr){
-          if(this.slicedCoursesArray[i].course_name===SelectedCoursesArr[j].course_name){
-          for(var k in this.slicedCoursesArray[i].course_schedule){
-           if(this.slicedCoursesArray[i].course_schedule[k].day === 
-            SelectedCoursesArr[j].selected_course_schedule[k].day){
-              for(var l in this.slicedCoursesArray[i].course_schedule[k].time)
-              if(SelectedCoursesArr[j].selected_course_schedule[k].time === 
-                this.slicedCoursesArray[i].course_schedule[k].time[l]){
-                  this.slicedCoursesArray[i].course_schedule[k].time.splice(l,1)
+            for (var i in this.slicedCoursesArray) {
+              for (var j in SelectedCoursesArr) {
+                if (
+                  this.slicedCoursesArray[i].course_name ===
+                  SelectedCoursesArr[j].course_name
+                ) {
+                  for (var k in this.slicedCoursesArray[i].course_schedule) {
+                    if (
+                      this.slicedCoursesArray[i].course_schedule[k].day ===
+                      SelectedCoursesArr[j].selected_course_schedule[k].day
+                    ) {
+                      for (var l in this.slicedCoursesArray[i].course_schedule[
+                        k
+                      ].time)
+                        if (
+                          SelectedCoursesArr[j].selected_course_schedule[k]
+                            .time ===
+                          this.slicedCoursesArray[i].course_schedule[k].time[l]
+                        ) {
+                          this.slicedCoursesArray[i].course_schedule[
+                            k
+                          ].time.splice(l, 1);
+                        }
+                    }
+                  }
                 }
-          }
+              }
             }
-          }
-          }
-          }
-
-        
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
         this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
+        if (this.slicedCoursesArray.length > 12) {
+          this.setState({ loadmorebutton: true });
+        }
         this.setState({ coursesArray: this.newslicedCoursesArray });
         this.setState({ loading: false });
       })
@@ -141,15 +155,17 @@ class courses extends Component {
               </Col>
             ))}
           </Row>
-          <Row justify="center" id="last">
-            <Button
-              onClick={this.loadMoreCourses}
-              danger
-              style={{ marginBottom: 40 }}
-            >
-              Load More
-            </Button>
-          </Row>
+          {this.state.loadmorebutton ? (
+            <Row justify="center" id="last">
+              <Button
+                onClick={this.loadMoreCourses}
+                danger
+                style={{ marginBottom: 40 }}
+              >
+                Load More
+              </Button>
+            </Row>
+          ) : null}
         </Spin>
       </div>
     );
