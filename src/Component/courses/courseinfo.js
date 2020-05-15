@@ -36,7 +36,7 @@ class courseinfo extends Component {
       showButton: false,
       showPanel: true,
       showField: false,
-      cardData: JSON.parse(sessionStorage.getItem("cardData")),
+      cardData: {},
       selectedTime: "",
       student_name: "",
       student_email: "",
@@ -218,13 +218,9 @@ class courseinfo extends Component {
   };
 
   componentDidMount() {
-    //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
-    // if(!cardData){
-    // this.props.history.push("/")
-    // }
-    // else{
-    // this.setState({cardData:JSON.parse(sessionStorage.getItem("cardData"))})
-    // }
+
+
+
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser) {
       this.setState({
@@ -234,6 +230,17 @@ class courseinfo extends Component {
         student_id: currentUser.studentid,
         token: currentUser.token,
       });
+    }
+   
+  }
+  componentWillMount(){
+    var cardinfo=JSON.parse(window.sessionStorage.getItem("cardData"))
+    if(!cardinfo){
+    window.location.href="/allcourses"
+    }
+    else{
+      this.setState({cardData:cardinfo})
+
     }
   }
 
