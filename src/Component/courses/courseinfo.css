@@ -1,0 +1,27 @@
+.ant-card-head {
+    background: #d3d3d3 !important;
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    background-color: #b3b3b3;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.submit1, .submit2{
+    justify-content: center;
+}
+
+.ant-btn-primary{
+    background-color: #c64752 !important;
+    border-color: #c64752 !important;
+}
+
+.radio{
+    position: absolute !important;
+    margin-left: 85px !important; 
+}
+
+span.ant-radio + *{
+    padding-right: 10vh !important;
+}
