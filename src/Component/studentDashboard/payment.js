@@ -67,13 +67,15 @@ loading:true
               title: "Teacher Mobile Number",
               dataIndex: "teacher_mobile",
               key: "teacher_mobile",
+              responsive: ['sm']
+
 
             },
             {
                 title: "Course Type",
                 dataIndex: "course_type",
                 key: "course_type",
-                responsive: ['md']
+                responsive: ['sm']
 
               },
           ];
