@@ -62,9 +62,9 @@ class payment extends Component {
         key: "date",
       },
       {
-        title: "Payment",
-        key: "PaymentStatus",
-        dataIndex: "Remaining",
+        title: "Amount recieved",
+        key: "course_price",
+        dataIndex: "course_price",
       },
     ];
     return (

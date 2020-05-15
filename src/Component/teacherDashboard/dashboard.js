@@ -92,26 +92,8 @@ class dashboard extends Component {
                 title="Email Address"
                 description={this.state.email}
               />
-            }
-          >
-            <h6 style={{ textAlign: "center" }}>Teacher</h6>
-            <p style={{ fontSize: "200%", textAlign: "Center" }}>
-              {this.state.username}
-            </p>
-            <hr
-              style={{
-                height: "2px",
-                width: "100%",
-                color: "black",
-                backgroundColor: "gray",
-              }}
-            />
-
-            <Meta
-              style={{ textAlign: "center" }}
-              title="Email Address"
-              description={this.state.email}
-            />
+        
+          
           </Card>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
