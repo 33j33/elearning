@@ -56,7 +56,7 @@ class dashboard extends Component {
     };
 
     return (
-      <div style={{ margin: "8% 7% 5%"}}>
+      <div style={{ margin: "8% 7% 5%" }}>
         <Row gutter={16}>
           <Col
             xs={{ span: 24 }}
@@ -74,7 +74,7 @@ class dashboard extends Component {
                 />
               }
             >
-                            <h6 style={{textAlign:"center"}}>Teacher</h6>
+              <h6 style={{ textAlign: "center" }}>Teacher</h6>
               <p style={{ fontSize: "200%", textAlign: "Center" }}>
                 {this.state.username}
               </p>

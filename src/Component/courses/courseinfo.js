@@ -90,7 +90,6 @@ class courseinfo extends Component {
     }
 
     this.FullCourseTimeSlotArray.push(body);
-
   };
 
   buyFullCourse() {
@@ -98,7 +97,7 @@ class courseinfo extends Component {
     this.setState({ showPanel: false });
   }
   //Pay full course
-  payfullCourse=()=> {
+  payfullCourse = () => {
     this.setState({ loading: true });
     const dataBody = {
       student_id: this.state.student_id,
@@ -128,23 +127,23 @@ class courseinfo extends Component {
           loading: false,
           paymentdone: false,
         });
-        this.props.history.push("/student/dashboard")
+        this.props.history.push("/student/dashboard");
         successPaymentMessage();
       })
       .catch((error) => {
-        console.log(error.message)
+        console.log(error.message);
         var errorMessage;
         this.setState({ loading: false });
-if(error.message!=undefined){
-        if (error.message === "Request failed with status code 401") {
-          errorMessage = "Login to buy the course";
-        } else {
-          errorMessage = "Course already bought";
+        if (error.message != undefined) {
+          if (error.message === "Request failed with status code 401") {
+            errorMessage = "Login to buy the course";
+          } else {
+            errorMessage = "Course already bought";
+          }
         }
-      }
         errormessage(errorMessage);
       });
-  }
+  };
 
   hourBasedCourseDataArray = [];
   buyHourBasedCourse = () => {
@@ -181,7 +180,7 @@ if(error.message!=undefined){
       )
       .then((response) => {
         console.log(response);
-        this.props.history.push("/student/dashboard")
+        this.props.history.push("/student/dashboard");
 
         successPaymentMessage();
         this.setState({
