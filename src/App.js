@@ -14,6 +14,8 @@ import Footer from "./Component/homepage/footer/footer";
 import StudentDashboard from "./Component/studentDashboard/sDashboard";
 import TeacherSchedule from "./Component/teacherDashboard/todaysSchdeule";
 
+import Aboutus from './Component/Aboutus/aboutus';
+
 class App extends Component {
   render() {
     return (
@@ -33,16 +35,18 @@ class App extends Component {
               path="/teacher/todayschedule"
               component={TeacherSchedule}
             />
-            <PrivateRoute exact path="/teacher/courses" component={Courses} />
-            <Route exact path="/allcourses" component={courses} />
-            <Route exact path="/test" component={Test} />
-            <Route exact path="/courseinfo" component={courseinfo} />
-            <PrivateRoute path="/teacher/payment" exact component={Payment} />
+             <PrivateRoute path="/teacher/payment" exact component={Payment} />
             <PrivateRoute
               path="/student/dashboard"
               exact
               component={StudentDashboard}
             />
+            <PrivateRoute exact path="/teacher/courses" component={Courses} />
+            <Route exact path="/allcourses" component={courses} />
+            <Route exact path="/test" component={Test} />
+            <Route exact path="/courseinfo" component={courseinfo} />
+            <Route exact path="/aboutus" component={Aboutus} />
+
           </Switch>
           <Footer />
         </BrowserRouter>
