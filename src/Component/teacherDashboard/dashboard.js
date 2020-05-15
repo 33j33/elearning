@@ -5,6 +5,7 @@ import Addedcourses from "./courses";
 import Payment from "./payment";
 import Profile from "./TeacherProfile";
 import TodaysSchedule from "./todaysSchdeule";
+import "./dashboard.css"
 
 const { Meta } = Card;
 
@@ -93,22 +94,22 @@ class dashboard extends Component {
                 description={this.state.email}
               />
         
-          
-          </Card>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 14 }}>
-          <Card
-            style={{ width: "100%" }}
-            tabList={tabList}
-            activeTabKey={this.state.titleKey}
-            onTabChange={(key) => {
-              this.onTabChange(key, "titleKey");
-            }}
-          >
-            {contentList[this.state.titleKey]}
-          </Card>
-        </Col>
-      </Row>
+            </Card>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+            <Card
+              style={{ width: "100%" }}
+              headStyle={{ backgroundColor: "#D3D3D3" }}
+              tabList={tabList}
+              activeTabKey={this.state.titleKey}
+              onTabChange={(key) => {
+                this.onTabChange(key, "titleKey");
+              }}
+            >
+              {contentList[this.state.titleKey]}
+            </Card>
+          </Col>
+        </Row>
       </div>
     );
   }
