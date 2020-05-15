@@ -115,7 +115,7 @@ class courses extends Component {
                 fontSize: "16px",
                 height: 100,
                 fontWeight: 900,
-                color: "White",
+                color: "#c64572 !important",
                 width: 50,
               }}
               description={i.course_name}
