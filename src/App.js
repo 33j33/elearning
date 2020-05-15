@@ -14,7 +14,7 @@ import Footer from "./Component/homepage/footer/footer";
 import StudentDashboard from "./Component/studentDashboard/sDashboard";
 import TeacherSchedule from "./Component/teacherDashboard/todaysSchdeule";
 
-import Aboutus from './Component/Aboutus/aboutus';
+import Aboutus from "./Component/Aboutus/aboutus";
 
 class App extends Component {
   render() {
@@ -35,7 +35,7 @@ class App extends Component {
               path="/teacher/todayschedule"
               component={TeacherSchedule}
             />
-             <PrivateRoute path="/teacher/payment" exact component={Payment} />
+            <PrivateRoute path="/teacher/payment" exact component={Payment} />
             <PrivateRoute
               path="/student/dashboard"
               exact
@@ -45,8 +45,7 @@ class App extends Component {
             <Route exact path="/allcourses" component={courses} />
             <Route exact path="/test" component={Test} />
             <Route exact path="/courseinfo" component={courseinfo} />
-            <Route exact path="/aboutus" component={Aboutus} />
-
+            <Route exact path="/about-us" component={Aboutus} />
           </Switch>
           <Footer />
         </BrowserRouter>
