@@ -21,7 +21,3 @@
     position: absolute !important;
     margin-left: 85px !important; 
 }
-
-span.ant-radio + *{
-    padding-right: 10vh !important;
-}
