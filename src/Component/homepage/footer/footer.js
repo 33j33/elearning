@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./footer.css";
 import { Row, Col, Divider } from "antd";
-import { SnippetsOutlined } from "@ant-design/icons";
 
 class Footer extends Component {
   constructor(props) {

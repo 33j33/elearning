@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import "./teacher.css";
 class Teacher extends Component {
   state = {};
