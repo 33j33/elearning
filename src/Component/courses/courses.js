@@ -19,6 +19,7 @@ class courses extends Component {
       coursesArray: [],
       searchTerm: "",
       loading: true,
+      AllSelctedCoursesArr:[]
     };
     this.searchUpdated = this.searchUpdated.bind(this);
   }
@@ -42,13 +43,33 @@ class courses extends Component {
     this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
     this.setState({ coursesArray: this.newslicedCoursesArray });
   };
-
+  AllSelctedCoursesArr=[]
   componentDidMount = () => {
+
+
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {
         console.log(response);
         this.slicedCoursesArray = response.data;
+         for(var i in response.data){
+          //  for(var j in response.data.course_schedule){
+          //  if(response.data[i].course_schedule[i].day)
+        //   console.log(response.data[i].course_schedule[j].day)
+        //  }
+        console.log(response.data[i].course_schedule)
+        }
+        axios
+        .get("https://elearningserver.herokuapp.com/student/AllSelectedCoursesList")
+        .then((response) => {
+          console.log(response.data);
+          // this.AllSelctedCoursesArr=response.data
+          // this.setState({AllSelctedCoursesArr:response.data})
+        
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
 
         this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
         this.setState({ coursesArray: this.newslicedCoursesArray });
