@@ -274,12 +274,12 @@ class courseinfo extends Component {
                   {this.state.cardData.course_schedule.map((i, index) => (
                     <li onFocus={() => this.getSchedule(i.day)} key={index}>
                       <Row>
-                      {i.day}
-                       <Col className="radio">
-             
+                      {i.day} 
+                      <Col className="radio" span={15}>            
                        <Form.Item
         rules={[{ required: true, message: 'Please Select the time slot!' }]}
-      >
+      > 
+  
                       <Radio.Group
                         reqd
                         onChange={this.getFullCourseTimeSlot}
@@ -288,9 +288,8 @@ class courseinfo extends Component {
                         options={i.time}
                         required
                       ></Radio.Group>
-                            </Form.Item>
-
-                      </Col></Row>
+                            </Form.Item></Col>
+                        </Row>
                     </li>
                   ))}
                 </ul>
