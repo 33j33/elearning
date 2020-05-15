@@ -3,38 +3,9 @@ import { Avatar, Card, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Profile from "./StudentProfile";
 import Progress from "./progress";
-import Payment from './payment'
-import "./sDashboard.css"
+import Payment from "./payment";
+import "./sDashboard.css";
 const { Meta } = Card;
-
-
-// const tabStyle = {
-//   color: "#64752"
-// }
-// function ProfileTab() {
-//   return (
-//     <span className>
-//       Profile
-//     </span>
-//   );
-
-// }
-// function ProgressTab() {
-//   return (
-//     <span >
-//       Progress
-//     </span>
-//   );
-
-// }
-// function PaymentTab() {
-//   return (
-//     <span >
-//       Payment History
-//     </span>
-//   );
-
-// }
 
 class StudentDashboard extends Component {
   constructor(props) {
@@ -54,10 +25,9 @@ class StudentDashboard extends Component {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     this.setState({
       username: currentUser.username,
-      email: currentUser.email
+      email: currentUser.email,
     });
   }
-
 
   render() {
     const tabList = [
@@ -74,9 +44,6 @@ class StudentDashboard extends Component {
         tab: "Payments History",
       },
     ];
-
-
-
 
     const contentList = {
       Profile: <Profile />,
@@ -104,7 +71,9 @@ class StudentDashboard extends Component {
               }
             >
               <h6 style={{ textAlign: "center" }}>Student</h6>
-              <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
+              <p style={{ fontSize: "200%", textAlign: "Center" }}>
+                {this.state.username}
+              </p>
               <hr
                 style={{
                   height: "2px",
