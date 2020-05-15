@@ -4,16 +4,45 @@ import { UserOutlined } from "@ant-design/icons";
 import Profile from "./StudentProfile";
 import Progress from "./progress";
 import Payment from './payment'
+import "./sDashboard.css"
 const { Meta } = Card;
 
+
+// const tabStyle = {
+//   color: "#64752"
+// }
+// function ProfileTab() {
+//   return (
+//     <span className>
+//       Profile
+//     </span>
+//   );
+
+// }
+// function ProgressTab() {
+//   return (
+//     <span >
+//       Progress
+//     </span>
+//   );
+
+// }
+// function PaymentTab() {
+//   return (
+//     <span >
+//       Payment History
+//     </span>
+//   );
+
+// }
 
 class StudentDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       titleKey: "Progress",
-      username:"",
-      email:"",
+      username: "",
+      email: "",
     };
   }
 
@@ -25,8 +54,10 @@ class StudentDashboard extends Component {
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     this.setState({
       username: currentUser.username,
-      email: currentUser.email    });
+      email: currentUser.email
+    });
   }
+
 
   render() {
     const tabList = [
@@ -44,17 +75,17 @@ class StudentDashboard extends Component {
       },
     ];
 
- 
 
-   
+
+
     const contentList = {
       Profile: <Profile />,
       Progress: <Progress />,
-      Payment: <Payment/>,
+      Payment: <Payment />,
     };
 
     return (
-      <div style={{ margin: "8% 7% 5%"}}>
+      <div style={{ margin: "8% 7% 5%" }}>
         <Row gutter={16}>
           <Col
             xs={{ span: 24 }}
@@ -72,7 +103,7 @@ class StudentDashboard extends Component {
                 />
               }
             >
-              <h6 style={{textAlign:"center"}}>Student</h6>
+              <h6 style={{ textAlign: "center" }}>Student</h6>
               <p style={{ fontSize: "200%", textAlign: "Center" }}>{this.state.username}</p>
               <hr
                 style={{
@@ -93,6 +124,7 @@ class StudentDashboard extends Component {
           <Col xs={{ span: 24 }} lg={{ span: 14 }}>
             <Card
               style={{ width: "100%" }}
+              headStyle={{ backgroundColor: "#D3D3D3" }}
               tabList={tabList}
               activeTabKey={this.state.titleKey}
               onTabChange={(key) => {

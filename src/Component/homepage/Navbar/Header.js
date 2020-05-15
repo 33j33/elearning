@@ -287,6 +287,9 @@ class header extends Component {
       })
       .catch((error) => {
         console.log(error.response);
+        this.setState({ loading: false });
+        console.log(error);
+        errorForRegistration();
       });
   };
 

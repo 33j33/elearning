@@ -118,3 +118,6 @@
   /* margin: 20px 0; */
   padding-bottom: 25%;
 }
+             .ant-card-meta-description {
+                  color: #c64572 !important;
+              }

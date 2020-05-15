@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Select, Row, Col, Button, Radio, Card, Collapse, message } from "antd";
+import { Select, Row, Col, Button, Radio, Card, Collapse, message,Form } from "antd";
 import axios from "axios";
 import { Spin } from "antd";
+import "./courseinfo.css";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -200,6 +201,9 @@ class courseinfo extends Component {
         errormessage(errorMessage);
       });
   };
+  onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo);
+  };
 
   componentDidMount() {
     //     const cardData = JSON.parse(window.localStorage.getItem("currentUser"));
@@ -224,17 +228,17 @@ class courseinfo extends Component {
   render() {
     return (
       <div style={{ minHeight: 570, marginTop: 80 }}>
-        <h1 style={{ textAlign: "center", marginTop: 15 }}>
+        <h1 style={{ textAlign: "center", marginTop: 15, color: "#c64752" }}>
           {this.state.cardData.course_name}
         </h1>
         <Spin spinning={this.state.loading}>
           <Row justify="center">
             <Card
-              title={<p>By Mr.{this.state.cardData.teacher_name}</p>}
+              title={<p style={{fontSize: 17, fontWeight: "bold", marginBottom: 0}}>By Mr.{this.state.cardData.teacher_name}</p>}
               style={{
                 marginTop: 10,
                 width: "55%",
-                fontSize: 15,
+                fontSize: 17,
                 minHeight: 200,
               }}
               // /extra={<p>By Mr.{this.state.cardData.teacher_name}</p>}/
@@ -245,7 +249,7 @@ class courseinfo extends Component {
               </ul>
             </Card>
           </Row>
-          <Row justify="center">
+          <Row justify="center" style={{paddingBottom: 50}}>
             <Collapse
               style={{
                 width: "70%",
@@ -260,25 +264,44 @@ class courseinfo extends Component {
                 header="Full Course"
                 key="2"
                 onClick={(this.state.coursetype = "Full")}
-              >
-                Teacher's avalaible slots:
+              >          <Form
+              name="basic"
+              onFinish={this.buyFullCourse}
+              onFinishFailed={this.onFinishFailed}
+            >
+                Teacher's available slots:
                 <ul>
                   {this.state.cardData.course_schedule.map((i, index) => (
                     <li onFocus={() => this.getSchedule(i.day)} key={index}>
+                      <Row>
                       {i.day}
+                       <Col className="radio">
+             
+                       <Form.Item
+        rules={[{ required: true, message: 'Please Select the time slot!' }]}
+      >
                       <Radio.Group
                         reqd
                         onChange={this.getFullCourseTimeSlot}
                         onClick={() => this.getday(i.day)}
                         style={{ marginLeft: 30 }}
                         options={i.time}
+                        required
                       ></Radio.Group>
+                            </Form.Item>
+
+                      </Col></Row>
                     </li>
                   ))}
                 </ul>
-                <Row>
-                  <Button onClick={this.buyFullCourse}>submit</Button>
+                      <Form.Item >
+
+                <Row className="submit1">
+                  <Button  style={{color:"#c64752", borderColor: "#c64752"}}  htmlType="submit">Submit</Button>
                 </Row>
+                </Form.Item>
+                </Form>
+                
                 Course Fees: Rs.{this.state.cardData.full_course_price}
                 {this.state.showButton ? (
                   <Button
@@ -295,11 +318,20 @@ class courseinfo extends Component {
                 ) : null}
               </Panel>
 
-              <Panel header="Hour Based" key="3" style={{ marginTop: 10 }}>
-                <Row>Choose slots here:</Row>
-
+              <Panel header="Hour Based" key="3">
+                <Row style={{marginBottom: 10}}>Choose slots here:</Row>
+                <Form
+              name="basic"
+              onFinish={this.buyHourBasedCourse}
+              onFinishFailed={this.onFinishFailed}
+            >
                 <Row justify="space-between">
                   <Col span={9}>
+                    
+                  <Form.Item
+                       name="day"
+        rules={[{ required: true, message: 'Please Select the day!' }]}
+      >
                     <Select
                       style={{ width: 200 }}
                       value={this.state.days}
@@ -312,13 +344,19 @@ class courseinfo extends Component {
                         </Option>
                       ))}
                     </Select>
+                    </Form.Item>
                   </Col>
                   <Col span={9}>
                     {this.showField ? (
+                      <Form.Item
+                      name="time"
+       rules={[{ required: true, message: 'Please Select timeslot!' }]}
+     >
                       <Select
                         style={{ width: 200 }}
                         onChange={this.getHourBasedCourseTimeSlot}
                         placeholder="Select timeslot"
+                        required
                       >
                         {this.state.timeSlot.map((j, index) => (
                           <Option value={j} key={index}>
@@ -326,14 +364,15 @@ class courseinfo extends Component {
                           </Option>
                         ))}
                       </Select>
+                      </Form.Item>
                     ) : null}
                   </Col>
                 </Row>
                 <br />
-                <Row>
-                  <Button onClick={this.buyHourBasedCourse}>submit</Button>
+                <Row className="submit2">
+                  <Button  style={{color:"#c64752", borderColor: "#c64752"}}  htmlType="submit">Submit</Button>
                 </Row>
-
+</Form>
                 <Row>
                   <Col>
                     {" "}
