@@ -23,7 +23,7 @@ class courses extends Component {
     this.searchUpdated = this.searchUpdated.bind(this);
   }
 
-  end = 9;
+  end = 12;
   slicedCoursesArray = [];
   newslicedCoursesArray = [];
 
@@ -38,7 +38,7 @@ class courses extends Component {
   };
 
   loadMoreCourses = () => {
-    this.end = this.end + 6;
+    this.end = this.end + 3;
     this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
     this.setState({ coursesArray: this.newslicedCoursesArray });
   };
