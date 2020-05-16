@@ -12,7 +12,10 @@ class Teacher extends Component {
           paddingBottom: 50,
         }}
       >
-        <Row justify="center" style={{ fontSize: 40, fontWeight: "bolder" }}>
+        <Row
+          justify="center"
+          style={{ fontSize: 40, fontWeight: "bolder", color: "#C64752" }}
+        >
           How This Works !!!
         </Row>
         <div className="main-div">
