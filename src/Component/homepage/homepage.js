@@ -115,12 +115,14 @@ class courses extends Component {
           <Card
             hoverable
             onClick={() => this.onCardClick(i)}
+            cover={
+              <img style={{ width: "2% !important" }} src="logo1.png" alt="" />
+            }
             style={{
               backgroundColor: "#D3D3D3",
               minHeight: "100%",
               color: "white",
               width: 300,
-              // maxWidth: 200,
             }}
             actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
@@ -144,35 +146,36 @@ class courses extends Component {
         <div
           style={{
             paddingTop: 40,
-            paddingBottom: 80,
+            paddingBottom: 40,
           }}
         >
-          <div
-            className="bg-image"
-            style={{ backgroundColor: "#C64752" }}
-          ></div>
-          <Row className="heading">
-            <h2>WHAT ARE YOU LOOKING FOR ...</h2>
-          </Row>
-          <br />
-          <Row className="row-search">
-            <Col span={10}>
-              <div className="search">
-                <form className="search-form">
-                  <SearchInput
-                    onChange={this.searchUpdated}
-                    placeholder="Search for a course"
-                    id="navBar"
-                    style={{ width: "100%", border: "none" }}
-                  />
-                </form>
-              </div>
-            </Col>
-          </Row>
+          <div className="bg-image">
+            <div className="overlay"></div>
+            <div className="content">
+              <Row className="heading">
+                <h2>We Help you to tune your skill</h2>
+              </Row>
+              <br />
+              <Row className="row-search">
+                <Col span={12}>
+                  <div className="search">
+                    <form className="search-form">
+                      <SearchInput
+                        onChange={this.searchUpdated}
+                        placeholder="Search for a course"
+                        id="navBar"
+                        style={{ width: "100%", border: "none" }}
+                      />
+                    </form>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </div>
         </div>
         <br />
         <div>
-          <Row justify="space-between" style={{ marginTop: 70 }}>
+          <Row justify="space-between" style={{ marginTop: 2 }}>
             <Col>
               <h3
                 style={{
@@ -195,19 +198,19 @@ class courses extends Component {
               <Spin spinning={this.state.loader}></Spin>
             </div>
           ) : (
-            <Row style={{ marginBottom: 30 }}>
-              <AliceCarousel
-                items={arr}
-                responsive={this.responsive}
-                autoPlayInterval={3000}
-                autoPlayDirection="ltr"
-                autoPlay={true}
-                fadeOutAnimation={true}
-                mouseTrackingEnabled={true}
-                buttonsDisabled={true}
-              />
-            </Row>
-          )}
+              <Row style={{ marginBottom: 30 }}>
+                <AliceCarousel
+                  items={arr}
+                  responsive={this.responsive}
+                  autoPlayInterval={3000}
+                  autoPlayDirection="ltr"
+                  autoPlay={true}
+                  fadeOutAnimation={true}
+                  mouseTrackingEnabled={true}
+                  buttonsDisabled={true}
+                />
+              </Row>
+            )}
           <Teacher />
         </div>
       </div>
