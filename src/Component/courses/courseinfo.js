@@ -286,8 +286,10 @@ class courseinfo extends Component {
 
           
         </div>
-        <div className="main-div-2" style={{ marginBottom: "2%" }}>
-              <Tabs defaultActiveKey="1" onChange={this.callback}>
+        <div className="main-div-2" style={{ marginBottom: "6%" }}>
+        <div className="card-container">
+
+              <Tabs defaultActiveKey="1" onChange={this.callback} type="card" >
                 <TabPane tab="Details" key="1">
                   {this.state.cardData.course_description}
                 </TabPane>
@@ -447,6 +449,7 @@ class courseinfo extends Component {
                   </Spin>
                 </TabPane>
               </Tabs>
+              </div>
             </div>
       </div>
     );
