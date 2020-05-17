@@ -68,15 +68,18 @@ class courses extends Component {
                   SelectedCoursesArr[j].course_name
                 ) {
                   for (var k in this.slicedCoursesArray[i].course_schedule) {
+                    for(var m in SelectedCoursesArr[j].selected_course_schedule){
                     if (
                       this.slicedCoursesArray[i].course_schedule[k].day ===
-                      SelectedCoursesArr[j].selected_course_schedule[k].day
+                      SelectedCoursesArr[j].selected_course_schedule[m].day
                     ) {
                       for (var l in this.slicedCoursesArray[i].course_schedule[
                         k
-                      ].time)
+                      ].time){
+                      console.log( SelectedCoursesArr[j].selected_course_schedule[m]
+                        .time)
                         if (
-                          SelectedCoursesArr[j].selected_course_schedule[k]
+                          SelectedCoursesArr[j].selected_course_schedule[m]
                             .time ===
                           this.slicedCoursesArray[i].course_schedule[k].time[l]
                         ) {
@@ -86,6 +89,8 @@ class courses extends Component {
                         }
                     }
                   }
+                  }
+                }
                 }
               }
             }

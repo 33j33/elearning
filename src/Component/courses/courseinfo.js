@@ -151,7 +151,7 @@ class courseinfo extends Component {
           if (error.message === "Request failed with status code 401") {
             errorMessage = "Login to buy the course";
           } else {
-            errorMessage = "Course already bought";
+            errorMessage = "A Course already there at this time slot";
           }
         }
         errormessage(errorMessage);
@@ -208,7 +208,7 @@ class courseinfo extends Component {
         if (error.message === "Request failed with status code 401") {
           errorMessage = "Login to buy the course";
         } else {
-          errorMessage = "Course already bought";
+          errorMessage = "A Course already there at this time slot";
         }
         errormessage(errorMessage);
       });
