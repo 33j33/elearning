@@ -9,11 +9,33 @@ import "./homepage.css";
 import SearchInput, { createFilter } from "react-search-input";
 import Teacher from "./teacher/teacher";
 import { Link } from "react-router-dom";
-
+import image from '../../images/course.jpeg';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 const KEYS_TO_FILTERS = ["course_name"];
 
 const { Meta } = Card;
 
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    marginLeft: "25%",
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
 class courses extends Component {
   constructor(props) {
     super(props);
@@ -105,42 +127,32 @@ class courses extends Component {
     const path = `courseinfo`;
     this.props.history.push(path);
   };
-
+  testarr = ["1"]
   render() {
     this.filteredCourses = this.state.galleryItems.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
 
     const arr = this.filteredCourses.map((i) => (
-      <Row align="middle">
-        <Col span={20} key={i._id}>
-          <Card
-            hoverable
-            onClick={() => this.onCardClick(i)}
-            cover={
-              <img style={{ width: "2% !important" }} src="logo1.png" alt="" />
-            }
-            style={{
-              backgroundColor: "#D3D3D3",
-              minHeight: "100%",
-              color: "white",
-              width: 300,
-            }}
-            actions={[<h6>Price:{i.full_course_price}</h6>]}
-          >
-            <Meta
-              style={{
-                fontSize: "16px",
-                height: 100,
-                fontWeight: 900,
-                color: "#c64572 !important",
-                width: 50,
-              }}
-              description={i.course_name}
-            />
-          </Card>
-        </Col>
-      </Row>
+      <div key={i._id} style={{ marginLeft: "18%" }}>
+        <Card
+          id="card1"
+          style={{
+            width: 280,
+            height: 290,
+            minWidth: 100,
+            marginBottom: 40,
+            backgroundColor: " white",
+            textAlign: "center",
+          }}
+          cover={<img alt={"ALT"} src={image} height="180px" />}
+          hoverable
+          onClick={() => this.onCardClick(i)}
+        >
+          <p id="courseName">{i.course_name}</p>
+
+        </Card>
+      </div>
     ));
 
     return (
@@ -148,18 +160,16 @@ class courses extends Component {
         <div
           style={{
             paddingTop: 40,
-            paddingBottom: 40,
+            paddingBottom: 10,
           }}
         >
           <div className="bg-image">
-            {/* <div className="overlay"></div>
-            <div className="content"> */}
             <Row className="heading">
               <h2>We Help you to tune your skill</h2>
             </Row>
             <br />
             <Row className="row-search">
-              <Col span={12}>
+              <Col  xs={{ span: 20}} xl={{ span: 12}}>
                 <div className="search">
                   <form className="search-form">
                     <SearchInput
@@ -173,11 +183,9 @@ class courses extends Component {
               </Col>
             </Row>
           </div>
-          {/* </div> */}
         </div>
-        <br />
         <div>
-          <Row justify="space-between" style={{ marginTop: 2 }}>
+          <Row justify="space-between" >
             <Col>
               <h3
                 style={{
@@ -194,25 +202,35 @@ class courses extends Component {
                 <Link to="allcourses">View All</Link>
               </Button>
             </Col>
-          </Row>
+          </Row><br/>
           {this.state.loader ? (
             <div className="example">
               <Spin spinning={this.state.loader}></Spin>
             </div>
           ) : (
-              <Row style={{ marginBottom: 30 }} align="middle">
-                <AliceCarousel
-                  items={arr}
-                  responsive={this.responsive}
-                  autoPlayInterval={3000}
-                  autoPlayDirection="ltr"
-                  autoPlay={true}
-                  fadeOutAnimation={true}
-                  mouseTrackingEnabled={true}
-                  buttonsDisabled={true}
-                />
-              </Row>
+            <div               style={{marginBottom:"5%"}}
+            >
+              <Carousel
+                swipeable={true}
+                draggable={true}
+                showDots={true}
+                infinite={true}
+                autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                autoPlaySpeed={2000}
+                keyBoardControl={true}
+
+                removeArrowOnDeviceType={["tablet", "mobile"]}
+                deviceType={this.props.deviceType}
+                dotListClass="custom-dot-list-style"
+                itemClass="carousel-item-padding-40-px"
+
+                responsive={responsive}>
+                {arr}
+
+              </Carousel>
+              </div>
             )}
+            {/* <br /><br /><br /><br /> */}
           <Teacher />
         </div>
       </div>

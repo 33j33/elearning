@@ -5,8 +5,8 @@ import { Row, Col } from "antd";
 class aboutus extends Component {
   render() {
     return (
-      <div style={{ fontFamily: "sans-serif" }}>
-        <Row justify="center" style={{ marginTop: "5%" }}>
+      <div style={{ fontFamily: "sans-serif", paddingTop:"6%" }} className="first-div">
+        <Row justify="center">
           <h1>ABOUT US</h1>
         </Row>
         <br />

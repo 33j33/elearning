@@ -152,11 +152,7 @@ class courses extends Component {
                   onClick={() => this.onCardClick(i)}
                 >
                   <p id="courseName">{i.course_name}</p>
-                  {/* <Meta
-                    id="courseDetails"
-                    title={i.teacher_name}
-                    description={i.full_course_price}
-                  /> */}
+             
                 </Card>
               </Col>
             ))}

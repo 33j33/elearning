@@ -325,6 +325,7 @@ class courseinfo extends Component {
                                 </Form.Item>
                               </Col>
                             </Row>
+                            <hr />
                           </li>
                         ))}
                       </ul>
