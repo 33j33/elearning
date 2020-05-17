@@ -112,7 +112,7 @@ class courses extends Component {
     );
 
     const arr = this.filteredCourses.map((i) => (
-      <Row>
+      <Row align="middle">
         <Col span={20} key={i._id}>
           <Card
             hoverable
