@@ -13,9 +13,9 @@ import { withRouter } from "react-router-dom";
 import { BrowserRouter as Link } from "react-router-dom";
 import { InputNumber } from "antd";
 import { Spin } from "antd";
-import "./turnskill.jpg";
+import "./turnskill.png";
 import "./header.css";
-import Image from "./turnskill.jpg";
+import Image from "./turnskill.png";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -433,7 +433,7 @@ class header extends Component {
             id="responsive-navbar-nav"
             className="justify-content-end"
           >
-            <Nav>
+            <Nav style={{ fontFamily: "'Roboto Slab', serif", fontSize: "110%", fontWeight: "600" }}>
               <Nav.Link onClick={this.gotoHome}>Home </Nav.Link>
               <Nav.Link onClick={this.gotoaboutus}>About Us</Nav.Link>
               <Nav.Link onClick={this.gotocourses}>
@@ -444,18 +444,18 @@ class header extends Component {
                   {this.state.username}
                 </Nav.Link>
               ) : (
-                <Nav.Link onClick={this.showModalForTeachers}>
-                  For Teachers
+                  <Nav.Link onClick={this.showModalForTeachers}>
+                    For Teachers
                 </Nav.Link>
-              )}
+                )}
 
               {this.state.showField ? (
                 <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
               ) : (
-                <Nav.Link onClick={this.showModalForStudents}>
-                  For Students
+                  <Nav.Link onClick={this.showModalForStudents}>
+                    For Students
                 </Nav.Link>
-              )}
+                )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
