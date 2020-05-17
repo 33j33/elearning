@@ -299,7 +299,7 @@ class courseinfo extends Component {
                       onFinishFailed={this.onFinishFailed}
                     >
                       Teacher's available slots:
-                  <ul>
+                  <ul style={{lineHeight: 3}}>
                         {this.state.cardData.course_schedule.map((i, index) => (
                           <li onFocus={() => this.getSchedule(i.day)} key={index}>
                             <Row>
@@ -363,8 +363,8 @@ class courseinfo extends Component {
                       onFinish={this.buyHourBasedCourse}
                       onFinishFailed={this.onFinishFailed}
                     >
-                      <Row justify="space-between">
-                        <Col span={9}>
+                      <Row>
+                        <Col span={11}>
                           <Form.Item
                             name="day"
                             rules={[
@@ -372,7 +372,7 @@ class courseinfo extends Component {
                             ]}
                           >
                             <Select
-                              style={{ width: 200 }}
+                              style={{ minWidth: 150, maxWidth: 430 }}
                               value={this.state.days}
                               onChange={this.getHourBasedCourseDay}
                               placeholder="Select Day"
@@ -399,7 +399,7 @@ class courseinfo extends Component {
                               ]}
                             >
                               <Select
-                                style={{ width: 200 }}
+                                style={{ minWidth: 150, maxWidth: 430 }}
                                 onChange={this.getHourBasedCourseTimeSlot}
                                 placeholder="Select timeslot"
                                 required
