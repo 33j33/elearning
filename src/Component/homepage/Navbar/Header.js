@@ -14,7 +14,8 @@ import { BrowserRouter as Link } from "react-router-dom";
 import { InputNumber } from "antd";
 import { Spin } from "antd";
 import "./turnskill.jpg";
-import Image from "react-bootstrap/Image";
+import "./header.css";
+import Image from "./turnskill.jpg";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -419,12 +420,12 @@ class header extends Component {
               {/* <Image src="./logo1.png" thumbnail /> */}
               {/* <img src="/turnskill.jpg" alt="" /> */}
               <img
-                src="https://i.imgur.com/qE9Q3n2.jpg"
+                className="nav-logo"
+                src={Image}
                 alt="logo"
-                width="50px"
-                height="60px"
+                width="80px"
+                height="70px"
               />
-              1 to 1
             </Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
