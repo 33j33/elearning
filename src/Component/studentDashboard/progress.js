@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card } from "antd";
+import { Card,Row,Col } from "antd";
 import axios from "axios"
 import { Spin } from "antd";
 
@@ -47,16 +47,31 @@ constructor(props){
              key={course._id}
              extra={<h5>By:{course.teacher_name} </h5>}
            >
-              <p style={{ marginBottom: 0 }}>Teacher Mobile: {course.teacher_mobile}</p>
-             <p style={{ marginBottom: 0 }}>Course Type: {course.course_type}</p>
-             <p style={{ marginBottom: 0 }}>Course Bought date: {course.date}</p>
+             <Row justify="space-around">
+               <Col>              <p style={{ marginBottom: 0 }}><b>Teacher Mobile:</b> {course.teacher_mobile}</p>
+               </Col>
 
-             <p>Course Duration: {course.course_duration}</p>
+<Col>            <p style={{ marginBottom: 0 }}><b>Course Type:</b> {course.course_type}</p>
+</Col> 
+             </Row><br />
+             <Row justify="space-around">
+               <Col>
+             <p style={{ marginBottom: 0 }}><b>Course Bought date:</b> {course.date}</p>
+             </Col>
+             <Col>
+             <p> <b>Course Status:</b> {course.course_status ?<b style={{color:"green"}}>Completed</b> : <b style={{color:"blue"}}>Going on</b>  }</p>  
+
+             </Col>
+             </Row>
+<br />
+             {/* <p>Course Duration: {course.course_duration}</p> */}
+                  <Row justify="center"><h5>Course Schedule</h5></Row>
                   {course.selected_course_schedule.map((j,index) => (
-                    <p key={index}>
+                <Row key={index} justify="center">
                       {j.day} -- {j.time + ","}
-                    </p>
-                  ))}
+                      </Row>
+                  ))} 
+
            
            </Card>
           )}

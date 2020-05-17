@@ -4,7 +4,14 @@ import axios from "axios";
 import { Spin } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
+import { message } from "antd";
 
+const successForCourses = () => {
+  message.success("Course Successfully delivered to student");
+};
+const errorForCourseAddtion = () => {
+  message.error("There is some error while updating course status");
+};
 class TodaysSchdeule extends Component {
   constructor(props) {
     super(props);
@@ -15,17 +22,19 @@ class TodaysSchdeule extends Component {
       selected: true,
       showdiv: false,
       showbutton: true,
-      show: true,
     };
   }
 
   coursestatus = (i) => {
     console.log("done", i);
-
-    // this.setState({ showbutton: false });
   };
+
   confirm(i) {
     console.log(i);
+    this.setState({loading:true})
+    const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+    const headers = { "x-auth-token": currentUser.token };
+
     const databody = {
       student_id: i.student_id,
       course_id: i.course_id,
@@ -35,17 +44,20 @@ class TodaysSchdeule extends Component {
     axios
       .post(
         "https://elearningserver.herokuapp.com/teacher/completeselectedcourse",
-        databody
+        databody,  { headers }
       )
       .then((response) => {
         console.log(response);
-
-        this.setState({
-          show: false,
-        });
+        successForCourses()
+        this.setState({loading:false});
+        successForCourses()
+this.getBoughtCoursesData()
+      
       })
       .catch((error) => {
         console.log(error);
+        errorForCourseAddtion()
+        this.setState({loading:false})
       });
   }
 
@@ -53,7 +65,7 @@ class TodaysSchdeule extends Component {
     console.log(e);
   }
 
-  componentDidMount() {
+  getBoughtCoursesData=()=>{
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     const headers = { "x-auth-token": currentUser.token };
     axios
@@ -65,6 +77,7 @@ class TodaysSchdeule extends Component {
         console.log(response.data);
         for (const i in response.data) {
           response.data[i].date = response.data[i].date.split("T")[0];
+          
         }
         this.setState({
           courseArray: response.data,
@@ -77,6 +90,9 @@ class TodaysSchdeule extends Component {
         this.setState({ loading: false });
       });
   }
+  componentDidMount() {
+  this.getBoughtCoursesData()
+  }
   render() {
     return (
       <Spin spinning={this.state.loading}>
@@ -85,6 +101,7 @@ class TodaysSchdeule extends Component {
             <div>No Course selected</div>
           ) : (
             <div>
+                                    <Spin spinning={this.state.loading}>
               {this.state.courseArray.map((i, index) => (
                 <Descriptions title={i.course_name} key={i._id}>
                   <Descriptions.Item label="Student Name  ">
@@ -106,9 +123,12 @@ class TodaysSchdeule extends Component {
                   </Descriptions.Item>
 
                   <Descriptions.Item label="Status" span={3}>
-                    {this.state.show ? (
-                      <Popconfirm
-                        title="Are you sure delete this task?"
+                    {i.course_status ? (
+                                          <div>Completed</div>
+
+                    ) : (
+                    <Popconfirm
+                        title="Are you sure this course is delieverd to the student?"
                         onConfirm={(e) => this.confirm(i)}
                         onCancel={this.cancel}
                         okText="Yes"
@@ -117,15 +137,15 @@ class TodaysSchdeule extends Component {
                         <Button
                           type="primary"
                           icon={<CheckOutlined />}
-                          // onClick={() => this.coursestatus(i)}
                         />
+                        
                       </Popconfirm>
-                    ) : (
-                      <div>Course Done</div>
                     )}
+
                   </Descriptions.Item>
                 </Descriptions>
               ))}
+              </Spin>
             </div>
           )}
         </div>

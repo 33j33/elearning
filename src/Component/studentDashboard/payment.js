@@ -70,7 +70,7 @@ class payment extends Component {
         dataIndex: "course_type",
         key: "course_type",
         responsive: ["sm"],
-      },
+      }
     ];
     return (
       <Spin spinning={this.state.loading}>
