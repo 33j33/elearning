@@ -122,7 +122,7 @@ class courseinfo extends Component {
       student_mobile: this.state.student_mobile,
       student_email: this.state.student_email,
       course_name: this.state.cardData.course_name,
-      course_type: this.state.coursetype,
+      course_type: "Full",
       course_price: this.state.cardData.full_course_price,
       teacher_name: this.state.cardData.teacher_name,
       teacher_mobile: this.state.cardData.teacher_mobile,
@@ -130,6 +130,7 @@ class courseinfo extends Component {
       selected_course_schedule: this.FullCourseTimeSlotArray,
       course_id: this.state.cardData.course_id,
     };
+    console.log(dataBody)
     const headers = { "x-auth-token": this.state.token };
     axios
       .post(

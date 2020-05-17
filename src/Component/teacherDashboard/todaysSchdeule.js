@@ -48,7 +48,6 @@ class TodaysSchdeule extends Component {
       )
       .then((response) => {
         console.log(response);
-        successForCourses()
         this.setState({loading:false});
         successForCourses()
 this.getBoughtCoursesData()
