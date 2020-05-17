@@ -197,7 +197,7 @@ class courses extends Component {
               <Spin spinning={this.state.loader}></Spin>
             </div>
           ) : (
-            <Row style={{ marginBottom: 30 }}>
+            <Row style={{ marginBottom: 30 }} align="middle">
               <AliceCarousel
                 items={arr}
                 responsive={this.responsive}
