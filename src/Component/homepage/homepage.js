@@ -169,7 +169,7 @@ class courses extends Component {
             </Row>
             <br />
             <Row >
-              <Col  xs={{ span: 20}} xl={{ span: 12}}>
+              <Col  xs={{ span: 20 ,offset:2}} xl={{ span: 12 ,offset:6}}>
                 <div className="search">
                   <form className="search-form">
                     <SearchInput
