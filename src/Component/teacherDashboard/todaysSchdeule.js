@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Descriptions, Badge } from "antd";
+import { Descriptions, Button } from "antd";
 import axios from "axios";
 import { Spin } from "antd";
+import { CheckOutlined } from "@ant-design/icons";
+import { Popconfirm } from "antd";
 
 class TodaysSchdeule extends Component {
   constructor(props) {
@@ -11,7 +13,44 @@ class TodaysSchdeule extends Component {
       courseArray: [],
       loading: true,
       selected: true,
+      showdiv: false,
+      showbutton: true,
+      show: true,
     };
+  }
+
+  coursestatus = (i) => {
+    console.log("done", i);
+
+    // this.setState({ showbutton: false });
+  };
+  confirm(i) {
+    console.log(i);
+    const databody = {
+      student_id: i.student_id,
+      course_id: i.course_id,
+      teacher_email: i.teacher_email,
+    };
+    console.log(databody);
+    axios
+      .post(
+        "https://elearningserver.herokuapp.com/teacher/completeselectedcourse",
+        databody
+      )
+      .then((response) => {
+        console.log(response);
+
+        this.setState({
+          show: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  cancel(e) {
+    console.log(e);
   }
 
   componentDidMount() {
@@ -23,6 +62,7 @@ class TodaysSchdeule extends Component {
         { headers }
       )
       .then((response) => {
+        console.log(response.data);
         for (const i in response.data) {
           response.data[i].date = response.data[i].date.split("T")[0];
         }
@@ -66,7 +106,23 @@ class TodaysSchdeule extends Component {
                   </Descriptions.Item>
 
                   <Descriptions.Item label="Status" span={3}>
-                    <Badge status="processing" text="Running" />
+                    {this.state.show ? (
+                      <Popconfirm
+                        title="Are you sure delete this task?"
+                        onConfirm={(e) => this.confirm(i)}
+                        onCancel={this.cancel}
+                        okText="Yes"
+                        cancelText="No"
+                      >
+                        <Button
+                          type="primary"
+                          icon={<CheckOutlined />}
+                          // onClick={() => this.coursestatus(i)}
+                        />
+                      </Popconfirm>
+                    ) : (
+                      <div>Course Done</div>
+                    )}
                   </Descriptions.Item>
                 </Descriptions>
               ))}
