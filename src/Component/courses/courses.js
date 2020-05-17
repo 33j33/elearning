@@ -77,8 +77,7 @@ class courses extends Component {
                       for (var l in this.slicedCoursesArray[i].course_schedule[
                         k
                       ].time){
-                      console.log( SelectedCoursesArr[j].selected_course_schedule[m]
-                        .time)
+           
                         if (
                           SelectedCoursesArr[j].selected_course_schedule[m]
                             .time ===
