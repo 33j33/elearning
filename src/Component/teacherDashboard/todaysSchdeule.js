@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Descriptions, Button } from "antd";
+import { Descriptions, Button,Row } from "antd";
 import axios from "axios";
 import { Spin } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
@@ -113,12 +113,12 @@ this.getBoughtCoursesData()
                     {i.course_type}
                   </Descriptions.Item>
                   <Descriptions.Item label="Schedule">
-                    {i.selected_course_schedule.map((i, index) => (
-                      <b key={index}>
+                   <Row> {i.selected_course_schedule.map((i, index) => (
+                      <Row key={index}>
                         {i.day}: -
                       {i.time}
-                      </b>
-                    ))}
+                      </Row>
+                    ))}</Row>
                   </Descriptions.Item>
 
                   <Descriptions.Item label="Status" span={3}>
