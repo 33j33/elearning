@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import img from "../../images/course.jpeg";
 import "./courseinfo.css";
-import { Tabs } from "antd";
+import { Tabs,Divider } from "antd";
 import {
   Select,
   Row,
@@ -303,7 +303,9 @@ class courseinfo extends Component {
                       Teacher's available slots:
                   <ul style={{lineHeight: 3}}>
                         {this.state.cardData.course_schedule.map((i, index) => (
-                          <li onFocus={() => this.getSchedule(i.day)} key={index}>
+                          <div>
+                            <hr/>
+                          <li onFocus={() => this.getSchedule(i.day)} key={index} style={{marginBottom:"5px"}}>
                             <Row>
                               {i.day}
                               <Col className="radio" span={15}>
@@ -325,12 +327,14 @@ class courseinfo extends Component {
                                 </Form.Item>
                               </Col>
                             </Row>
-                            <hr />
+                            
                           </li>
+                           </div>
                         ))}
-                      </ul>
+                      </ul>                       
+
+
                       <Form.Item>
-                        <br />
                         {this.state.radiobuttonsubmit ? (
                           <Row justify="center">
                             <Button

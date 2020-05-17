@@ -19,11 +19,11 @@
 }
 
 .radio {
-  position: absolute !important;
-  margin-left: 85px !important;
-  margin-top: 6px;
+  position: relative !important;
+  /* margin-left: 85px !important; */
+  /* margin-top: 6px; */
 }
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
   .ant-radio-group {
     width: 600px;
   }
@@ -42,7 +42,7 @@
   .ant-collapse-content > .ant-collapse-content-box {
     height: 200px;
   }
-}
+} */
 
 
 
@@ -113,7 +113,6 @@ img {
   margin: 0;
 }
 .card-container > .ant-tabs-card > .ant-tabs-content {
-  height: 200px !important;
   max-height: 100%;
   margin-top: -16px;
   max-width: 1000px;
