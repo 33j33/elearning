@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ab from "./../../src/course.jpeg";
+// import ab from "../../src/";
 import "./test.css";
 import { Tabs } from "antd";
 
@@ -20,11 +20,11 @@ class test extends Component {
             display: "flex",
           }}
         >
-          <h2>TITLE</h2>
+          <h2>Course Details</h2>
         </div>
         <div className="main-div">
           <div className="child-div-1">
-            <img src={ab} alt="course" width="600px" height="400px" />
+            {/* <img alt="course" width="600px" height="400px" /> */}
             <br />
             <br />
             <div className="main-div-2">

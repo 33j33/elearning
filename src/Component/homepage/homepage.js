@@ -62,14 +62,15 @@ class courses extends Component {
                   SelectedCoursesArr[j].course_name
                 ) {
                   for (var k in this.allCoursesArray[i].course_schedule) {
+                    for(var m in SelectedCoursesArr[j].selected_course_schedule){
                     if (
                       this.allCoursesArray[i].course_schedule[k].day ===
-                      SelectedCoursesArr[j].selected_course_schedule[k].day
+                      SelectedCoursesArr[j].selected_course_schedule[m].day
                     ) {
                       for (var l in this.allCoursesArray[i].course_schedule[k]
                         .time)
                         if (
-                          SelectedCoursesArr[j].selected_course_schedule[k]
+                          SelectedCoursesArr[j].selected_course_schedule[m]
                             .time ===
                           this.allCoursesArray[i].course_schedule[k].time[l]
                         ) {
@@ -78,6 +79,7 @@ class courses extends Component {
                           ].time.splice(l, 1);
                         }
                     }
+                  }
                   }
                 }
               }
@@ -110,17 +112,19 @@ class courses extends Component {
     );
 
     const arr = this.filteredCourses.map((i) => (
-      <Row>
+      <Row align="middle">
         <Col span={20} key={i._id}>
           <Card
             hoverable
             onClick={() => this.onCardClick(i)}
+            cover={
+              <img style={{ width: "2% !important" }} src="logo1.png" alt="" />
+            }
             style={{
               backgroundColor: "#D3D3D3",
               minHeight: "100%",
               color: "white",
               width: 300,
-              // maxWidth: 200,
             }}
             actions={[<h6>Price:{i.full_course_price}</h6>]}
           >
@@ -144,35 +148,36 @@ class courses extends Component {
         <div
           style={{
             paddingTop: 40,
-            paddingBottom: 80,
+            paddingBottom: 40,
           }}
         >
-          <div
-            className="bg-image"
-            style={{ backgroundColor: "#C64752" }}
-          ></div>
-          <Row className="heading">
-            <h2>WHAT ARE YOU LOOKING FOR ...</h2>
-          </Row>
-          <br />
-          <Row className="row-search">
-            <Col span={10}>
-              <div className="search">
-                <form className="search-form">
-                  <SearchInput
-                    onChange={this.searchUpdated}
-                    placeholder="Search for a course"
-                    id="navBar"
-                    style={{ width: "100%", border: "none" }}
-                  />
-                </form>
-              </div>
-            </Col>
-          </Row>
+          <div className="bg-image">
+            <div className="overlay"></div>
+            <div className="content">
+              <Row className="heading">
+                <h2>We Help you to tune your skill</h2>
+              </Row>
+              <br />
+              <Row className="row-search">
+                <Col span={12}>
+                  <div className="search">
+                    <form className="search-form">
+                      <SearchInput
+                        onChange={this.searchUpdated}
+                        placeholder="Search for a course"
+                        id="navBar"
+                        style={{ width: "100%", border: "none" }}
+                      />
+                    </form>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </div>
         </div>
         <br />
         <div>
-          <Row justify="space-between" style={{ marginTop: 70 }}>
+          <Row justify="space-between" style={{ marginTop: 2 }}>
             <Col>
               <h3
                 style={{
@@ -195,7 +200,7 @@ class courses extends Component {
               <Spin spinning={this.state.loader}></Spin>
             </div>
           ) : (
-            <Row style={{ marginBottom: 30 }}>
+            <Row style={{ marginBottom: 30 }} align="middle">
               <AliceCarousel
                 items={arr}
                 responsive={this.responsive}

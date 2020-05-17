@@ -7,7 +7,7 @@ import { Spin } from "antd";
 import "./courses.css";
 import axios from "axios";
 import SearchInput, { createFilter } from "react-search-input";
-import ab from "../../../src/course.jpeg";
+import ab from "../../images/course.jpeg";
 const KEYS_TO_FILTERS = ["course_name", "teacher_name"];
 
 const { Meta } = Card;
@@ -69,15 +69,17 @@ class courses extends Component {
                   SelectedCoursesArr[j].course_name
                 ) {
                   for (var k in this.slicedCoursesArray[i].course_schedule) {
+                    for(var m in SelectedCoursesArr[j].selected_course_schedule){
                     if (
                       this.slicedCoursesArray[i].course_schedule[k].day ===
-                      SelectedCoursesArr[j].selected_course_schedule[k].day
+                      SelectedCoursesArr[j].selected_course_schedule[m].day
                     ) {
                       for (var l in this.slicedCoursesArray[i].course_schedule[
                         k
-                      ].time)
+                      ].time){
+           
                         if (
-                          SelectedCoursesArr[j].selected_course_schedule[k]
+                          SelectedCoursesArr[j].selected_course_schedule[m]
                             .time ===
                           this.slicedCoursesArray[i].course_schedule[k].time[l]
                         ) {
@@ -87,6 +89,8 @@ class courses extends Component {
                         }
                     }
                   }
+                  }
+                }
                 }
               }
             }
@@ -128,11 +132,11 @@ class courses extends Component {
             </div>
           </Col>
         </Row>
-        <br />
+        <br /><br />
         <Spin spinning={this.state.loading}>
-          <Row>
+          <Row justify="space-around">
             {filteredCourses.map((i) => (
-              <Col offset={3} /*span={5}*/ key={i._id}>
+              <Col  /*span={5}*/ key={i._id}>
                 <Card
                   id="card1"
                   style={{
