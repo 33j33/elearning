@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <div>
         <BrowserRouter>
-          <Header />
+          {/* <Header /> */}
           <Switch>
             <Route path="/" exact component={Homepage} />
             <PrivateRoute exact path="/teacher/profile" component={Profile} />
