@@ -136,7 +136,7 @@ class courses extends Component {
         <Spin spinning={this.state.loading}>
           <Row >
             {filteredCourses.map((i) => (
-              <Col  key={i._id} xs={{  offset: 3 }} xl={{  offset: 2 }}>
+              <Col  key={i._id} xs={{  offset: 3 }} xl={{  offset: 2 }} sm={{offset:6}}>
                 <Card
                   id="card1"
                   style={{

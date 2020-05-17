@@ -27,14 +27,14 @@ const responsive = {
     items: 3
   },
   tablet: {
-    breakpoint: { max: 1024, min: 464 },
+    breakpoint: { max: 1024, min: 600 },
     items: 2
   },
   mobile: {
-    marginLeft: "25%",
-    breakpoint: { max: 464, min: 0 },
+    breakpoint: { max: 600, min: 0 },
     items: 1
-  }
+  },
+  
 };
 class courses extends Component {
   constructor(props) {
