@@ -132,11 +132,11 @@ class courses extends Component {
             </div>
           </Col>
         </Row>
-        <br />
+        <br /><br />
         <Spin spinning={this.state.loading}>
-          <Row>
+          <Row justify="space-around">
             {filteredCourses.map((i) => (
-              <Col offset={2} /*span={5}*/ key={i._id}>
+              <Col  /*span={5}*/ key={i._id}>
                 <Card
                   id="card1"
                   style={{
