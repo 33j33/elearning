@@ -7,6 +7,7 @@ import { Spin } from "antd";
 import "./courses.css";
 import axios from "axios";
 import SearchInput, { createFilter } from "react-search-input";
+import ab from "../../../src/course.jpeg";
 const KEYS_TO_FILTERS = ["course_name", "teacher_name"];
 
 const { Meta } = Card;
@@ -140,22 +141,23 @@ class courses extends Component {
                 <Card
                   id="card1"
                   style={{
-                    width: 240,
-                    height: 150,
+                    width: 280,
+                    height: 290,
                     minWidth: 100,
                     marginBottom: 40,
-                    backgroundColor: " #D3D3D3",
+                    backgroundColor: " white",
                     textAlign: "center",
                   }}
+                  cover={<img alt={"ALT"} src={ab} height="180px" />}
                   hoverable
                   onClick={() => this.onCardClick(i)}
                 >
                   <p id="courseName">{i.course_name}</p>
-                  <Meta
+                  {/* <Meta
                     id="courseDetails"
                     title={i.teacher_name}
                     description={i.full_course_price}
-                  />
+                  /> */}
                 </Card>
               </Col>
             ))}

@@ -46,6 +46,7 @@ class App extends Component {
             <Route exact path="/test" component={Test} />
             <Route exact path="/courseinfo" component={courseinfo} />
             <Route exact path="/about-us" component={Aboutus} />
+            <Route exact path="/test" component={Test} />
           </Switch>
           <Footer />
         </BrowserRouter>
