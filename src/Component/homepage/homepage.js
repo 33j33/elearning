@@ -134,7 +134,7 @@ class courses extends Component {
     );
 
     const arr = this.filteredCourses.map((i) => (
-      <div key={i._id} style={{ marginLeft: "18%" }}>
+      <div key={i._id} style={{ marginLeft: "14%" }}>
         <Card
           id="card1"
           style={{
