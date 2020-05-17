@@ -13,8 +13,8 @@ import { withRouter } from "react-router-dom";
 import { BrowserRouter as Link } from "react-router-dom";
 import { InputNumber } from "antd";
 import { Spin } from "antd";
-import "./turnskill.jpg"
-import Image from 'react-bootstrap/Image'
+import "./turnskill.jpg";
+import Image from "react-bootstrap/Image";
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -403,22 +403,27 @@ class header extends Component {
       <div
         style={{ position: "fixed", top: "0%", width: "100%", zIndex: "100" }}
       >
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" style={{ background: "white" }}>
           <Link to="/">
             {" "}
             <Navbar.Brand
               onClick={this.gotoHome}
               style={{
                 cursor: "pointer",
-                color: "White",
+                color: "black",
                 fontWeight: "bolder",
+                width: "50px",
+                height: "60px",
               }}
             >
-
               {/* <Image src="./logo1.png" thumbnail /> */}
               {/* <img src="/turnskill.jpg" alt="" /> */}
-              <img src="https://i.imgur.com/qE9Q3n2.jpg" alt="logo" width="10%" className="d-inline-block align-top" />
-
+              <img
+                src="https://i.imgur.com/qE9Q3n2.jpg"
+                alt="logo"
+                width="50px"
+                height="60px"
+              />
               1 to 1
             </Navbar.Brand>
           </Link>
@@ -428,7 +433,7 @@ class header extends Component {
             className="justify-content-end"
           >
             <Nav>
-              <Nav.Link onClick={this.gotoHome}>Home  </Nav.Link>
+              <Nav.Link onClick={this.gotoHome}>Home </Nav.Link>
               <Nav.Link onClick={this.gotoaboutus}>About Us</Nav.Link>
               <Nav.Link onClick={this.gotocourses}>
                 <Link to="/">All Courses</Link>{" "}
@@ -438,18 +443,18 @@ class header extends Component {
                   {this.state.username}
                 </Nav.Link>
               ) : (
-                  <Nav.Link onClick={this.showModalForTeachers}>
-                    For Teachers
+                <Nav.Link onClick={this.showModalForTeachers}>
+                  For Teachers
                 </Nav.Link>
-                )}
+              )}
 
               {this.state.showField ? (
                 <Nav.Link onClick={this.onClickLogout}>Logout </Nav.Link>
               ) : (
-                  <Nav.Link onClick={this.showModalForStudents}>
-                    For Students
+                <Nav.Link onClick={this.showModalForStudents}>
+                  For Students
                 </Nav.Link>
-                )}
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
