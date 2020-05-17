@@ -422,7 +422,7 @@ class courseinfo extends Component {
                         >
                           Submit
                     </Button>
-                      </Row>
+                      </Row><br />
                     </Form>
                     <Row>
                       <Col>
@@ -443,7 +443,7 @@ class courseinfo extends Component {
                           <p style={{ color: "Red" }}>Paid Succesfully</p>
                         ) : null}
                       </Col>
-                    </Row>
+                    </Row><br />
                   </Spin>
                 </TabPane>
               </Tabs>
