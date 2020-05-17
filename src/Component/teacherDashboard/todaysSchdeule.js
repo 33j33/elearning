@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Descriptions, Button } from "antd";
+import { Descriptions, Button,Row } from "antd";
 import axios from "axios";
 import { Spin } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
@@ -48,7 +48,6 @@ class TodaysSchdeule extends Component {
       )
       .then((response) => {
         console.log(response);
-        successForCourses()
         this.setState({loading:false});
         successForCourses()
 this.getBoughtCoursesData()
@@ -114,17 +113,17 @@ this.getBoughtCoursesData()
                     {i.course_type}
                   </Descriptions.Item>
                   <Descriptions.Item label="Schedule">
-                    {i.selected_course_schedule.map((i, index) => (
-                      <p key={index}>
-                        Day:{i.day}
-                        Time:{i.time}
-                      </p>
-                    ))}
+                   <Row> {i.selected_course_schedule.map((i, index) => (
+                      <Row key={index}>
+                        {i.day}: -
+                      {i.time}
+                      </Row>
+                    ))}</Row>
                   </Descriptions.Item>
 
                   <Descriptions.Item label="Status" span={3}>
                     {i.course_status ? (
-                                          <div>Completed</div>
+                                          <b style={{color:"green"}}>Completed</b>
 
                     ) : (
                     <Popconfirm

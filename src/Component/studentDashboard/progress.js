@@ -64,7 +64,6 @@ constructor(props){
              </Col>
              </Row>
 <br />
-             {/* <p>Course Duration: {course.course_duration}</p> */}
                   <Row justify="center"><h5>Course Schedule</h5></Row>
                   {course.selected_course_schedule.map((j,index) => (
                 <Row key={index} justify="center">
