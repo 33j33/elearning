@@ -115,16 +115,16 @@ this.getBoughtCoursesData()
                   </Descriptions.Item>
                   <Descriptions.Item label="Schedule">
                     {i.selected_course_schedule.map((i, index) => (
-                      <p key={index}>
-                        Day:{i.day}
-                        Time:{i.time}
-                      </p>
+                      <b key={index}>
+                        {i.day}: -
+                      {i.time}
+                      </b>
                     ))}
                   </Descriptions.Item>
 
                   <Descriptions.Item label="Status" span={3}>
                     {i.course_status ? (
-                                          <div>Completed</div>
+                                          <b style={{color:"green"}}>Completed</b>
 
                     ) : (
                     <Popconfirm

@@ -279,7 +279,7 @@ class courseinfo extends Component {
             <hr />
             <h5>Faculty Contact:{this.state.cardData.teacher_mobile}</h5>
             <hr />
-            <h5>Faculty Name:{this.state.cardData.course_description}</h5>
+            <h5>Faculty Name:{this.state.cardData.teacher_name}</h5>
             <hr />
           </div>
 
