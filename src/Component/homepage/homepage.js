@@ -168,7 +168,7 @@ class courses extends Component {
               <h2>We Help you to tune your skill</h2>
             </Row>
             <br />
-            <Row className="row-search">
+            <Row >
               <Col  xs={{ span: 20}} xl={{ span: 12}}>
                 <div className="search">
                   <form className="search-form">

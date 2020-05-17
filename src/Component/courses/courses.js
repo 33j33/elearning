@@ -117,9 +117,9 @@ class courses extends Component {
     );
 
     return (
-      <div style={{ marginTop: "80px", minHeight: 550 }}>
+      <div style={{ marginTop: "100px", minHeight: 550 }}>
         <Row>
-          <Col span={7} offset={8}>
+        <Col  xs={{ span: 20 ,offset:2}} xl={{ span: 8 ,offset:8}}>
             <div className="search">
               <form className="search-form">
                 <SearchInput
@@ -134,9 +134,9 @@ class courses extends Component {
         </Row>
         <br /><br />
         <Spin spinning={this.state.loading}>
-          <Row justify="space-around">
+          <Row >
             {filteredCourses.map((i) => (
-              <Col  /*span={5}*/ key={i._id}>
+              <Col  key={i._id} xs={{  offset: 3 }} xl={{  offset: 2 }}>
                 <Card
                   id="card1"
                   style={{

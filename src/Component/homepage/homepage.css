@@ -36,9 +36,6 @@
   -webkit-border-radius-bottom-right: 5px;
   cursor: pointer;
 }
-.row-search {
-  justify-content: space-around;
-}
 
 .bg-image {
   /* position: relative; */
