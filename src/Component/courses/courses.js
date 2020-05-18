@@ -66,7 +66,6 @@ class courses extends Component {
                   this.slicedCoursesArray[i].course_name ===
                   SelectedCoursesArr[j].course_name && SelectedCoursesArr[j].course_status===false  
                 ) {
-                  console.log("in if")
                   for (var k in this.slicedCoursesArray[i].course_schedule) {
                     for(var m in SelectedCoursesArr[j].selected_course_schedule){
                     if (
