@@ -17,7 +17,7 @@ class payment extends Component {
     const headers = { "x-auth-token": currentUser.token };
     axios
       .get(
-        `https://turnskill1to1server.herokuapp.com/https://elearningserver.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
+        `https://turnskill1to1server.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
         { headers }
       )
       .then((response) => {
@@ -42,32 +42,24 @@ class payment extends Component {
         dataIndex: "course_name",
         key: "course_name",
       },
-      {
-        title: "Teacher Name",
-        dataIndex: "teacher_name",
-        key: "teacher_name",
-      },
+     
       {
         title: "Payment Date",
         dataIndex: "date",
         key: "date",
       },
-      {
-        title: "Amount Paid",
-        key: "course_price",
-        dataIndex: "course_price",
-      },
-      {
-        title: "Teacher Mobile Number",
-        dataIndex: "teacher_mobile",
-        key: "teacher_mobile",
-        responsive: ["sm"],
-      },
+    
+    
       {
         title: "Course Type",
         dataIndex: "course_type",
         key: "course_type",
         responsive: ["sm"],
+      },
+      {
+        title: "Amount Paid",
+        key: "course_price",
+        dataIndex: "course_price",
       }
     ];
     return (

@@ -16,7 +16,7 @@ constructor(props){
     const headers = { "x-auth-token": currentUser.token };
     axios
       .get(
-        `https://turnskill1to1server.herokuapp.com/https://elearningserver.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
+        `https://turnskill1to1server.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
         { headers }
       )
       .then((response) => {

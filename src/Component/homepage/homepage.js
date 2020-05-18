@@ -78,7 +78,7 @@ class courses extends Component {
               for (var j in SelectedCoursesArr) {
                 if (
                   this.allCoursesArray[i].course_name ===
-                  SelectedCoursesArr[j].course_name
+                  SelectedCoursesArr[j].course_name && SelectedCoursesArr[j].course_status===false  
                 ) {
                   for (var k in this.allCoursesArray[i].course_schedule) {
                     for (var m in SelectedCoursesArr[j].selected_course_schedule) {
