@@ -228,7 +228,7 @@ class courses extends Component {
               </Carousel>
               </div>
             )}
-            {/* <br /><br /><br /><br /> */}
+  
           <Teacher />
         </div>
       </div>
