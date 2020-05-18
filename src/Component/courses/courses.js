@@ -7,9 +7,8 @@ import { Spin } from "antd";
 import "./courses.css";
 import axios from "axios";
 import SearchInput, { createFilter } from "react-search-input";
-import ab from "../../images/course.jpeg";
+import ab from "../../images/responsive.svg";
 const KEYS_TO_FILTERS = ["course_name", "teacher_name"];
-
 
 class courses extends Component {
   constructor(props) {

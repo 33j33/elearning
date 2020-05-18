@@ -8,7 +8,7 @@ import "./homepage.css";
 import SearchInput, { createFilter } from "react-search-input";
 import Teacher from "./teacher/teacher";
 import { Link } from "react-router-dom";
-import image from '../../images/course.jpeg';
+import image from '../../images/responsive.svg';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 const KEYS_TO_FILTERS = ["course_name"];

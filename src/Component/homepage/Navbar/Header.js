@@ -15,7 +15,7 @@ import { InputNumber } from "antd";
 import { Spin } from "antd";
 import "./turnskill.png";
 import "./header.css";
-import Image from "./turnskill.png";
+import logo from '../../../images/turnskilllogo.svg'
 
 const successForregistration = () => {
   message.success("Succesfully Registered Login to Continue");
@@ -405,7 +405,7 @@ class header extends Component {
         style={{ position: "fixed", top: "0%", width: "100%", zIndex: "100" }}
       >
         <Navbar collapseOnSelect expand="lg" style={{ background: "white" }}>
-          <Link to="/">
+    
             {" "}
             <Navbar.Brand
               onClick={this.gotoHome}
@@ -417,17 +417,16 @@ class header extends Component {
                 height: "60px",
               }}
             >
-              {/* <Image src="./logo1.png" thumbnail /> */}
-              {/* <img src="/turnskill.jpg" alt="" /> */}
+            
               <img
+                onClick={this.gotoHome}
+                style={{                cursor: "pointer",
+              }}
                 className="nav-logo"
-                src={Image}
-                alt="logo"
-                width="80px"
-                height="70px"
+                src={logo}
+        
               />
             </Navbar.Brand>
-          </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"
