@@ -50,7 +50,7 @@ class payment extends Component {
         key: "teacher_name",
       },
       {
-        title: "Starting Date",
+        title: "Payment Date",
         dataIndex: "date",
         key: "date",
       },

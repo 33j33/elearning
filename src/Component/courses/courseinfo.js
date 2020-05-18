@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import img from "../../images/course.jpeg";
 import "./courseinfo.css";
-import { Tabs,Divider } from "antd";
+import { Tabs } from "antd";
 import {
   Select,
   Row,
   Col,
   Button,
   Radio,
-  Card,
-  Collapse,
   message,
   Form,
 } from "antd";
@@ -19,7 +17,6 @@ import { Spin } from "antd";
 
 
 const { Option } = Select;
-const { Panel } = Collapse;
 const { TabPane } = Tabs;
 
 const successPaymentMessage = () => {
@@ -152,7 +149,7 @@ class courseinfo extends Component {
         console.log(error.message);
         var errorMessage;
         this.setState({ loading: false });
-        if (error.message != undefined) {
+        if (error.message !== undefined) {
           if (error.message === "Request failed with status code 401") {
             errorMessage = "Login to buy the course";
           } else {

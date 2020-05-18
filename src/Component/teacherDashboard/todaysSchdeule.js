@@ -115,7 +115,7 @@ this.getBoughtCoursesData()
                   <Descriptions.Item label="Schedule">
                    <Row> {i.selected_course_schedule.map((i, index) => (
                       <Row key={index}>
-                        {i.day}: -
+                        {i.day} =
                       {i.time}
                       </Row>
                     ))}</Row>
@@ -132,11 +132,11 @@ this.getBoughtCoursesData()
                         onCancel={this.cancel}
                         okText="Yes"
                         cancelText="No"
-                      >
+                      ><b>On going</b> &nbsp;
                         <Button
                           type="primary"
                           icon={<CheckOutlined />}
-                        />
+                        /> 
                         
                       </Popconfirm>
                     )}

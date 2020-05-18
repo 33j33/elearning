@@ -57,7 +57,7 @@ class payment extends Component {
         key: "course_type",
       },
       {
-        title: "Date",
+        title: "Payment Date",
         dataIndex: "date",
         key: "date",
       },

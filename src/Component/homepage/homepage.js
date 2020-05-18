@@ -2,7 +2,6 @@
 
 import React, { Component } from "react";
 import { Row, Col, Card, Button } from "antd";
-import AliceCarousel from "react-alice-carousel";
 import axios from "axios";
 import { Spin } from "antd";
 import "./homepage.css";
@@ -14,7 +13,6 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 const KEYS_TO_FILTERS = ["course_name"];
 
-const { Meta } = Card;
 
 const responsive = {
   superLargeDesktop: {

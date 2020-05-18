@@ -57,7 +57,7 @@ constructor(props){
              <p style={{ marginBottom: 0 }}><b>Course Bought date:</b> {course.date}</p>
              </Col>
              <Col>
-             <p> <b>Course Status:</b> {course.course_status ?<b style={{color:"green"}}>Completed</b> : <b style={{color:"blue"}}>Going on</b>  }</p>  
+             <p> <b>Course Status:</b> {course.course_status ?<b style={{color:"green"}}>Completed</b> : <b style={{color:"blue"}}>On Going </b>  }</p>  
 
              </Col>
              </Row>

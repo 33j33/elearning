@@ -10,7 +10,6 @@ import SearchInput, { createFilter } from "react-search-input";
 import ab from "../../images/course.jpeg";
 const KEYS_TO_FILTERS = ["course_name", "teacher_name"];
 
-const { Meta } = Card;
 
 class courses extends Component {
   constructor(props) {
