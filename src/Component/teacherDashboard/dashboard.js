@@ -43,7 +43,7 @@ class dashboard extends Component {
       },
       {
         key: "adddedCourses",
-        tab: "Addded Courses",
+        tab: "Added Courses",
       },
       {
         key: "payment",
