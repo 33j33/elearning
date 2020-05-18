@@ -11,45 +11,27 @@ class Footer extends Component {
     return (
       <div className="footer">
         <Row justify="space-around">
-          <Col span={5}>
-            <br />
+          <Col lg={{ span: 5 }} xs={{ span: 20 }} className="child-div">
             <h4>About Us</h4>
-          </Col>
-          <Col span={4}>
-            <br />
-            <h4>Contact</h4>
-          </Col>
-          <Col span={4}>
-            <br />
-            <h4>Follow Us</h4>
-          </Col>
-        </Row>
-        <br />
-        <br />
-        <Row justify="space-around">
-          <Col span={5} style={{ justifyContent: "center" }}>
-            TurnSkill 1 to 1 is trusted Learning Network. Students, parents and
+            <p>TurnSkill 1 to 1 is trusted Learning Network. Students, parents and
             professionals can compare multiple Tutors, Trainers and Institutes
-            and choose the ones that best suit their requirements.
+            and choose the ones that best suit their requirements.</p>
           </Col>
-          <Col span={4}>
-            Address: New Delhi, India
-            <br />
-            Email: info@turnskill.com
-            <br />
-            Phone: +919967492684
+          <Col lg={{ span: 5 }} xs={{ span: 20 }} className="child-div">
+            <h4>Contact</h4>
+            <p>Address: New Delhi, India</p>
+            <p>Email: info@turnskill.com</p>
+            <p>Phone: +919967492684</p>
           </Col>
-          <Col span={4}>
-            Facebook
-            <br />
-            Twitter
-            <br />
-            Instagram
+          <Col lg={{ span: 5 }} xs={{ span: 20 }} className="child-div">
+            <h4>Follow Us</h4>
+            <p>Facebook</p>
+            <p>Twitter</p>
+            <p>Instagram</p>
           </Col>
         </Row>
         <Divider></Divider>
-        Copyright @ All rights reserved
-        <br />
+        <div style={{ textAlign: "center" }}>Copyright @ All rights reserved</div>
         <br />
       </div>
     );

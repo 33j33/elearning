@@ -166,8 +166,8 @@ class courses extends Component {
               <h2>We Help you to tune your skill</h2>
             </Row>
             <br />
-            <Row >
-              <Col  xs={{ span: 20 ,offset:2}} xl={{ span: 12 ,offset:6}}>
+            <Row className="row-search">
+              <Col xs={{ span: 20 }} xl={{ span: 12 }}>
                 <div className="search">
                   <form className="search-form">
                     <SearchInput
@@ -200,32 +200,32 @@ class courses extends Component {
                 <Link to="allcourses">View All</Link>
               </Button>
             </Col>
-          </Row><br/>
+          </Row><br />
           {this.state.loader ? (
             <div className="example">
               <Spin spinning={this.state.loader}></Spin>
             </div>
           ) : (
-            <div               style={{marginBottom:"5%"}}
-            >
-              <Carousel
-                swipeable={true}
-                draggable={true}
-                showDots={true}
-                infinite={true}
-                autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                autoPlaySpeed={2000}
-                keyBoardControl={true}
+              <div style={{ marginBottom: "5%" }}
+              >
+                <Carousel
+                  swipeable={true}
+                  draggable={true}
+                  showDots={true}
+                  infinite={true}
+                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={2000}
+                  keyBoardControl={true}
 
-                removeArrowOnDeviceType={["tablet", "mobile"]}
-                deviceType={this.props.deviceType}
-                dotListClass="custom-dot-list-style"
-                itemClass="carousel-item-padding-40-px"
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  deviceType={this.props.deviceType}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
 
-                responsive={responsive}>
-                {arr}
+                  responsive={responsive}>
+                  {arr}
 
-              </Carousel>
+                </Carousel>
               </div>
             )}
   
