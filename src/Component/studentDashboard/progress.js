@@ -16,11 +16,10 @@ constructor(props){
     const headers = { "x-auth-token": currentUser.token };
     axios
       .get(
-        `https://elearningserver.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
+        `https://turnskill1to1server.herokuapp.com/https://elearningserver.herokuapp.com/student/selectedCourse/${currentUser.studentid}`,
         { headers }
       )
       .then((response) => {
-      console.log(response)
       this.setState({loading:false})
       for (const i in response.data) {
         response.data[i].date = response.data[i].date.split("T")[0];
@@ -28,7 +27,6 @@ constructor(props){
         this.setState({ enrolledCoursesArray: response.data });
       })
       .catch((error) => {
-        console.log(error.response);
               this.setState({loading:false})
 
       });

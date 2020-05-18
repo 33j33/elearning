@@ -26,11 +26,10 @@ class TodaysSchdeule extends Component {
   }
 
   coursestatus = (i) => {
-    console.log("done", i);
+    console.log("done");
   };
 
   confirm(i) {
-    console.log(i);
     this.setState({loading:true})
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     const headers = { "x-auth-token": currentUser.token };
@@ -40,28 +39,25 @@ class TodaysSchdeule extends Component {
       course_id: i.course_id,
       teacher_email: i.teacher_email,
     };
-    console.log(databody);
     axios
       .post(
-        "https://elearningserver.herokuapp.com/teacher/completeselectedcourse",
+        "https://turnskill1to1server.herokuapp.com/teacher/completeselectedcourse",
         databody,  { headers }
       )
       .then((response) => {
-        console.log(response);
         this.setState({loading:false});
         successForCourses()
 this.getBoughtCoursesData()
       
       })
       .catch((error) => {
-        console.log(error);
         errorForCourseAddtion()
         this.setState({loading:false})
       });
   }
 
   cancel(e) {
-    console.log(e);
+    console.log("e");
   }
 
   getBoughtCoursesData=()=>{
@@ -69,11 +65,10 @@ this.getBoughtCoursesData()
     const headers = { "x-auth-token": currentUser.token };
     axios
       .get(
-        `https://elearningserver.herokuapp.com/teacher/selectedCoursebyStudent/${currentUser.email}`,
+        `https://turnskill1to1server.herokuapp.com/teacher/selectedCoursebyStudent/${currentUser.email}`,
         { headers }
       )
       .then((response) => {
-        console.log(response.data);
         for (const i in response.data) {
           response.data[i].date = response.data[i].date.split("T")[0];
           
@@ -85,7 +80,6 @@ this.getBoughtCoursesData()
         });
       })
       .catch((error) => {
-        console.log(error.response);
         this.setState({ loading: false });
       });
   }

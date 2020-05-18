@@ -57,9 +57,8 @@ class Courses extends Component {
       teacher_mobile: this.state.teacher_mobile,
     };
     axios
-      .post("https://elearningserver.herokuapp.com/teacher/addCourse", databody)
+      .post("https://turnskill1to1server.herokuapp.com/teacher/addCourse", databody)
       .then((response) => {
-        console.log(response);
         this.formRef.current.resetFields();
         this.setState({
           coursesModal: false,
@@ -73,7 +72,6 @@ class Courses extends Component {
         this.getCoursesData();
       })
       .catch((error) => {
-        console.log(error);
         this.setState({ addCoursesloading: false });
         errorForCourseAddtion(error.message);
       });
@@ -135,15 +133,13 @@ class Courses extends Component {
     const headers = { "x-auth-token": currentUser.token };
     axios
       .get(
-        `https://elearningserver.herokuapp.com/teacher/addedCourseDetails/${teacherEmail}`,
+        `https://turnskill1to1server.herokuapp.com/teacher/addedCourseDetails/${teacherEmail}`,
         { headers }
       )
       .then((response) => {
-        console.log(response);
         this.setState({ coursesArray: response.data, loading: false });
       })
       .catch((error) => {
-        console.log(error.response);
         this.setState({ loading: false });
       });
   };

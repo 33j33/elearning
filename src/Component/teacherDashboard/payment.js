@@ -23,11 +23,10 @@ class payment extends Component {
     const headers = { "x-auth-token": currentUser.token };
     axios
       .get(
-        `https://elearningserver.herokuapp.com/teacher/selectedCoursebyStudent/${currentUser.email}`,
+        `https://turnskill1to1server.herokuapp.com/teacher/selectedCoursebyStudent/${currentUser.email}`,
         { headers }
       )
       .then((response) => {
-        console.log(response);
         for (const i in response.data) {
           response.data[i].date = response.data[i].date.split("T")[0];
         }
@@ -35,7 +34,6 @@ class payment extends Component {
         this.setState({ coursesArray: response.data, loading: false });
       })
       .catch((error) => {
-        console.log(error.response);
         this.setState({ loading: false });
       });
   }

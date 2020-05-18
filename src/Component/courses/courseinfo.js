@@ -127,16 +127,14 @@ class courseinfo extends Component {
       selected_course_schedule: this.FullCourseTimeSlotArray,
       course_id: this.state.cardData.course_id,
     };
-    console.log(dataBody)
     const headers = { "x-auth-token": this.state.token };
     axios
       .post(
-        "https://elearningserver.herokuapp.com/student/selectedcourse",
+        "https://turnskill1to1server.herokuapp.com/student/selectedcourse",
         dataBody,
         { headers }
       )
       .then((response) => {
-        console.log(response);
         this.setState({
           showButton: false,
           loading: false,
@@ -146,7 +144,6 @@ class courseinfo extends Component {
         successPaymentMessage();
       })
       .catch((error) => {
-        console.log(error.message);
         var errorMessage;
         this.setState({ loading: false });
         if (error.message !== undefined) {
@@ -189,12 +186,11 @@ class courseinfo extends Component {
     const headers = { "x-auth-token": this.state.token };
     axios
       .post(
-        "https://elearningserver.herokuapp.com/student/selectedcourse",
+        "https://turnskill1to1server.herokuapp.com/student/selectedcourse",
         dataBody,
         { headers }
       )
       .then((response) => {
-        console.log(response);
         this.props.history.push("/student/dashboard");
 
         successPaymentMessage();
@@ -216,7 +212,7 @@ class courseinfo extends Component {
       });
   };
   onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed:");
   };
 
   componentDidMount() {
@@ -237,6 +233,7 @@ class courseinfo extends Component {
 
   }
   componentWillMount() {
+
     var cardinfo = JSON.parse(window.sessionStorage.getItem("cardData"))
     if (!cardinfo) {
       window.location.href = "/allcourses"
@@ -249,7 +246,7 @@ class courseinfo extends Component {
 
 
   callback(key) {
-    console.log(key);
+    console.log("key");
   }
   render() {
     return (
@@ -268,7 +265,7 @@ class courseinfo extends Component {
             <img src={img} alt="course" width="500px" height="300px" />
             <br />
             <br />
-           
+
           </div>
           <div className="child-div-2">
             <h5>Course Fees:{this.state.cardData.full_course_price}</h5>
@@ -282,28 +279,28 @@ class courseinfo extends Component {
             <hr />
           </div>
 
-          
+
         </div>
         <div className="main-div-2" style={{ marginBottom: "6%" }}>
-        <div className="card-container">
+          <div className="card-container">
 
-              <Tabs defaultActiveKey="1" onChange={this.callback} type="card" >
-                <TabPane tab="Details" key="1">
-                  {this.state.cardData.course_description}
-                </TabPane>
-                <TabPane tab="Full Course" key="2">
-                  <Spin spinning={this.state.loading}>
-                    <Form
-                      name="basic"
-                      onFinish={this.buyFullCourse}
-                      onFinishFailed={this.onFinishFailed}
-                    >
-                      Teacher's available slots:
-                  <ul style={{lineHeight: 3}}>
-                        {this.state.cardData.course_schedule.map((i, index) => (
-                          <div>
-                            <hr/>
-                          <li onFocus={() => this.getSchedule(i.day)} key={index} style={{marginBottom:"5px"}}>
+            <Tabs defaultActiveKey="1" onChange={this.callback} type="card" >
+              <TabPane tab="Details" key="1">
+                {this.state.cardData.course_description}
+              </TabPane>
+              <TabPane tab="Full Course" key="2">
+                <Spin spinning={this.state.loading}>
+                  <Form
+                    name="basic"
+                    onFinish={this.buyFullCourse}
+                    onFinishFailed={this.onFinishFailed}
+                  >
+                    Teacher's available slots:
+                  <ul style={{ lineHeight: 3 }}>
+                      {this.state.cardData.course_schedule.map((i, index) => (
+                        <div>
+                          <hr />
+                          <li onFocus={() => this.getSchedule(i.day)} key={index} style={{ marginBottom: "5px" }}>
                             <Row>
                               {i.day}
                               <Col className="radio" span={15}>
@@ -325,135 +322,135 @@ class courseinfo extends Component {
                                 </Form.Item>
                               </Col>
                             </Row>
-                            
+
                           </li>
-                           </div>
-                        ))}
-                      </ul>                       
+                        </div>
+                      ))}
+                    </ul>
 
 
-                      <Form.Item>
-                        {this.state.radiobuttonsubmit ? (
-                          <Row justify="center">
-                            <Button
-                              style={{ color: "#c64752", borderColor: "#c64752" }}
-                              htmlType="submit"
-                            >
-                              Submit
+                    <Form.Item>
+                      {this.state.radiobuttonsubmit ? (
+                        <Row justify="center">
+                          <Button
+                            style={{ color: "#c64752", borderColor: "#c64752" }}
+                            htmlType="submit"
+                          >
+                            Submit
                         </Button>
-                          </Row>
-                        ) : null}
-                      </Form.Item>
-                    </Form>
+                        </Row>
+                      ) : null}
+                    </Form.Item>
+                  </Form>
                 Course Fees: Rs.{this.state.cardData.full_course_price}
-                    {this.state.showButton ? (
-                      <Button
-                        type="primary"
-                        onClick={this.payfullCourse}
-                        htmlType="submit"
-                        style={{ marginLeft: 15 }}
-                      >
-                        Pay
-                      </Button>
-                    ) : null}
-                    {this.state.paymentdone ? (
-                      <p style={{ color: "Red" }}>Paid Succesfully</p>
-                    ) : null}
-                  </Spin>
-                </TabPane>
-                <TabPane tab="Hour Based" key="3">
-                  <Spin spinning={this.state.loading}>
-                    <Form
-                      name="basic"
-                      onFinish={this.buyHourBasedCourse}
-                      onFinishFailed={this.onFinishFailed}
+                  {this.state.showButton ? (
+                    <Button
+                      type="primary"
+                      onClick={this.payfullCourse}
+                      htmlType="submit"
+                      style={{ marginLeft: 15 }}
                     >
-                      <Row>
-                        <Col span={11}>
+                      Pay
+                    </Button>
+                  ) : null}
+                  {this.state.paymentdone ? (
+                    <p style={{ color: "Red" }}>Paid Succesfully</p>
+                  ) : null}
+                </Spin>
+              </TabPane>
+              <TabPane tab="Hour Based" key="3">
+                <Spin spinning={this.state.loading}>
+                  <Form
+                    name="basic"
+                    onFinish={this.buyHourBasedCourse}
+                    onFinishFailed={this.onFinishFailed}
+                  >
+                    <Row>
+                      <Col span={11}>
+                        <Form.Item
+                          name="day"
+                          rules={[
+                            { required: true, message: "Please Select the day!" },
+                          ]}
+                        >
+                          <Select
+                            style={{ minWidth: 150, maxWidth: 430 }}
+                            value={this.state.days}
+                            onChange={this.getHourBasedCourseDay}
+                            placeholder="Select Day"
+                          >
+                            {this.state.cardData.course_schedule.map(
+                              (i, index) => (
+                                <Option value={i.day} key={index}>
+                                  {i.day}
+                                </Option>
+                              )
+                            )}
+                          </Select>
+                        </Form.Item>
+                      </Col>
+                      <Col span={9}>
+                        {this.showField ? (
                           <Form.Item
-                            name="day"
+                            name="time"
                             rules={[
-                              { required: true, message: "Please Select the day!" },
+                              {
+                                required: true,
+                                message: "Please Select timeslot!",
+                              },
                             ]}
                           >
                             <Select
                               style={{ minWidth: 150, maxWidth: 430 }}
-                              value={this.state.days}
-                              onChange={this.getHourBasedCourseDay}
-                              placeholder="Select Day"
+                              onChange={this.getHourBasedCourseTimeSlot}
+                              placeholder="Select timeslot"
+                              required
                             >
-                              {this.state.cardData.course_schedule.map(
-                                (i, index) => (
-                                  <Option value={i.day} key={index}>
-                                    {i.day}
-                                  </Option>
-                                )
-                              )}
+                              {this.state.timeSlot.map((j, index) => (
+                                <Option value={j} key={index}>
+                                  {j}
+                                </Option>
+                              ))}
                             </Select>
                           </Form.Item>
-                        </Col>
-                        <Col span={9}>
-                          {this.showField ? (
-                            <Form.Item
-                              name="time"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Please Select timeslot!",
-                                },
-                              ]}
-                            >
-                              <Select
-                                style={{ minWidth: 150, maxWidth: 430 }}
-                                onChange={this.getHourBasedCourseTimeSlot}
-                                placeholder="Select timeslot"
-                                required
-                              >
-                                {this.state.timeSlot.map((j, index) => (
-                                  <Option value={j} key={index}>
-                                    {j}
-                                  </Option>
-                                ))}
-                              </Select>
-                            </Form.Item>
-                          ) : null}
-                        </Col>
-                      </Row>
-                      <br />
-                      <Row className="submit2">
-                        <Button
-                          style={{ color: "#c64752", borderColor: "#c64752" }}
-                          htmlType="submit"
-                        >
-                          Submit
-                    </Button>
-                      </Row><br />
-                    </Form>
-                    <Row>
-                      <Col>
-                        {" "}
-                    Course Fees: Rs.
-                    {this.state.cardData.hour_based_course_price}
-                        {this.state.showButtonhalf ? (
-                          <Button
-                            type="primary"
-                            htmlType="submit"
-                            style={{ marginLeft: 15 }}
-                            onClick={this.payhalfcourse}
-                          >
-                            Pay
-                          </Button>
-                        ) : null}
-                        {this.state.paymentdonehalf ? (
-                          <p style={{ color: "Red" }}>Paid Succesfully</p>
                         ) : null}
                       </Col>
+                    </Row>
+                    <br />
+                    <Row className="submit2">
+                      <Button
+                        style={{ color: "#c64752", borderColor: "#c64752" }}
+                        htmlType="submit"
+                      >
+                        Submit
+                    </Button>
                     </Row><br />
-                  </Spin>
-                </TabPane>
-              </Tabs>
-              </div>
-            </div>
+                  </Form>
+                  <Row>
+                    <Col>
+                      {" "}
+                    Course Fees: Rs.
+                    {this.state.cardData.hour_based_course_price}
+                      {this.state.showButtonhalf ? (
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          style={{ marginLeft: 15 }}
+                          onClick={this.payhalfcourse}
+                        >
+                          Pay
+                        </Button>
+                      ) : null}
+                      {this.state.paymentdonehalf ? (
+                        <p style={{ color: "Red" }}>Paid Succesfully</p>
+                      ) : null}
+                    </Col>
+                  </Row><br />
+                </Spin>
+              </TabPane>
+            </Tabs>
+          </div>
+        </div>
       </div>
     );
   }

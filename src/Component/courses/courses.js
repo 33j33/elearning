@@ -48,17 +48,15 @@ class courses extends Component {
     window.scrollTo(0, 0)
 
     axios
-      .get("https://elearningserver.herokuapp.com/getallCourses")
+      .get("https://turnskill1to1server.herokuapp.com/getallCourses")
       .then((response) => {
-        console.log(response.data);
         this.slicedCoursesArray = response.data;
 
         axios
           .get(
-            "https://elearningserver.herokuapp.com/student/AllSelectedCoursesList"
+            "https://turnskill1to1server.herokuapp.com/student/AllSelectedCoursesList"
           )
           .then((res) => {
-            console.log(res.data);
             var SelectedCoursesArr = [];
             SelectedCoursesArr = res.data;
 
@@ -96,7 +94,6 @@ class courses extends Component {
             }
           })
           .catch((error) => {
-            console.log(error);
           });
 
         this.newslicedCoursesArray = this.slicedCoursesArray.slice(0, this.end);
@@ -107,7 +104,6 @@ class courses extends Component {
         this.setState({ loading: false });
       })
       .catch((error) => {
-        console.log(error);
       });
   };
 

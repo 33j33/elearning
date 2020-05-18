@@ -204,9 +204,8 @@ class header extends Component {
     this.setState({ loading: true });
 
     axios
-      .post("https://elearningserver.herokuapp.com/teacherlogin", values)
+      .post("https://turnskill1to1server.herokuapp.com/teacherlogin", values)
       .then((response) => {
-        console.log(response);
         this.formRef.current.resetFields();
         successForlogin();
         this.setState({
@@ -229,7 +228,6 @@ class header extends Component {
       .catch((error) => {
         this.setState({ loading: false });
         if (error.response !== undefined) {
-          console.log(error.response);
           errorForlogin();
         }
       });
@@ -260,9 +258,8 @@ class header extends Component {
   onFinishRegisTeacher = (values) => {
     this.setState({ loading: true });
     axios
-      .post("https://elearningserver.herokuapp.com/registerteacher", values)
+      .post("https://turnskill1to1server.herokuapp.com/registerteacher", values)
       .then((response) => {
-        console.log(response);
         const databody = {
           course_schedule: this.final_selectedtime,
           full_course_price: this.state.full_course_price,
@@ -276,11 +273,10 @@ class header extends Component {
         };
         axios
           .post(
-            "https://elearningserver.herokuapp.com/teacher/addCourse",
+            "https://turnskill1to1server.herokuapp.com/teacher/addCourse",
             databody
           )
           .then((response) => {
-            console.log(response);
             this.formRef.current.resetFields();
             this.setState({
               visible: false,
@@ -290,14 +286,11 @@ class header extends Component {
           })
           .catch((error) => {
             this.setState({ loading: false });
-            console.log(error);
             errorForRegistration();
           });
       })
       .catch((error) => {
-        console.log(error.response);
         this.setState({ loading: false });
-        console.log(error);
         errorForRegistration();
       });
   };
@@ -311,9 +304,8 @@ class header extends Component {
     this.setState({ loading: true });
 
     axios
-      .post("https://elearningserver.herokuapp.com/studentlogin", values)
+      .post("https://turnskill1to1server.herokuapp.com/studentlogin", values)
       .then((response) => {
-        console.log(response);
         this.setState({ loading: false });
         this.formRef.current.resetFields();
         successForlogin();
@@ -338,7 +330,6 @@ class header extends Component {
       })
       .catch((error) => {
         this.setState({ loading: false });
-        console.log(error.response);
         errorForlogin();
       });
   };
@@ -351,9 +342,8 @@ class header extends Component {
   onFinishRegisStudent = (values) => {
     this.setState({ loading: true });
     axios
-      .post("https://elearningserver.herokuapp.com/registerstudent", values)
+      .post("https://turnskill1to1server.herokuapp.com/registerstudent", values)
       .then((response) => {
-        console.log(response);
         this.setState({
           visible: false,
           loading: false,
@@ -364,7 +354,6 @@ class header extends Component {
       .catch((error) => {
         this.setState({ loading: false });
 
-        console.log(error.response);
         errorForRegistration();
       });
   };
