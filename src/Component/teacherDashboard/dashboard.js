@@ -23,6 +23,8 @@ class dashboard extends Component {
     this.setState({ [type]: key });
   };
   componentDidMount() {
+    window.scrollTo(0, 0)
+
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     this.setState({
       username: currentUser.username,

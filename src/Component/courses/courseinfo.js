@@ -222,6 +222,7 @@ class courseinfo extends Component {
   componentDidMount() {
 
 
+    window.scrollTo(0, 0)
 
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     if (currentUser) {
@@ -260,7 +261,7 @@ class courseinfo extends Component {
             display: "flex",
           }}
         >
-          <h2>          {this.state.cardData.course_name}</h2>
+          <h2>          <b>{this.state.cardData.course_name}</b></h2>
         </div>
         <div className="main-div">
           <div className="child-div-1">

@@ -45,6 +45,8 @@ class courses extends Component {
 
   AllSelctedCoursesArr = [];
   componentDidMount = () => {
+    window.scrollTo(0, 0)
+
     axios
       .get("https://elearningserver.herokuapp.com/getallCourses")
       .then((response) => {

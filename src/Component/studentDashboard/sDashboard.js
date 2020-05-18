@@ -22,6 +22,8 @@ class StudentDashboard extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0)
+
     const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     this.setState({
       username: currentUser.username,

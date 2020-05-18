@@ -50,6 +50,10 @@
 
 
 /* New page CSS */
+h2{
+  font-family: "Roboto slab", sans-serif;
+
+}
 .main-div {
   justify-content: center;
   margin: 2% 2% 2% 2%;
