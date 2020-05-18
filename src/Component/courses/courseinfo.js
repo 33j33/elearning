@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import img from "../../images/course.jpeg";
+import img from "../../images/responsive.svg";
 import "./courseinfo.css";
 import { Tabs } from "antd";
 import {
@@ -265,7 +265,7 @@ class courseinfo extends Component {
         </div>
         <div className="main-div">
           <div className="child-div-1">
-            <img src={img} alt="course" width="600px" height="400px" />
+            <img src={img} alt="course" width="500px" height="300px" />
             <br />
             <br />
            
