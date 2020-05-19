@@ -304,7 +304,8 @@ class courseinfo extends Component {
                             <Row>
                               {i.day}
                               <Col className="radio" span={15}>
-                                <Form.Item
+                              
+                                {i.time.length===0 ? <b>: -No slots available </b> :   <Form.Item
                                   rules={[
                                     {
                                       required: true,
@@ -319,7 +320,7 @@ class courseinfo extends Component {
                                     options={i.time}
                                     required
                                   ></Radio.Group>
-                                </Form.Item>
+                                </Form.Item>}
                               </Col>
                             </Row>
 

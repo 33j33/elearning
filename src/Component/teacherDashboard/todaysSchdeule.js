@@ -109,7 +109,7 @@ this.getBoughtCoursesData()
                   <Descriptions.Item label="Schedule">
                    <Row> {i.selected_course_schedule.map((i, index) => (
                       <Row key={index}>
-                        {i.day} =
+                        {i.day} <b>: --</b>
                       {i.time}
                       </Row>
                     ))}</Row>
